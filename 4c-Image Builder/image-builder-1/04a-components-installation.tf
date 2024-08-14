@@ -4,21 +4,8 @@ resource "aws_imagebuilder_component" "apt-update" {
   platform    = "Linux"
   description = "Atualiza lista de pacotes do apt."
 
-  data = yamlencode({
-    phases = [{
-      name = "build"
-      steps = [{
-        action = "ExecuteBash"
-        inputs = {
-          commands = [
-            "apt update"
-          ]
-        }
-        name      = upper("${var.shortname}-apt-update")
-        onFailure = "Abort"
-      }]
-    }]
-    schemaVersion = 1.0
+  data = templatefile("${path.module}/components/installation-apt-update.tpl", {
+    shortname = var.shortname
   })
 }
 
@@ -28,21 +15,8 @@ resource "aws_imagebuilder_component" "apt-upgrade" {
   platform    = "Linux"
   description = "Atualiza pacotes do apt."
 
-  data = yamlencode({
-    phases = [{
-      name = "build"
-      steps = [{
-        action = "ExecuteBash"
-        inputs = {
-          commands = [
-            "apt upgrade -y"
-          ]
-        }
-        name      = upper("${var.shortname}-apt-upgrade")
-        onFailure = "Abort"
-      }]
-    }]
-    schemaVersion = 1.0
+  data = templatefile("${path.module}/components/installation-apt-upgrade.tpl", {
+    shortname = var.shortname
   })
 }
 
@@ -52,24 +26,8 @@ resource "aws_imagebuilder_component" "install-aws-cli" {
   platform    = "Linux"
   description = "Instala o AWS CLI."
 
-  data = yamlencode({
-    phases = [{
-      name = "build"
-      steps = [{
-        action = "ExecuteBash"
-        inputs = {
-          commands = [
-            "apt-get install -y unzip curl",
-            "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o 'awscliv2.zip'",
-            "unzip awscliv2.zip",
-            "sudo ./aws/install"
-          ]
-        }
-        name      = upper("${var.shortname}-install-aws-cli")
-        onFailure = "Abort"
-      }]
-    }]
-    schemaVersion = 1.0
+  data = templatefile("${path.module}/components/installation-aws-cli.tpl", {
+    shortname = var.shortname
   })
 }
 
@@ -79,22 +37,8 @@ resource "aws_imagebuilder_component" "nginx-installation" {
   platform    = "Linux"
   description = "Instala o nginx."
 
-  data = yamlencode({
-    phases = [{
-      name = "build"
-      steps = [{
-        action = "ExecuteBash"
-        inputs = {
-          commands = [
-            "apt-get install -y nginx",
-            "systemctl restart nginx",
-          ]
-        }
-        name      = upper("${var.shortname}-nginx-installation")
-        onFailure = "Abort"
-      }]
-    }]
-    schemaVersion = 1.0
+  data = templatefile("${path.module}/components/installation-nginx.tpl", {
+    shortname = var.shortname
   })
 }
 
@@ -108,3 +52,15 @@ resource "aws_imagebuilder_component" "php-installation" {
     shortname = var.shortname
   })
 }
+
+resource "aws_imagebuilder_component" "enable-ssh-agent" {
+  name        = "${var.shortname}-enable-ssh-agent"
+  version     = "1.0.0"
+  platform    = "Linux"
+  description = "Habilita o ssh-agent no boot da instância."
+
+  data = templatefile("${path.module}/components/installation-enable-ssh-agent.tpl", {
+    shortname = var.shortname
+  })
+}
+

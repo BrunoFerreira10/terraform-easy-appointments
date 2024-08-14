@@ -26,7 +26,7 @@ resource "aws_db_instance" "rds-1" {
   multi_az             = false
 
   vpc_security_group_ids = [
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-rds-1-id
+    aws_db_subnet_group.subnet-group-rds-1.id
   ]
 
   tags = {

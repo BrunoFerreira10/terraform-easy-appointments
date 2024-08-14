@@ -128,6 +128,19 @@ resource "aws_autoscaling_group" "asg-alb-1" {
     version = "$Latest"
   }
 
+  // Instance refresh
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 100
+      max_healthy_percentage = 100
+      skip_matching          = false
+    }
+    triggers = [
+      "launch_template"
+    ]
+  }
+
   // Network
   vpc_zone_identifier = [
     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1a-id,

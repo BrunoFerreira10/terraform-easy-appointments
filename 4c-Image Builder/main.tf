@@ -30,4 +30,7 @@ module "image-builder-1" {
   RT53_DOMAIN                = var.RT53_DOMAIN
   EC2_SSH_KEYPAIR_NAME       = var.EC2_SSH_KEYPAIR_NAME
   IMAGE_BUILDER_PARENT_IMAGE = var.IMAGE_BUILDER_PARENT_IMAGE
+  RDS_1_DB_NAME              = var.RDS_1_DB_NAME
+  RDS_1_DB_USERNAME          = var.RDS_1_DB_USERNAME
+  APP_REPOSITORY_URL         = var.APP_REPOSITORY_URL
 }

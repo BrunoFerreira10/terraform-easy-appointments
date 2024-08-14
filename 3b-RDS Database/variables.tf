@@ -39,9 +39,3 @@ variable "RDS_1_DB_USERNAME" {
   type        = string
   description = "DB User name do RDS 1"
 }
-
-variable "RDS_1_DB_PASSWORD" {
-  type        = string
-  description = "DB Password do RDS 1"
-  sensitive   = true
-}

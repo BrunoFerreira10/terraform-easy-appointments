@@ -15,7 +15,7 @@ resource "aws_db_instance" "rds-1" {
 
   db_name              = var.RDS_1_DB_NAME
   username             = var.RDS_1_DB_USERNAME
-  password             = var.RDS_1_DB_PASSWORD
+  password             = data.aws_ssm_parameter.RDS_1_DB_PASSWORD.value
   allocated_storage    = 20
   engine               = "mysql"
   engine_version       = "8.0"

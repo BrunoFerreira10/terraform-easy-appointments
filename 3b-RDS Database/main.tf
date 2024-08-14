@@ -29,5 +29,4 @@ module "rds" {
   GENERAL_TAG_SHORTNAME       = var.GENERAL_TAG_SHORTNAME
   RDS_1_DB_NAME               = var.RDS_1_DB_NAME
   RDS_1_DB_USERNAME           = var.RDS_1_DB_USERNAME
-  RDS_1_DB_PASSWORD           = var.RDS_1_DB_PASSWORD
 }

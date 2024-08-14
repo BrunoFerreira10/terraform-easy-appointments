@@ -1,0 +1,76 @@
+name: "D1 - Whole project: Destroy"
+run-name: "D1 - Whole project: Destroy"
+
+on: 
+  workflow_dispatch:
+    inputs:
+      CONFIRMATION:
+        required: true
+        type: string
+        description: "Vazio aborta. Qualquer valor confirma."
+
+jobs:
+  #################################
+  ######## Destroy project ########
+  #################################
+  elb:
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '6a'
+      ACTION: 'd'
+    secrets: inherit
+
+  image-builder:
+    needs: [elb]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '4c'
+      ACTION: 'd'
+    secrets: inherit
+
+  ec2-setup:
+    needs: [elb]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '4a'
+      ACTION: 'd'
+    secrets: inherit
+
+  bastion-host:
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '3a'
+      ACTION: 'd'
+    secrets: inherit
+
+  s3-logging:
+    needs: [bastion-host, image-builder, ec2-setup]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '2d'
+      ACTION: 'd'
+    secrets: inherit 
+
+  acm-ssl:
+    needs: [bastion-host, image-builder, ec2-setup]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '2c'
+      ACTION: 'd'
+    secrets: inherit
+
+  ssm:
+    needs: [bastion-host, image-builder, ec2-setup]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '2e'
+      ACTION: 'd'
+    secrets: inherit
+
+  vpc-network:
+    needs: [bastion-host, image-builder, ec2-setup]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '2a'
+      ACTION: 'd'
+    secrets: inherit

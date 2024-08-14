@@ -1,0 +1,52 @@
+name: "C1 - Whole project: Create"
+run-name: "C1 - Whole project: Create"
+
+on: 
+  workflow_dispatch:
+    inputs:
+      CONFIRMATION:
+        required: true
+        type: string
+        description: "Vazio aborta. Qualquer valor confirma."
+
+jobs:
+  ################################# 
+  ######## Create project #########
+  #################################
+  vpc-network:
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '2a'
+    secrets: inherit
+
+  ssm:
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '2e'
+    secrets: inherit
+
+  acm-ssl:
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '2c'
+    secrets: inherit
+
+  s3-logging:
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '2d'
+    secrets: inherit
+
+  image-builder:
+    needs: [vpc-network, ssm, acm-ssl, s3-logging]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '4c'
+    secrets: inherit
+
+  elb:
+    needs: [image-builder]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '6a'
+    secrets: inherit

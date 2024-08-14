@@ -1,6 +1,6 @@
 resource "aws_imagebuilder_infrastructure_configuration" "infrastructure-1" {
   name                          = "${var.shortname}-infrastructure-1"
-  instance_types                = ["t3.micro"]
+  instance_types                = ["t3a.xlarge"]
   terminate_instance_on_failure = false
 
   subnet_id = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id

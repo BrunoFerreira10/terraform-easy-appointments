@@ -139,6 +139,34 @@ resource "aws_imagebuilder_component" "apply-github-ssh-private-key" {
   })
 }
 
+resource "aws_imagebuilder_component" "ssh-add" {
+  name        = "${var.shortname}-ssh-add"
+  version     = "1.0.0"
+  platform    = "Linux"
+  description = "Adiciona chave privada do github ao ssh-agent."
+
+  data = yamlencode({
+    phases = [{
+      name = "build"
+      steps = [{
+        action = "ExecuteBash"
+        inputs = {
+          commands = [
+            # Configurar o ssh-agent para rodar em background
+            "eval \"$(ssh-agent -s)\"",
+
+            # Adicionar a chave SSH ao ssh-agent
+            "ssh-add /home/ubuntu/.ssh/id_rsa"
+          ]
+        }
+        name      = upper("${var.shortname}-ssh-add")
+        onFailure = "Abort"
+      }]
+    }]
+    schemaVersion = 1.0
+  })
+}
+
 resource "aws_imagebuilder_component" "download-github-project" {
   name        = "${var.shortname}-download-github-project"
   version     = "1.0.0"

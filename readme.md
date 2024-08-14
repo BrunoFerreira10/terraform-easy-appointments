@@ -20,12 +20,24 @@ Com isso é possível criar e destruir os recursos de forma individual.
 ### Github Vars
 | Variável                        | Exemplo                           | Detalhes |
 | :---                            | :---                              | :---     |
-| DOMAIN_BASE                     | brunoferreira86dev.com            |
-| REGIAO                          | us-east-1                         |
+| EC2_SSH_KEYPAIR_NAME            |                                   |
+| GENERAL_REGION                  |                                   |
+| GENERAL_REMOTE_STATE_BUCKET     |                                   |
+| GENERAL_TAG_AUTHOR              |                                   |
+| GENERAL_TAG_CUSTOMER            |                                   |
+| GENERAL_TAG_PROJECT             |                                   |
+| GENERAL_TAG_SHORTNAME           |                                   |
+| IAM_AWS_ACCESS_KEY_ID           |                                   |
+| IMAGE_BUILDER_PARENT_IMAGE      |                                   |
+| RT53_DOMAIN                     |                                   |
+| S3_LOGGING_BUCKET_NAME          |                                   |
+| REGIAO                          |                                   |
+| REGIAO                          |                                   |
+| REGIAO                          |                                   |
 
 ### Github Secrets
-| Variável                                | Exemplo                           | Detalhes |
-| :---                                    | :---------------                  | :---     |
-| AWS_DEV_CLI_ADMIN_KEY                   |                                   |
-| AWS_DEV_CLI_ADMIN_SECRET                |                                   |
-| AWS_DEV_CLI_ADMIN_SSH_PRIVATE_KEY       |                                   |
+| Variável                                | Exemplo                   | Detalhes |
+| :---                                    | :---------------          | :---     |
+| EC2_SSH_PRIVATE_KEY                     |                           |
+| IAM_AWS_SECRET_ACCESS_KEY               |                           |
+| SSH_PRIVATE_KEY_GITHUB                  |                           |

@@ -43,8 +43,15 @@ jobs:
       ACTION: 'd'
     secrets: inherit
 
+  rds-database:
+    needs: [image-builder, ec2-setup]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '3b'
+    secrets: inherit  
+
   s3-logging:
-    needs: [bastion-host, image-builder, ec2-setup]
+    needs: [rds-database]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '2d'
@@ -52,7 +59,7 @@ jobs:
     secrets: inherit 
 
   acm-ssl:
-    needs: [bastion-host, image-builder, ec2-setup]
+    needs: [rds-database]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '2c'
@@ -60,7 +67,7 @@ jobs:
     secrets: inherit
 
   ssm:
-    needs: [bastion-host, image-builder, ec2-setup]
+    needs: [rds-database]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '2e'
@@ -68,7 +75,7 @@ jobs:
     secrets: inherit
 
   vpc-network:
-    needs: [bastion-host, image-builder, ec2-setup]
+    needs: [bastion-host, rds-database]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '2a'

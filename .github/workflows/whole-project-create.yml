@@ -37,8 +37,15 @@ jobs:
       RESOURCE: '2d'
     secrets: inherit
 
-  image-builder:
+  rds-database:
     needs: [vpc-network, ssm, acm-ssl, s3-logging]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '3b'
+    secrets: inherit
+
+  image-builder:
+    needs: [rds-database]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '4c'

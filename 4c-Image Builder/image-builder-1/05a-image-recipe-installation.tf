@@ -18,10 +18,4 @@ resource "aws_imagebuilder_image_recipe" "recipe-1" {
   component {
     component_arn = aws_imagebuilder_component.install-aws-cli.arn
   }
-  component {
-    component_arn = aws_imagebuilder_component.apply-github-ssh-private-key.arn
-  }
-  component {
-    component_arn = aws_imagebuilder_component.download-github-project.arn
-  }
 }

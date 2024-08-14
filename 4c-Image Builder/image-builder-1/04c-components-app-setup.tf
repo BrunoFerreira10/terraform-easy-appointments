@@ -1,28 +1,11 @@
-resource "aws_imagebuilder_component" "ssh-add" {
-  name        = "${var.shortname}-ssh-add"
+resource "aws_imagebuilder_component" "ssh-add-github-key" {
+  name        = "${var.shortname}-ssh-add-github-key"
   version     = "1.0.0"
   platform    = "Linux"
   description = "Adiciona chave privada do github ao ssh-agent."
 
-  data = yamlencode({
-    phases = [{
-      name = "build"
-      steps = [{
-        action = "ExecuteBash"
-        inputs = {
-          commands = [
-            # Configurar o ssh-agent para rodar em background
-            "eval \"$(ssh-agent -s)\"",
-
-            # Adicionar a chave SSH ao ssh-agent
-            "ssh-add /home/ubuntu/.ssh/id_rsa"
-          ]
-        }
-        name      = upper("${var.shortname}-ssh-add")
-        onFailure = "Abort"
-      }]
-    }]
-    schemaVersion = 1.0
+  data = templatefile("${path.module}/components/app-setup-ssh-add-github-key.tpl", {
+    shortname = var.shortname
   })
 }
 
@@ -32,29 +15,26 @@ resource "aws_imagebuilder_component" "download-github-project" {
   platform    = "Linux"
   description = "Download da aplicação '${var.shortname}' hospedada no Github."
 
-  data = yamlencode({
-    phases = [{
-      name = "build"
-      steps = [{
-        action = "ExecuteBash"
-        inputs = {
-          commands = [
-            "cd /var/www/html",
-            "rm -rf ./*",
-            "chown -R ubuntu:ubuntu ./",
-            "sudo -u ubuntu git config --global --add safe.directory /var/www/html",
-            "sudo -u ubuntu git init",
-            "sudo -u ubuntu git remote add origin ${var.APP_REPOSITORY_URL}",
-            "sudo -u ubuntu GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no' git fetch origin",
-            "sudo -u ubuntu git reset --hard origin/master"
-            # "sudo -u ubuntu git clone git@github.com:BrunoFerreira10/layered-arch-app.git /var/www/html"
-          ]
-        }
-        name      = upper("${var.shortname}-download-github-project")
-        onFailure = "Abort"
-      }]
-    }]
-    schemaVersion = 1.0
+  data = templatefile("${path.module}/components/app-setup-download-github-project.tpl", {
+    shortname          = var.shortname,
+    APP_REPOSITORY_URL = var.APP_REPOSITORY_URL
+  })
+}
+
+resource "aws_imagebuilder_component" "app-setup" {
+  name        = "${var.shortname}-app-setup"
+  version     = "1.0.0"
+  platform    = "Linux"
+  description = "Configuração da aplicação '${var.shortname}'."
+
+  data = templatefile("${path.module}/components/app-setup-download-github-project.tpl", {
+    shortname          = var.shortname,
+    APP_REPOSITORY_URL = var.APP_REPOSITORY_URL,
+    BASE_URL           = var.RT53_DOMAIN,
+    DB_HOST            = split(":", data.terraform_remote_state.remote-state-rds.outputs.rds-rds-1-endpoint)[0],
+    DB_NAME            = var.RDS_1_DB_NAME,
+    DB_USERNAME        = var.RDS_1_DB_USERNAME,
+    DB_PASSWORD        = data.aws_ssm_parameter.RDS_1_DB_PASSWORD.value
   })
 }
 
@@ -64,21 +44,7 @@ resource "aws_imagebuilder_component" "nginx-reload" {
   platform    = "Linux"
   description = "Adiciona chave privada do github ao ssh-agent."
 
-  data = yamlencode({
-    phases = [{
-      name = "build"
-      steps = [{
-        action = "ExecuteBash"
-        inputs = {
-          commands = [
-            "systemctl daemon-reload",
-            "systemctl restart nginx"
-          ]
-        }
-        name      = upper("${var.shortname}-nginx-reload")
-        onFailure = "Abort"
-      }]
-    }]
-    schemaVersion = 1.0
+  data = templatefile("${path.module}/components/app-setup-download-nginx-reload.tpl", {
+    shortname = var.shortname
   })
 }

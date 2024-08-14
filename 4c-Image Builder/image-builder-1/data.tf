@@ -15,6 +15,15 @@ data "terraform_remote_state" "remote-state-vpc" {
   }
 }
 
+data "terraform_remote_state" "remote-state-rds" {
+  backend = "s3"
+  config = {
+    region = var.region
+    bucket = var.remote-state-bucket
+    key    = "RDS Database/terraform.tfstate"
+  }
+}
+
 data "terraform_remote_state" "remote-s3-logging" {
   backend = "s3"
   config = {

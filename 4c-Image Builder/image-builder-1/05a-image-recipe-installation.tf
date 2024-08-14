@@ -4,14 +4,14 @@ resource "aws_imagebuilder_image_recipe" "recipe-1" {
   parent_image = var.IMAGE_BUILDER_PARENT_IMAGE
 
   dynamic "component" {
-    for_each = local.component_arns
+    for_each = local.component_arns_installation
     content {
       component_arn = component.value
     }
   }
 }
 locals {
-  component_arns = [
+  component_arns_installation = [
     "arn:aws:imagebuilder:${var.region}:aws:component/amazon-cloudwatch-agent-linux/1.0.1/1",
     aws_imagebuilder_component.apt-update.arn,
     aws_imagebuilder_component.apt-upgrade.arn,

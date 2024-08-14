@@ -4,14 +4,14 @@ resource "aws_imagebuilder_image_recipe" "recipe-3" {
   parent_image = tolist(aws_imagebuilder_image.image-1.output_resources[0].amis)[0].image
 
   dynamic "component" {
-    for_each = local.component_arns
+    for_each = local.component_arns_app_setup
     content {
       component_arn = component.value
     }
   }
 }
 locals {
-  component_arns = [
+  component_arns_app_setup = [
     aws_imagebuilder_component.ssh-add-github-key.arn,
     aws_imagebuilder_component.download-github-project.arn,
     aws_imagebuilder_component.app-setup.arn,

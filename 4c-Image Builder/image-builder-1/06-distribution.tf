@@ -10,6 +10,4 @@ resource "aws_imagebuilder_distribution_configuration" "distribution-1" {
       }
     }
   }
-
-
 }

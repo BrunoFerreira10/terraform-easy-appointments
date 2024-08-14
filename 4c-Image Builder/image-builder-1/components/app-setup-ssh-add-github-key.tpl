@@ -10,6 +10,6 @@ phases:
             # Passar a chave diretamente para o ssh-add
             - "echo \"$PRIVATE_KEY\" | ssh-add -"
             
-      - name: upper("${shortname}-apply-github-ssh-private-key")
+      - name: ${name}
       - onFailure: "Abort"
 schemaVersion: 1.0

@@ -12,6 +12,6 @@ phases:
             - "sudo -u ubuntu git remote add origin ${APP_REPOSITORY_URL}"
             - "sudo -u ubuntu GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no' git fetch origin"
             - "sudo -u ubuntu git reset --hard origin/master"
-        name: upper("${shortname}-apt-update")
+        name: ${name}
         onFailure: "Abort"
 schemaVersion: 1.0

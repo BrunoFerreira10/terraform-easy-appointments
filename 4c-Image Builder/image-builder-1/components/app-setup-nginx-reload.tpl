@@ -6,6 +6,6 @@ phases:
           commands:
             - "systemctl daemon-reload"
             - "systemctl restart nginx"
-        name: upper("${shortname}-nginx-reload")
+        name: ${name}
         onFailure: "Abort"
 schemaVersion: 1.0

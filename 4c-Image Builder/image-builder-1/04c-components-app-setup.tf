@@ -5,7 +5,7 @@ resource "aws_imagebuilder_component" "ssh-add-github-key" {
   description = "Adiciona chave privada do github ao ssh-agent."
 
   data = templatefile("${path.module}/components/app-setup-ssh-add-github-key.tpl", {
-    shortname = var.shortname
+    name = upper("${var.shortname}-ssh-add-github-key")
   })
 }
 
@@ -16,7 +16,7 @@ resource "aws_imagebuilder_component" "download-github-project" {
   description = "Download da aplicação '${var.shortname}' hospedada no Github."
 
   data = templatefile("${path.module}/components/app-setup-download-github-project.tpl", {
-    shortname          = var.shortname,
+    name               = upper("${var.shortname}-download-github-project"),
     APP_REPOSITORY_URL = var.APP_REPOSITORY_URL
   })
 }
@@ -28,7 +28,7 @@ resource "aws_imagebuilder_component" "app-setup" {
   description = "Configuração da aplicação '${var.shortname}'."
 
   data = templatefile("${path.module}/components/app-setup-download-github-project.tpl", {
-    shortname          = var.shortname,
+    name               = upper("${var.shortname}-app-setup"),
     APP_REPOSITORY_URL = var.APP_REPOSITORY_URL,
     BASE_URL           = var.RT53_DOMAIN,
     DB_HOST            = split(":", data.terraform_remote_state.remote-state-rds.outputs.rds-rds-1-endpoint)[0],
@@ -45,6 +45,6 @@ resource "aws_imagebuilder_component" "nginx-reload" {
   description = "Adiciona chave privada do github ao ssh-agent."
 
   data = templatefile("${path.module}/components/app-setup-download-nginx-reload.tpl", {
-    shortname = var.shortname
+    name = upper("${var.shortname}-install-nginx")
   })
 }

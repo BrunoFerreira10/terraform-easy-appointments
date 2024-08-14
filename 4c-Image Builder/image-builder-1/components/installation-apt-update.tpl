@@ -5,6 +5,6 @@ phases:
         inputs:
           commands:
             - "apt update"
-        name: upper("${shortname}-apt-update")
-        onFailure: "Abort"
+      - name: ${name}
+      - onFailure: "Abort"
 schemaVersion: 1.0

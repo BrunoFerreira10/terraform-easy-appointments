@@ -5,7 +5,7 @@ resource "aws_imagebuilder_component" "apt-update" {
   description = "Atualiza lista de pacotes do apt."
 
   data = templatefile("${path.module}/components/installation-apt-update.tpl", {
-    shortname = var.shortname
+    name = upper("${var.shortname}-apt-update")
   })
 }
 
@@ -16,7 +16,7 @@ resource "aws_imagebuilder_component" "apt-upgrade" {
   description = "Atualiza pacotes do apt."
 
   data = templatefile("${path.module}/components/installation-apt-upgrade.tpl", {
-    shortname = var.shortname
+    name = upper("${var.shortname}-apt-upgrade")
   })
 }
 
@@ -27,7 +27,7 @@ resource "aws_imagebuilder_component" "enable-ssh-agent" {
   description = "Habilita o ssh-agent no boot da instância."
 
   data = templatefile("${path.module}/components/installation-enable-ssh-agent.tpl", {
-    shortname = var.shortname
+    name = upper("${var.shortname}-enable-ssh-agent")
   })
 }
 
@@ -38,7 +38,7 @@ resource "aws_imagebuilder_component" "install-aws-cli" {
   description = "Instala o AWS CLI."
 
   data = templatefile("${path.module}/components/installation-aws-cli.tpl", {
-    shortname = var.shortname
+    name = upper("${var.shortname}-install-aws-cli")
   })
 }
 
@@ -49,7 +49,7 @@ resource "aws_imagebuilder_component" "install-nginx" {
   description = "Instala o nginx."
 
   data = templatefile("${path.module}/components/installation-nginx.tpl", {
-    shortname = var.shortname
+    name = upper("${var.shortname}-install-nginx")
   })
 }
 
@@ -60,7 +60,7 @@ resource "aws_imagebuilder_component" "install-php" {
   description = "Instala o PHP com extensões comuns para aplicações web."
 
   data = templatefile("${path.module}/components/installation-php.tpl", {
-    shortname = var.shortname
+    name = upper("${var.shortname}-install-php")
   })
 }
 

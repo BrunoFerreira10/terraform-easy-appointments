@@ -44,7 +44,7 @@ resource "aws_imagebuilder_component" "nginx-reload" {
   platform    = "Linux"
   description = "Adiciona chave privada do github ao ssh-agent."
 
-  data = templatefile("${path.module}/components/app-setup-download-nginx-reload.tpl", {
+  data = templatefile("${path.module}/components/app-setup-nginx-reload.tpl", {
     name = upper("${var.shortname}-install-nginx")
   })
 }

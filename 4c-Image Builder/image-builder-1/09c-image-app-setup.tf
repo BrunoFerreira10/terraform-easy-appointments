@@ -14,7 +14,6 @@ resource "aws_ami" "ami-from-imagebuilder-3" {
   count = length(aws_imagebuilder_image.image-3.output_resources[0].amis)
 
   name = element(aws_imagebuilder_image.image-3.output_resources[0].amis, count.index).image
-  id   = element(aws_imagebuilder_image.image-3.output_resources[0].amis, count.index).image_id
 
   # Configuração de lifecycle para garantir que a AMI seja destruída
   lifecycle {
@@ -23,8 +22,8 @@ resource "aws_ami" "ami-from-imagebuilder-3" {
 }
 
 resource "aws_snapshot" "snapshot-from-ami-3" {
-  count       = length(aws_ami.ami-from-imagebuilder-3[count.index].block_device_mappings)
-  snapshot_id = aws_ami.ami-from-imagebuilder-3[count.index].block_device_mappings[count.index].snapshot_id
+  count       = length(aws_ami.ami-from-imagebuilder-3[0].block_device_mappings)
+  snapshot_id = aws_ami.ami-from-imagebuilder-3[0].block_device_mappings[*].snapshot_id
 
   # Configuração de lifecycle para garantir que o snapshot seja destruído
   lifecycle {

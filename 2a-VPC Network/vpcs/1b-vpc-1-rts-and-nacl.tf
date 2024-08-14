@@ -101,6 +101,15 @@ resource "aws_network_acl" "nacl-vpc-1-public-subnets" {
   egress {
     rule_no    = 100
     protocol   = "tcp"
+    from_port  = 22
+    to_port    = 22
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+  }
+
+  egress {
+    rule_no    = 200
+    protocol   = "tcp"
     from_port  = 80
     to_port    = 80
     action     = "allow"
@@ -108,7 +117,7 @@ resource "aws_network_acl" "nacl-vpc-1-public-subnets" {
   }
 
   egress {
-    rule_no    = 200
+    rule_no    = 300
     protocol   = "tcp"
     from_port  = 443
     to_port    = 443

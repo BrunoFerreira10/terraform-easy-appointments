@@ -26,7 +26,7 @@ resource "aws_db_instance" "rds-1" {
   multi_az             = false
 
   vpc_security_group_ids = [
-    aws_db_subnet_group.subnet-group-rds-1.id
+    aws_security_group.rds-1.id
   ]
 
   tags = {

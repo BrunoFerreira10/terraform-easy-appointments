@@ -8,6 +8,6 @@ resource "aws_imagebuilder_image_recipe" "recipe-3" {
   }
 
   tags = {
-    Name = name
+    Name = "${var.shortname}-recipe-3"
   }
 }

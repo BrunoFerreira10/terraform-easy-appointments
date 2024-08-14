@@ -23,8 +23,8 @@ resource "aws_ami" "ami-from-imagebuilder-3" {
 }
 
 resource "aws_snapshot" "snapshot-from-ami-3" {
-  count       = length(aws_ami.ami_from_imagebuilder-3[count.index].block_device_mappings)
-  snapshot_id = aws_ami.ami_from_imagebuilder-3[count.index].block_device_mappings[count.index].snapshot_id
+  count       = length(aws_ami.ami-from-imagebuilder-3[count.index].block_device_mappings)
+  snapshot_id = aws_ami.ami-from-imagebuilder-3[count.index].block_device_mappings[count.index].snapshot_id
 
   # Configuração de lifecycle para garantir que o snapshot seja destruído
   lifecycle {

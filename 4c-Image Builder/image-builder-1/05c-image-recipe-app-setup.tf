@@ -8,7 +8,15 @@ resource "aws_imagebuilder_image_recipe" "recipe-3" {
   }
 
   component {
+    component_arn = aws_imagebuilder_component.php-installation.arn
+  }
+
+  component {
     component_arn = aws_imagebuilder_component.download-github-project.arn
+  }
+
+  component {
+    component_arn = aws_imagebuilder_component.nginx-reload.arn
   }
 
   tags = {

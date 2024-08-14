@@ -25,3 +25,15 @@ variable "EC2_SSH_KEYPAIR_NAME" {
 variable "IMAGE_BUILDER_PARENT_IMAGE" {
   type = string
 }
+
+variable "APP_REPOSITORY_URL" {
+  type = string
+}
+
+variable "RDS_1_DB_NAME" {
+  type = string
+}
+
+variable "RDS_1_DB_USERNAME" {
+  type = string
+}

@@ -2,6 +2,10 @@ data "aws_caller_identity" "current" {}
 
 data "aws_partition" "current" {}
 
+data "aws_ssm_parameter" "RDS_1_DB_PASSWORD" {
+  name = "RDS_1_DB_PASSWORD"
+}
+
 data "terraform_remote_state" "remote-state-vpc" {
   backend = "s3"
   config = {

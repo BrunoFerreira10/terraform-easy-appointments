@@ -31,6 +31,17 @@ resource "aws_imagebuilder_component" "aws-cli-install" {
   })
 }
 
+resource "aws_imagebuilder_component" "composer-install" {
+  name        = "${var.shortname}-composer-install"
+  version     = "1.0.0"
+  platform    = "Linux"
+  description = "Instala o AWS CLI."
+
+  data = templatefile("${path.module}/components/composer-install.tpl", {
+    name = upper("${var.shortname}-composer-install")
+  })
+}
+
 resource "aws_imagebuilder_component" "daemon-reload" {
   name        = "${var.shortname}-daemon-reload"
   version     = "1.0.0"
@@ -90,6 +101,17 @@ resource "aws_imagebuilder_component" "nginx-restart" {
 
   data = templatefile("${path.module}/components/nginx-restart.tpl", {
     name = upper("${var.shortname}-nginx-restart")
+  })
+}
+
+resource "aws_imagebuilder_component" "node-install" {
+  name        = "${var.shortname}-node-install"
+  version     = "1.0.0"
+  platform    = "Linux"
+  description = "Instala o AWS CLI."
+
+  data = templatefile("${path.module}/components/node-install.tpl", {
+    name = upper("${var.shortname}-node-install")
   })
 }
 

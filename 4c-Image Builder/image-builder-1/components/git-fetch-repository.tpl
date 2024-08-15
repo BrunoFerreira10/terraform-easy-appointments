@@ -36,9 +36,6 @@ phases:
 
               echo '${name}: Executando git reset --hard para origin/master'
               git reset --hard origin/master
-
-              echo '${name}: Alterando owner do diretório /var/www/html para ubuntu'
-              chown -R ubuntu:ubuntu ./
         name: ${name}
         onFailure: "Abort"
 schemaVersion: 1.0

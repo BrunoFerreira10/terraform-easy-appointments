@@ -18,7 +18,9 @@ locals {
     aws_imagebuilder_component.ssh-agent-enable.arn,
     aws_imagebuilder_component.aws-cli-install.arn,
     aws_imagebuilder_component.nginx-install.arn,
-    aws_imagebuilder_component.php-install.arn
+    aws_imagebuilder_component.php-install.arn,
+    aws_imagebuilder_component.composer-install.arn,
+    aws_imagebuilder_component.node-install.arn
   ]
 }
 

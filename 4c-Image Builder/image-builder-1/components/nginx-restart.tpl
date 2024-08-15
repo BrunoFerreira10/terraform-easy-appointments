@@ -4,7 +4,6 @@ phases:
       - action: ExecuteBash
         inputs:
           commands:
-            - "systemctl daemon-reload"
             - "systemctl restart nginx"
         name: ${name}
         onFailure: "Abort"

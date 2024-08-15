@@ -31,6 +31,17 @@ resource "aws_imagebuilder_component" "aws-cli-install" {
   })
 }
 
+resource "aws_imagebuilder_component" "daemon-reload" {
+  name        = "${var.shortname}-daemon-reload"
+  version     = "1.0.0"
+  platform    = "Linux"
+  description = "Recarrega configurações do gerenciador de serviços systemd."
+
+  data = templatefile("${path.module}/components/daemon-reload.tpl", {
+    name = upper("${var.shortname}-daemon-reload")
+  })
+}
+
 resource "aws_imagebuilder_component" "easy-appointments-setup" {
   name        = "${var.shortname}-easy-appointments-setup"
   version     = "1.0.0"
@@ -71,14 +82,14 @@ resource "aws_imagebuilder_component" "nginx-install" {
   })
 }
 
-resource "aws_imagebuilder_component" "nginx-reload" {
-  name        = "${var.shortname}-nginx-reload"
+resource "aws_imagebuilder_component" "nginx-restart" {
+  name        = "${var.shortname}-nginx-restart"
   version     = "1.0.0"
   platform    = "Linux"
-  description = "Adiciona chave privada do github ao ssh-agent."
+  description = "Reinicia o nginx."
 
-  data = templatefile("${path.module}/components/app-setup-nginx-reload.tpl", {
-    name = upper("${var.shortname}-install-nginx")
+  data = templatefile("${path.module}/components/nginx-restart.tpl", {
+    name = upper("${var.shortname}-nginx-restart")
   })
 }
 

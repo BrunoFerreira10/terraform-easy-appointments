@@ -4,9 +4,9 @@ phases:
       - action: ExecuteBash
         inputs:
           commands:
-            - |
-              echo "Aguardando o ssh-agent iniciar..."
+            - |              
               while [ -z "$SSH_AUTH_SOCK" ]; do
+                echo "Aguardando o ssh-agent iniciar (15s) ..."
                 sleep 15
               done
             - echo "ssh-agent iniciado com sucesso."

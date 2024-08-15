@@ -9,6 +9,11 @@ output "vpcs-vpc-1-id" {
   value       = module.vpcs.vpc-1-id
 }
 
+output "vpcs-vpc-1-cidr-block" {
+  description = "CIDR Block da VPC-1"
+  value       = module.vpcs.vpc-1-cidr-block
+}
+
 output "vpcs-subnet-vpc-1-public-1a-id" {
   description = "VPC-1: ID da subnet publica 1a"
   value       = module.vpcs.subnet-vpc-1-public-1a-id

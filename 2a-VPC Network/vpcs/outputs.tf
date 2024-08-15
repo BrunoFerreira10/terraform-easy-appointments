@@ -9,6 +9,11 @@ output "vpc-1-id" {
   value       = aws_vpc.vpc-1.id
 }
 
+output "vpc-1-cidr-block" {
+  description = "CIDR Block da VPC-1"
+  value       = aws_vpc.vpc-1.cidr_block
+}
+
 output "subnet-vpc-1-public-1a-id" {
   description = "VPC-1: ID da subnet publica 1a"
   value       = aws_subnet.subnet-vpc-1-public-1a.id

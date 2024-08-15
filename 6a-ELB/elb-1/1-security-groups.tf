@@ -58,6 +58,16 @@ resource "aws_security_group" "sg-elb-1-tgrp-1" {
   # }
 
   ingress {
+    description = "Allow SSH from bastion host"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "TCP"
+    cidr_blocks = [
+      data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-cidr-block
+    ]
+  }
+
+  ingress {
     description = "Allow HTTP"
     from_port   = 80
     to_port     = 80

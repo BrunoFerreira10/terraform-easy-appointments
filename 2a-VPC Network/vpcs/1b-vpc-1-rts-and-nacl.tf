@@ -155,6 +155,15 @@ resource "aws_network_acl" "nacl-vpc-1-private-subnets" {
   ingress {
     rule_no    = 100
     protocol   = "tcp"
+    from_port  = 22
+    to_port    = 22
+    action     = "allow"
+    cidr_block = aws_vpc.vpc-1.cidr_block
+  }
+
+  ingress {
+    rule_no    = 200
+    protocol   = "tcp"
     from_port  = 80
     to_port    = 80
     action     = "allow"
@@ -162,7 +171,7 @@ resource "aws_network_acl" "nacl-vpc-1-private-subnets" {
   }
 
   ingress {
-    rule_no    = 200
+    rule_no    = 300
     protocol   = "tcp"
     from_port  = 443
     to_port    = 443
@@ -171,7 +180,7 @@ resource "aws_network_acl" "nacl-vpc-1-private-subnets" {
   }
 
   ingress {
-    rule_no    = 300
+    rule_no    = 400
     protocol   = "tcp"
     from_port  = 3306
     to_port    = 3306

@@ -9,7 +9,7 @@ resource "aws_imagebuilder_image" "image-1" {
   }
 }
 
-# Excluindo snapshots associados à AMI
+# Gerenciar a AMI criada pelo Image Builder
 resource "aws_ami" "ami-from-imagebuilder-1" {
   count = length(aws_imagebuilder_image.image-1.output_resources[0].amis)
 
@@ -21,9 +21,15 @@ resource "aws_ami" "ami-from-imagebuilder-1" {
   }
 }
 
-resource "aws_snapshot" "snapshot-from-ami-1" {
-  count       = length(aws_ami.ami-from-imagebuilder-1[0].block_device_mappings)
-  snapshot_id = aws_ami.ami-from-imagebuilder-1[0].block_device_mappings[*].snapshot_id
+# Excluindo snapshots associados à AMI
+resource "aws_ebs_snapshot" "snapshot-from-ami-1" {
+  count = length(aws_ami.ami-from-imagebuilder-1[0].block_device_mappings)
+
+  volume_id = element(aws_ami.ami-from-imagebuilder-1[0].block_device_mappings[*].volume_id, count.index)
+
+  tags = {
+    Name = "${var.shortname}-snapshot-from-ami-1"
+  }
 
   # Configuração de lifecycle para garantir que o snapshot seja destruído
   lifecycle {

@@ -12,6 +12,7 @@ resource "aws_imagebuilder_image_recipe" "recipe-3" {
 }
 locals {
   component_arns_app_setup = [
+    aws_imagebuilder_component.wait-ssh-agent.arn,
     aws_imagebuilder_component.ssh-add-github-key.arn,
     aws_imagebuilder_component.download-github-project.arn,
     aws_imagebuilder_component.app-setup.arn,

@@ -57,6 +57,7 @@ locals {
     aws_imagebuilder_component.ssh-add-github-key.arn,
     aws_imagebuilder_component.git-fetch-repository.arn,
     aws_imagebuilder_component.easy-appointments-setup.arn,
-    aws_imagebuilder_component.nginx-reload.arn
+    aws_imagebuilder_component.daemon-reload.arn,
+    aws_imagebuilder_component.nginx-restart.arn
   ]
 }

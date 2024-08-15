@@ -12,7 +12,7 @@ steps:
 
   - name: ApplyBuildComponents
     action: ExecuteComponents
-    timeoutSeconds: 600
+    timeoutSeconds: 1200
     onFailure: Abort
     inputs:
       instanceId.$: "$.stepOutputs.LaunchBuildInstance.instanceId"

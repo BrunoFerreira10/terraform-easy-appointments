@@ -10,7 +10,7 @@ phases:
               cp -f ./nginx.conf /etc/nginx/sites-available/default
 
               echo '${name}: Alterando owner do diretório /var/www/html para www-data'
-              chown -R www-data:www-data /var/www/html
+              chown -R www-data:www-data /var/www/
 
               echo '${name}: Acessando /var/www/html.'
               cd /var/www/html
@@ -34,7 +34,7 @@ phases:
               sudo -u www-data npm install
 
               # echo '${name}: Executando npm run build'
-              # sudo -u www-data npm run build
+              sudo -u www-data npm run build
         name: '${name}'
         onFailure: "Abort"
 schemaVersion: 1.0

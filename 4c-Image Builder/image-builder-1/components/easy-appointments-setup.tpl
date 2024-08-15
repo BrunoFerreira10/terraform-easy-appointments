@@ -5,6 +5,10 @@ phases:
         inputs:
           commands: 
             - |
+              cd /var/www/html
+              cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+              cp -f ./nginx.conf /etc/nginx/sites-available/default
+
               echo '${name}: Alterando owner do diretório /var/www/html para www-data'
               chown -R www-data:www-data /var/www/html
 

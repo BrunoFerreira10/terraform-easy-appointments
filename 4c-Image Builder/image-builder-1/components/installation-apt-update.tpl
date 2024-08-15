@@ -5,6 +5,6 @@ phases:
         inputs:
           commands:
             - "apt update"
-        name: ${name}_hello
+        name: ${name}
         onFailure: "Abort"
 schemaVersion: 1.0

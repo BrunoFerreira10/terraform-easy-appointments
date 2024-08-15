@@ -18,6 +18,6 @@ phases:
             - ""
             - "chmod +x /etc/profile.d/ssh-agent.sh"
             - "sudo -u ubuntu mkdir -p /home/ubuntu/.ssh"
-      - name: ${name}
-      - onFailure: "Abort"
+        name: ${name}
+        onFailure: "Abort"
 schemaVersion: 1.0

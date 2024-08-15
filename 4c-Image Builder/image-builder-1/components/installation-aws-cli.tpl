@@ -8,6 +8,6 @@ phases:
             - "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o 'awscliv2.zip'"
             - "unzip awscliv2.zip"
             - "sudo ./aws/install"
-      - name: ${name}
-      - onFailure: "Abort"
+        name: ${name}
+        onFailure: "Abort"
 schemaVersion: 1.0

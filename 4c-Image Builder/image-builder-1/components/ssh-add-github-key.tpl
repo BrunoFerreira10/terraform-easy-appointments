@@ -4,6 +4,7 @@ phases:
       - action: ExecuteBash
         inputs:
           commands:
+            - "eval $(ssh-agent -s)"
             # Recuperar a chave privada do SSM Parameter Store
             - "PRIVATE_KEY=$(aws ssm get-parameter --name 'SSH_PRIVATE_KEY_GITHUB' --with-decryption --query 'Parameter.Value' --output text)"
 

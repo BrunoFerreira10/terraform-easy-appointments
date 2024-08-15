@@ -1,3 +1,15 @@
+resource "aws_imagebuilder_component" "wait-for-ssh-agent" {
+  name        = "${var.shortname}-wait-for-ssh-agent"
+  version     = "1.0.0"
+  platform    = "Linux"
+  description = "Verifica e aguarda que o ssh-agent foi iniciado."
+
+  data = templatefile("${path.module}/components/wait-for-ssh-agent.tpl", {
+    name = upper("${var.shortname}-wait-for-ssh-agent")
+  })
+}
+
+
 resource "aws_imagebuilder_component" "ssh-add-github-key" {
   name        = "${var.shortname}-ssh-add-github-key"
   version     = "1.0.0"

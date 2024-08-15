@@ -125,7 +125,7 @@ resource "aws_autoscaling_group" "asg-alb-1" {
   // Launch template
   launch_template {
     id      = aws_launch_template.ltplt-1.id
-    version = "5"
+    version = "1"
   }
 
   // Instance refresh

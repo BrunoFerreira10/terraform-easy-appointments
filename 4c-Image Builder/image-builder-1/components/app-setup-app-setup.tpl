@@ -12,6 +12,6 @@ phases:
             - sed -i "s|const DB_NAME = '.*';|const DB_NAME = '${DB_NAME}';|" config.php
             - sed -i "s|const DB_USERNAME = '.*';|const DB_USERNAME = '${DB_USERNAME}';|" config.php
             - sed -i "s|const DB_PASSWORD = '.*';|const DB_PASSWORD = '${DB_PASSWORD}';|" config.php
-        name: ${name}
+        name: '${name}'
         onFailure: "Abort"
 schemaVersion: 1.0

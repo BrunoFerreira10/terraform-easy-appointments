@@ -20,4 +20,4 @@ phases:
             - "sudo -u ubuntu mkdir -p /home/ubuntu/.ssh"
       - name: ${name}
       - onFailure: "Abort"
-schemaVersion: 1.1
+schemaVersion: 1.0

@@ -5,6 +5,6 @@ phases:
         inputs:
           commands:
             - "apt upgrade -y"
-      - name: ${name}
+      - name: '${name}'
       - onFailure: "Abort"
 schemaVersion: 1.0

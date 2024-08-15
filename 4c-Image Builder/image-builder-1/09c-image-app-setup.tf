@@ -1,5 +1,5 @@
 resource "aws_imagebuilder_image" "image-3" {
-  distribution_configuration_arn   = aws_imagebuilder_distribution_configuration.distribution-1.arn
+  distribution_configuration_arn   = aws_imagebuilder_distribution_configuration.distribution-3.arn
   image_recipe_arn                 = aws_imagebuilder_image_recipe.recipe-3.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.infrastructure-1.arn
 
@@ -23,9 +23,9 @@ resource "aws_ami" "ami-from-imagebuilder-3" {
 
 # Excluindo snapshots associados à AMI
 resource "aws_ebs_snapshot" "snapshot-from-ami-3" {
-  count = length(aws_ami.ami-from-imagebuilder-3[0].block_device_mappings)
+  count = length(aws_ami.ami-from-imagebuilder-3.block_device_mappings)
 
-  volume_id = element(aws_ami.ami-from-imagebuilder-3[0].block_device_mappings[*].volume_id, count.index)
+  volume_id = element(aws_ami.ami-from-imagebuilder-3.block_device_mappings[*].ebs.snapshot_id, count.index)
 
   tags = {
     Name = "${var.shortname}-snapshot-from-ami-3"

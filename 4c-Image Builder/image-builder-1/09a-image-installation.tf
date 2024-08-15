@@ -23,9 +23,9 @@ resource "aws_ami" "ami-from-imagebuilder-1" {
 
 # Excluindo snapshots associados à AMI
 resource "aws_ebs_snapshot" "snapshot-from-ami-1" {
-  count = length(aws_ami.ami-from-imagebuilder-1[0].block_device_mappings)
+  count = length(aws_ami.ami-from-imagebuilder-1.block_device_mappings)
 
-  volume_id = element(aws_ami.ami-from-imagebuilder-1[0].block_device_mappings[*].volume_id, count.index)
+  volume_id = element(aws_ami.ami-from-imagebuilder-1.block_device_mappings[*].ebs.snapshot_id, count.index)
 
   tags = {
     Name = "${var.shortname}-snapshot-from-ami-1"

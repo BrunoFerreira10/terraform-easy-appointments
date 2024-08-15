@@ -9,31 +9,31 @@ resource "aws_imagebuilder_image" "image-3" {
   }
 }
 
-# Gerenciar a AMI criada pelo Image Builder
-resource "aws_ami" "ami-from-imagebuilder-3" {
-  count = length(aws_imagebuilder_image.image-3.output_resources[0].amis)
+# # Gerenciar a AMI criada pelo Image Builder
+# resource "aws_ami" "ami-from-imagebuilder-3" {
+#   count = length(aws_imagebuilder_image.image-3.output_resources[0].amis)
 
-  name = element(aws_imagebuilder_image.image-3.output_resources[0].amis, count.index).image
+#   name = element(aws_imagebuilder_image.image-3.output_resources[0].amis, count.index).image
 
-  # Configuração de lifecycle para garantir que a AMI seja destruída
-  lifecycle {
-    prevent_destroy = false
-  }
-}
+#   # Configuração de lifecycle para garantir que a AMI seja destruída
+#   lifecycle {
+#     prevent_destroy = false
+#   }
+# }
 
-# Excluindo snapshots associados à AMI
-resource "aws_ebs_snapshot" "snapshot-from-ami-3" {
-  count = length(aws_ami.ami-from-imagebuilder-3.block_device_mappings)
+# # Excluindo snapshots associados à AMI
+# resource "aws_ebs_snapshot" "snapshot-from-ami-3" {
+#   count = length(aws_ami.ami-from-imagebuilder-3.block_device_mappings)
 
-  volume_id = element(aws_ami.ami-from-imagebuilder-3.block_device_mappings[*].ebs.snapshot_id, count.index)
+#   volume_id = element(aws_ami.ami-from-imagebuilder-3.block_device_mappings[*].ebs.snapshot_id, count.index)
 
-  tags = {
-    Name = "${var.shortname}-snapshot-from-ami-3"
-  }
+#   tags = {
+#     Name = "${var.shortname}-snapshot-from-ami-3"
+#   }
 
-  # Configuração de lifecycle para garantir que o snapshot seja destruído
-  lifecycle {
-    prevent_destroy = false
-  }
-}
+#   # Configuração de lifecycle para garantir que o snapshot seja destruído
+#   lifecycle {
+#     prevent_destroy = false
+#   }
+# }
 

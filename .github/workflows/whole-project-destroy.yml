@@ -52,7 +52,7 @@ jobs:
     secrets: inherit 
 
   acm-ssl:
-    needs: [rds-database]
+    needs: [elb]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '2c'

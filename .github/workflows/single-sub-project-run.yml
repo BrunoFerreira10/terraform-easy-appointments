@@ -73,7 +73,7 @@ jobs:
         run: ./.github/scripts/setup-backend.sh \
              "${{ steps.process-inputs.outputs.LOCAL_FOLDER }}" \
              "${{ vars.GENERAL_REGION }}" \
-             "${{ vars.GENERAL_REMOTE_STATE_BUCKET }}" \
+             "${{ vars.GENERAL_PROJECT_BUCKET }}" \
              "${{ steps.process-inputs.outputs.SUB_PROJECT_NAME }}"
 
       # Apenas no destroy do sub-projeto Secrets Manager

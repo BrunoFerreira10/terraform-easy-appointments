@@ -25,7 +25,7 @@ provider "aws" {
 module "ec2-bastion" {
   source               = "./ec2-bastion"
   region               = var.GENERAL_REGION
-  remote-state-bucket  = var.GENERAL_REMOTE_STATE_BUCKET
+  remote-state-bucket  = var.GENERAL_PROJECT_BUCKET
   shortname            = var.GENERAL_TAG_SHORTNAME
   EC2_SSH_KEYPAIR_NAME = var.EC2_SSH_KEYPAIR_NAME
 }

@@ -24,7 +24,7 @@ variable "GENERAL_REGION" {
   description = "Região onde a infraestrutura será criada."
 }
 
-variable "GENERAL_REMOTE_STATE_BUCKET" {
+variable "GENERAL_PROJECT_BUCKET" {
   type        = string
   description = "Bucket name onde está o remote state"
 }

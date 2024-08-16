@@ -25,7 +25,7 @@ provider "aws" {
 module "rds" {
   source                      = "./rds"
   GENERAL_REGION              = var.GENERAL_REGION
-  GENERAL_REMOTE_STATE_BUCKET = var.GENERAL_REMOTE_STATE_BUCKET
+  GENERAL_PROJECT_BUCKET = var.GENERAL_PROJECT_BUCKET
   GENERAL_TAG_SHORTNAME       = var.GENERAL_TAG_SHORTNAME
   RDS_1_DB_NAME               = var.RDS_1_DB_NAME
   RDS_1_DB_USERNAME           = var.RDS_1_DB_USERNAME

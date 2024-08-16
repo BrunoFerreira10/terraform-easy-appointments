@@ -23,7 +23,7 @@ Com isso é possível criar e destruir os recursos de forma individual.
 | APP_REPOSITORY_URL              | git@github.com:BrunoFerreira10/app-easy-appointments.git |
 | EC2_SSH_KEYPAIR_NAME            | your-key-pair-name                                       |
 | GENERAL_REGION                  | us-east-1                                                |
-| GENERAL_REMOTE_STATE_BUCKET     | your-remote-state-bucket-name                            |
+| GENERAL_PROJECT_BUCKET     | your-remote-state-bucket-name                            |
 | GENERAL_TAG_AUTHOR              | Bruno Ferreira                                           |
 | GENERAL_TAG_CUSTOMER            | CT Med                                                   |
 | GENERAL_TAG_PROJECT             | terraform-easy-appointments                              |

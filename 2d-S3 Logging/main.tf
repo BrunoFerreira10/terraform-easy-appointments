@@ -22,8 +22,8 @@ provider "aws" {
   }
 }
 
-module "s3_project_files" {
-  source                      = "./s3_project_files"
+module "s3-logging" {
+  source                      = "./s3-logging"
   GENERAL_TAG_SHORTNAME       = var.GENERAL_TAG_SHORTNAME
   GENERAL_REGION              = var.GENERAL_REGION
   GENERAL_REMOTE_STATE_BUCKET = var.GENERAL_REMOTE_STATE_BUCKET

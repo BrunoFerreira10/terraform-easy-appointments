@@ -1,19 +1,4 @@
 #### Start default project github vars ####
-variable "GENERAL_TAG_PROJECT" {
-  type        = string
-  description = "Descrição do projeto."
-}
-
-variable "GENERAL_TAG_CUSTOMER" {
-  type        = string
-  description = "Cliente do projeto."
-}
-
-variable "GENERAL_TAG_AUTHOR" {
-  type        = string
-  description = "Autor de edição."
-}
-
 variable "GENERAL_TAG_SHORTNAME" {
   type        = string
   description = "Nome curto para identificação dos recursos na AWS"
@@ -30,11 +15,12 @@ variable "GENERAL_REMOTE_STATE_BUCKET" {
 }
 #### End default project github vars ####
 
-variable "RT53_DOMAIN" {
-  type    = string
-  default = "vinnainvest.com"
+variable "RDS_1_DB_NAME" {
+  type        = string
+  description = "DB Name do RDS 1"
 }
 
-variable "EC2_SSH_KEYPAIR_NAME" {
-  type = string
+variable "RDS_1_DB_USERNAME" {
+  type        = string
+  description = "DB User name do RDS 1"
 }

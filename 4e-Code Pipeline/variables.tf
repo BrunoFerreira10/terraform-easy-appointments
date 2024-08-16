@@ -28,8 +28,4 @@ variable "GENERAL_REMOTE_STATE_BUCKET" {
   type        = string
   description = "Bucket name onde está o remote state"
 }
-#### End default project github vars ####
-
-variable "GITHUB_SECRETS" {
-  type = map(string)
-}
+#### End default project github vars ####w

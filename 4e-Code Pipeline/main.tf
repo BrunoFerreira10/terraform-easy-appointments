@@ -22,10 +22,9 @@ provider "aws" {
   }
 }
 
-module "s3-logging" {
-  source                      = "./s3-logging"
-  GENERAL_TAG_SHORTNAME       = var.GENERAL_TAG_SHORTNAME
+module "code-pipeline" {
+  source                      = "./code-pipeline"
   GENERAL_REGION              = var.GENERAL_REGION
   GENERAL_REMOTE_STATE_BUCKET = var.GENERAL_REMOTE_STATE_BUCKET
-  S3_LOGGING_BUCKET_NAME      = var.S3_LOGGING_BUCKET_NAME
+  GENERAL_TAG_SHORTNAME       = var.GENERAL_TAG_SHORTNAME
 }

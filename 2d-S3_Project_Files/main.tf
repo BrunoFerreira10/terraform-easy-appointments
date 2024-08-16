@@ -22,8 +22,10 @@ provider "aws" {
   }
 }
 
-module "secrets" {
-  source         = "./secrets"
-  shortname      = var.GENERAL_TAG_SHORTNAME
-  GITHUB_SECRETS = var.GITHUB_SECRETS
+module "s3_project_files" {
+  source                      = "./s3_project_files"
+  GENERAL_TAG_SHORTNAME       = var.GENERAL_TAG_SHORTNAME
+  GENERAL_REGION              = var.GENERAL_REGION
+  GENERAL_REMOTE_STATE_BUCKET = var.GENERAL_REMOTE_STATE_BUCKET
+  S3_LOGGING_BUCKET_NAME      = var.S3_LOGGING_BUCKET_NAME
 }

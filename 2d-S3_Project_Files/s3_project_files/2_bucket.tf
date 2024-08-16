@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "s3-logging-1" {
-  bucket = var.S3_LOGGING_BUCKET_NAME
+  bucket        = var.S3_LOGGING_BUCKET_NAME
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_public_access_block" "s3-logging-1" {

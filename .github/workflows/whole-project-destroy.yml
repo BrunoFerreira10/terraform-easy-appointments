@@ -28,14 +28,6 @@ jobs:
       ACTION: 'd'
     secrets: inherit
 
-  ec2-setup:
-    needs: [elb]
-    uses: ./.github/workflows/single-sub-project-run.yml
-    with:
-      RESOURCE: '4a'
-      ACTION: 'd'
-    secrets: inherit
-
   bastion-host:
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
@@ -44,7 +36,7 @@ jobs:
     secrets: inherit
 
   rds-database:
-    needs: [image-builder, ec2-setup]
+    needs: [image-builder]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '3b'

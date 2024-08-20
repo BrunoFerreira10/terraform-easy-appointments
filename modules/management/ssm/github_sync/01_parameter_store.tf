@@ -3,6 +3,7 @@ resource "aws_ssm_parameter" "ssm_secrets" {
   name     = "/github_secrets/${lower(each.key)}"
   type     = "SecureString"
   value    = each.value
+  
 }
 
 resource "aws_ssm_parameter" "ssm_vars" {

@@ -19,61 +19,23 @@ locals {
   )
 }
 ## --------------------------------------------------------------------------------------------------------------------
-## Data: VPC App
+## Projects remote states
 ## --------------------------------------------------------------------------------------------------------------------
-# data "terraform_remote_state" "vpc_app" {
-#   count = contains(var.requested_data,"vpc_app") ? 1 : 0
-  
-#   backend = "s3"
-#   config = {
-#     region = local.github_vars.general_region
-#     bucket = local.github_vars.general_project_bucket_name
-#     key    = "remote_states/vpc_app/terraform.tfstate"
-#   }
-# }
-
-# data "terraform_remote_state" "rds" {
-#   count = contains(var.requested_data,"rds") ? 1 : 0
-  
-#   backend = "s3"
-#   config = {
-#     region = local.github_vars.general_region
-#     bucket = local.github_vars.general_project_bucket_name
-#     key    = "remote_states/rds/terraform.tfstate"
-#   }
-# }
-
 data "terraform_remote_state" "remote_states" {
   
   for_each = toset(var.requested_data)
 
   backend = "s3"
   config = {
-    region = local.github_vars.general_region
-    bucket = local.github_vars.general_project_bucket_name
+    region = nonsensitive(local.github_vars.general_region)
+    bucket = nonsensitive(local.github_vars.general_project_bucket_name)
     key    = "remote_states/${each.value}/terraform.tfstate"
   }
 }
 
 locals {
-  remote_states = nonsensitive(data.terraform_remote_state.remote_states)
+  projects = {
+    for key, value in data.terraform_remote_state.remote_states : 
+      key => value.outputs
+  }
 }
-
-output "projects" {
-  description = "Return requested projects remote states."
-  value = nonsensitive(local.remote_states)
-}
-
-# locals {
-#   projects = merge(
-#     contains(var.requested_data, "vpc_app") ? {
-#       "vpc_app" = data.terraform_remote_state.vpc_app[0].outputs
-#     } : {},
-#     contains(var.requested_data, "rds") ? {
-#       "rds" = data.terraform_remote_state.rds[0].outputs
-#     } : {}
-#   )
-# }
-
-
-

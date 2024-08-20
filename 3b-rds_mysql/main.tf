@@ -18,6 +18,5 @@ module "rds_mysql" {
       module.data.projects.vpc_app.vpc.subnets.public.az_b.id,
       module.data.projects.vpc_app.vpc.subnets.public.az_c.id
     ]
-    availability_zone = module.data.projects.vpc_app.vpc.subnets.private.az_a.az
   }
 }

@@ -118,8 +118,3 @@ jobs:
             -var-file=./variables.tfvars \
             '-var=github_secrets=${{ toJson(secrets) }}' \
             '-var=github_vars=${{ toJson(vars) }}'
-
-      - name: "show"
-        run: |
-          cd "./${{ steps.process-inputs.outputs.LOCAL_FOLDER }}"
-          terraform show

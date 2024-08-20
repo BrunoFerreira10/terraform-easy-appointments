@@ -25,7 +25,7 @@ provider "aws" {
 module "elb-1" {
   source               = "./elb-1"
   region               = var.GENERAL_REGION
-  remote-state-bucket  = var.GENERAL_PROJECT_BUCKET
+  remote-state-bucket  = var.GENERAL_PROJECT_BUCKET_NAME
   shortname            = var.GENERAL_TAG_SHORTNAME
   RT53_DOMAIN          = var.RT53_DOMAIN
   EC2_SSH_KEYPAIR_NAME = var.EC2_SSH_KEYPAIR_NAME

@@ -109,21 +109,25 @@ echo "USE_BACKEND=$USE_BACKEND"
 ###############################################################
 
 # Adicionar variáveis GENERAL_ ao variables.tfvars
-echo "Adicionando variáveis GENERAL_ ao variables.tfvars"
+# echo "Adicionando variáveis GENERAL_ ao variables.tfvars"
 
-GENERAL_VARS=$(echo "$VARS_JSON" | jq -r 'to_entries | map(select(.key | startswith("GENERAL_"))) | from_entries')
+# GENERAL_VARS=$(echo "$VARS_JSON" | jq -r 'to_entries | map(select(.key | startswith("GENERAL_"))) | from_entries')
 
-echo "GENERAL_VARS: $GENERAL_VARS"
+# echo "GENERAL_VARS: $GENERAL_VARS"
 
-for var in $(echo "$GENERAL_VARS" | jq -r 'keys[]'); do
-  value=$(echo "$GENERAL_VARS" | jq -r --arg var "$var" '.[$var]')
-  echo "Adicionando variável: $var com valor: $value"
-  ./.github/scripts/add-to-variables.sh "$LOCAL_FOLDER" "{\"$var\":\"$value\"}"
-done
+# for var in $(echo "$GENERAL_VARS" | jq -r 'keys[]'); do
+#   value=$(echo "$GENERAL_VARS" | jq -r --arg var "$var" '.[$var]')
+#   echo "Adicionando variável: $var com valor: $value"
+#   ./.github/scripts/add-to-variables.sh "$LOCAL_FOLDER" "{\"$var\":\"$value\"}"
+# done
 
 ###############################################################
 ##### Adicionar variáveis específicas ao variables.tfvars #####
 ###############################################################
+VARIABLES_FILE="$LOCAL_FOLDER/variables.tfvars"
+if [ ! -f "$VARIABLES_FILE" ]; then
+  touch "$VARIABLES_FILE"
+fi
 
 # Ler variáveis específicas do arquivo project-vars.ini e adicionar ao variables.tfvars
 PROJECT_VARS=$(echo "$SECTION" | awk -F '=' '

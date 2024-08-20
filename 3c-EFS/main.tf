@@ -25,6 +25,6 @@ provider "aws" {
 module "efs" {
   source              = "./efs"
   region              = var.GENERAL_REGION
-  remote-state-bucket = var.GENERAL_PROJECT_BUCKET
+  remote-state-bucket = var.GENERAL_PROJECT_BUCKET_NAME
   shortname           = var.GENERAL_TAG_SHORTNAME
 }

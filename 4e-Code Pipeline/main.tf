@@ -25,6 +25,6 @@ provider "aws" {
 module "code-pipeline" {
   source                      = "./code-pipeline"
   GENERAL_REGION              = var.GENERAL_REGION
-  GENERAL_PROJECT_BUCKET = var.GENERAL_PROJECT_BUCKET
+  GENERAL_PROJECT_BUCKET_NAME = var.GENERAL_PROJECT_BUCKET_NAME
   GENERAL_TAG_SHORTNAME       = var.GENERAL_TAG_SHORTNAME
 }

@@ -13,64 +13,32 @@ jobs:
   #################################
   ######## Destroy project ########
   #################################
-  elb:
+  rds_mysql:
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
-      RESOURCE: '6a'
+      RESOURCE: '3b'
       ACTION: 'd'
     secrets: inherit
 
-  image-builder:
-    needs: [elb]
-    uses: ./.github/workflows/single-sub-project-run.yml
-    with:
-      RESOURCE: '4c'
-      ACTION: 'd'
-    secrets: inherit
-
-  bastion-host:
+  bastion:
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '3a'
       ACTION: 'd'
     secrets: inherit
 
-  rds-database:
-    needs: [image-builder]
-    uses: ./.github/workflows/single-sub-project-run.yml
-    with:
-      RESOURCE: '3b'
-      ACTION: 'd'
-    secrets: inherit  
-
-  s3-logging:
-    needs: [rds-database]
-    uses: ./.github/workflows/single-sub-project-run.yml
-    with:
-      RESOURCE: '2d'
-      ACTION: 'd'
-    secrets: inherit 
-
-  acm-ssl:
-    needs: [elb]
-    uses: ./.github/workflows/single-sub-project-run.yml
-    with:
-      RESOURCE: '2c'
-      ACTION: 'd'
-    secrets: inherit
-
-  ssm:
-    needs: [rds-database]
-    uses: ./.github/workflows/single-sub-project-run.yml
-    with:
-      RESOURCE: '2e'
-      ACTION: 'd'
-    secrets: inherit
-
-  vpc-network:
-    needs: [bastion-host, rds-database]
+  vpc_network:
+    needs: [bastion, rds_mysql]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '2a'
+      ACTION: 'd'
+    secrets: inherit
+
+  github_sync:
+    needs: [vpc_network, bastion, rds_mysql]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '1a'
       ACTION: 'd'
     secrets: inherit

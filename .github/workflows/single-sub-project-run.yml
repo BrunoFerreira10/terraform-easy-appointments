@@ -68,20 +68,21 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
 
+      - name: Setup Providers
+        run: ./.github/scripts/setup-providers.sh \
+              "${{ steps.process-inputs.outputs.LOCAL_FOLDER }}" \
+              "${{ vars.GENERAL_REGION }}" \
+              "${{ vars.GENERAL_TAG_AUTHOR }}" \
+              "${{ vars.GENERAL_TAG_CUSTOMER }}" \
+              "${{ vars.GENERAL_TAG_PROJECT }}"
+
       - name: Setup Backend
         if: ${{ steps.read-project-vars.outputs.USE_BACKEND == 'true' }}
         run: ./.github/scripts/setup-backend.sh \
              "${{ steps.process-inputs.outputs.LOCAL_FOLDER }}" \
              "${{ vars.GENERAL_REGION }}" \
-             "${{ vars.GENERAL_PROJECT_BUCKET }}" \
+             "${{ vars.GENERAL_PROJECT_BUCKET_NAME }}" \
              "${{ steps.process-inputs.outputs.SUB_PROJECT_NAME }}"
-
-      # Apenas no destroy do sub-projeto Secrets Manager
-      - name: Delete Secrets manager secrets
-        id: delete-secrets
-        if: ${{ (steps.process-inputs.outputs.SELECTED_ACTION == 'destroy') && (steps.process-inputs.outputs.SUB_PROJECT_NAME == 'Secrets Manager') }}
-        run: ./.github/scripts/delete-secrets-manager.sh \
-             '${{ vars.GENERAL_REGION }}' '${{ toJson(secrets) }}'
 
       # Terraform Init
       - name: Run Terraform Init without backend
@@ -100,7 +101,7 @@ jobs:
       
       # Usado para todos os sub-projetos, exceto Secrets Manager
       - name: Run Terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }}
-        if: ${{ (steps.process-inputs.outputs.SUB_PROJECT_NAME != 'Secrets Manager') && (steps.process-inputs.outputs.SUB_PROJECT_NAME != 'SSM') }}
+        if: ${{ steps.process-inputs.outputs.SUB_PROJECT_NAME != 'github_sync' }}
         run: |
           cd "./${{ steps.process-inputs.outputs.LOCAL_FOLDER }}"
           cat ./variables.tfvars
@@ -108,11 +109,17 @@ jobs:
             -var-file=./variables.tfvars
 
       # Usado apenas no sub-projeto Secrets Manager
-      - name: Run Terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} - Secret Manager 
-        if: ${{ (steps.process-inputs.outputs.SUB_PROJECT_NAME == 'Secrets Manager') || (steps.process-inputs.outputs.SUB_PROJECT_NAME == 'SSM') }}
+      - name: Run Terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} - Github Sync SSM
+        if: ${{ steps.process-inputs.outputs.SUB_PROJECT_NAME == 'github_sync' }}
         run: |
           cd "./${{ steps.process-inputs.outputs.LOCAL_FOLDER }}"
           cat ./variables.tfvars
           terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} -auto-approve \
             -var-file=./variables.tfvars \
-            '-var=GITHUB_SECRETS=${{ toJson(secrets) }}'
+            '-var=github_secrets=${{ toJson(secrets) }}' \
+            '-var=github_vars=${{ toJson(vars) }}'
+
+      - name: "show"
+        run: |
+          cd "./${{ steps.process-inputs.outputs.LOCAL_FOLDER }}"
+          terraform show

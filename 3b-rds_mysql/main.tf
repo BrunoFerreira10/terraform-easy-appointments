@@ -13,7 +13,7 @@ module "rds_mysql" {
     subnet_ids = [
       module.data.projects.vpc_app.vpc.subnets.private.az_a.id,
       module.data.projects.vpc_app.vpc.subnets.private.az_b.id,
-      module.data.projects.vpc_app.vpc.subnets.private.az_c.id.
+      module.data.projects.vpc_app.vpc.subnets.private.az_c.id,
       module.data.projects.vpc_app.vpc.subnets.public.az_a.id,
       module.data.projects.vpc_app.vpc.subnets.public.az_b.id,
       module.data.projects.vpc_app.vpc.subnets.public.az_c.id

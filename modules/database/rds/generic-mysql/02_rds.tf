@@ -20,6 +20,7 @@ resource "aws_db_instance" "rds" {
   db_subnet_group_name = aws_db_subnet_group.rds.name
   skip_final_snapshot  = true
   multi_az             = false
+  availability_zone    = var.rds_configuration.availability_zone
 
   publicly_accessible = var.rds_configuration.publicly_accessible
 

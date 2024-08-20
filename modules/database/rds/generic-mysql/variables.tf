@@ -27,5 +27,6 @@ variable "rds_configuration" {
     instance_class            = string,
     publicly_accessible       = bool,
     subnet_ids                = list(string)
+    availability_zone         = string
   })
 }

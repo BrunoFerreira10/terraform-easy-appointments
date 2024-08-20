@@ -8,7 +8,7 @@ resource "aws_db_subnet_group" "rds" {
 }
 
 resource "aws_db_instance" "rds" {
-  # identifier           = lower(replace("rds_${var.shortname}","-","_"))
+  identifier           = lower(replace("rds-${var.shortname}","-","_"))
   db_name              = var.rds_configuration.db_name
   username             = var.rds_configuration.db_username
   password             = data.aws_ssm_parameter.db_password.value

@@ -9,14 +9,10 @@ module "rds_mysql" {
     db_username               = module.data.github_vars.rds_1_db_user
     ssm_parameter_db_password = "rds_1_db_password",
     instance_class            = "db.t3.micro"
-    publicly_accessible       = false,
     subnet_ids = [
       module.data.projects.vpc_app.vpc.subnets.private.az_a.id,
       module.data.projects.vpc_app.vpc.subnets.private.az_b.id,
-      module.data.projects.vpc_app.vpc.subnets.private.az_c.id,
-      module.data.projects.vpc_app.vpc.subnets.public.az_a.id,
-      module.data.projects.vpc_app.vpc.subnets.public.az_b.id,
-      module.data.projects.vpc_app.vpc.subnets.public.az_c.id
+      module.data.projects.vpc_app.vpc.subnets.private.az_c.id
     ]
   }
 }

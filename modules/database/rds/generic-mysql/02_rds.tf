@@ -12,7 +12,7 @@ resource "aws_db_instance" "rds" {
   db_name              = var.rds_configuration.db_name
   username             = var.rds_configuration.db_username
   password             = data.aws_ssm_parameter.db_password.value
-  allocated_storage    = 10
+  allocated_storage    = var.rds_configuration.allocated_storage
   engine               = "mysql"
   engine_version       = "8.0"
   instance_class       = var.rds_configuration.instance_class

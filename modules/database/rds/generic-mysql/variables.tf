@@ -25,6 +25,7 @@ variable "rds_configuration" {
     db_username               = string,
     ssm_parameter_db_password = string,
     subnet_ids                = list(string),
+    allocated_storage         = optional(number, 10),
     instance_class            = optional(string, "db.t3.micro"),
     publicly_accessible       = optional(bool, false),
     availability_zone         = optional(string, null)

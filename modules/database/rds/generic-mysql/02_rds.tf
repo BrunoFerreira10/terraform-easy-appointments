@@ -20,7 +20,7 @@ resource "aws_db_instance" "rds" {
   db_subnet_group_name = aws_db_subnet_group.rds.name
   skip_final_snapshot  = true
   multi_az             = false
-  availability_zone    = lookup(var.rds_configuration, "availability_zone", null)
+  availability_zone    = var.rds_configuration.availability_zone
 
   publicly_accessible = var.rds_configuration.publicly_accessible
 

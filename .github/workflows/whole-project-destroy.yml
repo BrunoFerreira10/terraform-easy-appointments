@@ -27,6 +27,13 @@ jobs:
       ACTION: 'd'
     secrets: inherit
 
+  acm_ssl: 
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '2c'
+      ACTION: 'd'
+    secrets: inherit
+
   vpc_network:
     needs: [bastion, rds_mysql]
     uses: ./.github/workflows/single-sub-project-run.yml
@@ -36,7 +43,11 @@ jobs:
     secrets: inherit
 
   github_sync:
-    needs: [vpc_network, bastion, rds_mysql]
+    needs: [
+      vpc_network, acm_ssl, 
+      bastion, 
+      rds_mysql
+    ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '1a'

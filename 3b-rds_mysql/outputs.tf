@@ -1,4 +1,4 @@
-output "rds_mysql" {
+output "rds" {
   description = "RDS MySQL information"
   value       = module.rds_mysql.rds
 }

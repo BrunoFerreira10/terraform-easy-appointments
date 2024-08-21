@@ -37,7 +37,8 @@ resource "aws_autoscaling_group" "this" {
 
   // Network
   vpc_zone_identifier = [
-    var.vpc.subnets.private[*].id
+    for subnet in var.vpc.subnets.private :
+    subnet.id
   ]
 
   // Load balancing

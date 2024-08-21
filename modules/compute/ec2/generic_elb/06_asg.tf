@@ -33,9 +33,6 @@ resource "aws_autoscaling_group" "this" {
       max_healthy_percentage = 100
       skip_matching          = false
     }
-    triggers = [
-      "launch_template"
-    ]
   }
 
   // Network

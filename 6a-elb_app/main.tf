@@ -3,7 +3,7 @@ module "elb_app" {
   acm_certificate      = module.data.projects.acm_ssl.certificate
   domain               = module.data.github_vars.rt53_domain
   ec2_ssh_keypair_name = module.data.github_vars.ec2_ssh_keypair_name
-  image_ami            = module.data.projects.app_ami.golden_image
+  ami_image_id         = module.data.projects.app_ami.golden_image_id
   shortname            = module.data.github_vars.general_tag_shortname
   vpc                  = module.data.projects.vpc_app.vpc
 }

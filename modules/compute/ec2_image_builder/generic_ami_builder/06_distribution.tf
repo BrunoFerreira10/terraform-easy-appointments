@@ -6,7 +6,7 @@ resource "aws_imagebuilder_distribution_configuration" "installation" {
     ami_distribution_configuration {
       name = "ami_${var.shortname}_{{imagebuilder:buildDate}}"
       ami_tags = {
-        Name = name
+        Name = "ami_${var.shortname}_{{imagebuilder:buildDate}}"
       }
     }
   }
@@ -20,7 +20,7 @@ resource "aws_imagebuilder_distribution_configuration" "application" {
     ami_distribution_configuration {
       name = "ami_${var.shortname}_{{imagebuilder:buildDate}}"
       ami_tags = {
-        Name = name
+        Name = "ami_${var.shortname}_{{imagebuilder:buildDate}}"
       }
     }
   }

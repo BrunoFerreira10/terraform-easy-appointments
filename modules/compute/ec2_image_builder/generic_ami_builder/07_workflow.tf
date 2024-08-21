@@ -11,6 +11,6 @@ resource "aws_imagebuilder_workflow" "build" {
   })
 
   tags = {
-    Name = name
+    Name = "workflow_build_${var.shortname}"
   }
 }

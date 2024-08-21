@@ -30,7 +30,7 @@ resource "aws_imagebuilder_image_recipe" "installation" {
   }
 
   tags = {
-    Name = name
+    Name = "recipe_installation_${var.shortname}"
   }
 }
 
@@ -58,6 +58,10 @@ resource "aws_imagebuilder_image_recipe" "application" {
     content {
       component_arn = component.value
     }
+  }
+
+  tags = {
+    Name = "recipe_application_${var.shortname}"
   }
 }
 ## --------------------------------------------------------------------------------------------------------------------

@@ -13,7 +13,17 @@ jobs:
   #################################
   ######## Destroy project ########
   #################################
+  elb_app:
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '6a'
+      ACTION: 'd'
+    secrets: inherit
+
   app_ami:
+    needs: [
+      elb_app
+    ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '4c'
@@ -28,7 +38,10 @@ jobs:
     secrets: inherit
       
   rds_mysql:
-    needs: ['app_ami']
+    needs: [
+      elb_app, 
+      app_ami
+    ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '3b'
@@ -42,7 +55,10 @@ jobs:
       ACTION: 'd'
     secrets: inherit
 
-  acm_ssl: 
+  acm_ssl:
+    needs: [
+      elb_app
+    ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '2c'
@@ -50,7 +66,11 @@ jobs:
     secrets: inherit
 
   vpc_network:
-    needs: [bastion, rds_mysql, efs_static_files, app_ami]
+    needs: [
+      elb_app, 
+      app_ami, 
+      efs_static_files, rds_mysql, bastion
+    ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '2a'
@@ -59,10 +79,11 @@ jobs:
 
   github_sync:
     needs: [
-      vpc_network, acm_ssl, 
+      elb_app,
+      app_ami,
       bastion, 
       rds_mysql, efs_static_files,
-      app_ami
+      vpc_network, acm_ssl
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:

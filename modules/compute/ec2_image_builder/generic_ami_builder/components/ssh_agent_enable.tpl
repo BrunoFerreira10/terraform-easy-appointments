@@ -7,6 +7,6 @@ phases:
             - "cat << 'EOF' >> /etc/bash.bashrc"
             - "eval $(ssh-agent -s)"
             - "EOF"
-        name: "${name}"
+        name: "${NAME}"
         onFailure: "Abort"
 schemaVersion: 1.0

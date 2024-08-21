@@ -5,7 +5,7 @@ resource "aws_imagebuilder_component" "apt_update" {
   description = "Atualiza lista de pacotes do apt."
 
   data = templatefile("${path.module}/components/apt_update.tpl", {
-    name = upper("${var.shortname}_apt_update")
+    NAME = upper("${var.shortname}_apt_update")
   })
 }
 
@@ -16,7 +16,7 @@ resource "aws_imagebuilder_component" "apt_upgrade" {
   description = "Atualiza pacotes do apt."
 
   data = templatefile("${path.module}/components/apt_upgrade.tpl", {
-    name = upper("${var.shortname}_apt_upgrade")
+    NAME = upper("${var.shortname}_apt_upgrade")
   })
 }
 
@@ -27,7 +27,7 @@ resource "aws_imagebuilder_component" "aws_cli_install" {
   description = "Instala o AWS CLI."
 
   data = templatefile("${path.module}/components/aws_cli_install.tpl", {
-    name = upper("${var.shortname}_aws_cli_install")
+    NAME = upper("${var.shortname}_aws_cli_install")
   })
 }
 
@@ -38,7 +38,7 @@ resource "aws_imagebuilder_component" "composer_install" {
   description = "Instala o AWS CLI."
 
   data = templatefile("${path.module}/components/composer_install.tpl", {
-    name = upper("${var.shortname}_composer_install")
+    NAME = upper("${var.shortname}_composer_install")
   })
 }
 
@@ -49,7 +49,7 @@ resource "aws_imagebuilder_component" "daemon_reload" {
   description = "Recarrega configurações do gerenciador de serviços systemd."
 
   data = templatefile("${path.module}/components/daemon_reload.tpl", {
-    name = upper("${var.shortname}_daemon_reload")
+    NAME = upper("${var.shortname}_daemon_reload")
   })
 }
 
@@ -60,8 +60,8 @@ resource "aws_imagebuilder_component" "easy_appointments_setup" {
   description = "Configuração da aplicação '${var.shortname}'."
 
   data = templatefile("${path.module}/components/easy_appointments_setup.tpl", {
-    name               = upper("${var.shortname}_easy_appointments_setup"),
-    app_repository_url = var.app_repository_url,
+    NAME               = upper("${var.shortname}_easy_appointments_setup"),
+    APP_REPOSITORY_URL = var.app_repository_url,
     BASE_URL           = var.domain,
     DB_HOST            = var.rds.db_host
     DB_NAME            = var.rds.db_name,
@@ -77,8 +77,8 @@ resource "aws_imagebuilder_component" "git_fetch_repository" {
   description = "Download da aplicação '${var.shortname}' hospedada no Github."
 
   data = templatefile("${path.module}/components/git_fetch_repository.tpl", {
-    name               = upper("${var.shortname}_git_fetch_repository"),
-    app_repository_url = var.app_repository_url
+    NAME               = upper("${var.shortname}_git_fetch_repository"),
+    APP_REPOSITORY_URL = var.app_repository_url
   })
 }
 
@@ -89,7 +89,7 @@ resource "aws_imagebuilder_component" "nginx_install" {
   description = "Instala o nginx."
 
   data = templatefile("${path.module}/components/nginx_install.tpl", {
-    name = upper("${var.shortname}_nginx_install")
+    NAME = upper("${var.shortname}_nginx_install")
   })
 }
 
@@ -100,7 +100,7 @@ resource "aws_imagebuilder_component" "nginx_restart" {
   description = "Reinicia o nginx."
 
   data = templatefile("${path.module}/components/nginx_restart.tpl", {
-    name = upper("${var.shortname}_nginx_restart")
+    NAME = upper("${var.shortname}_nginx_restart")
   })
 }
 
@@ -111,7 +111,7 @@ resource "aws_imagebuilder_component" "node_install" {
   description = "Instala o AWS CLI."
 
   data = templatefile("${path.module}/components/node_install.tpl", {
-    name = upper("${var.shortname}_node_install")
+    NAME = upper("${var.shortname}_node_install")
   })
 }
 
@@ -122,7 +122,7 @@ resource "aws_imagebuilder_component" "php_install" {
   description = "Instala o PHP com extensões comuns para aplicações web."
 
   data = templatefile("${path.module}/components/php_install.tpl", {
-    name = upper("${var.shortname}_php_install")
+    NAME = upper("${var.shortname}_php_install")
   })
 }
 
@@ -133,7 +133,7 @@ resource "aws_imagebuilder_component" "ssh_add_github_key" {
   description = "Adiciona chave privada do github ao ssh_agent."
 
   data = templatefile("${path.module}/components/ssh_add_github_key.tpl", {
-    name = upper("${var.shortname}_ssh_add_github_key")
+    NAME = upper("${var.shortname}_ssh_add_github_key")
   })
 }
 
@@ -144,7 +144,7 @@ resource "aws_imagebuilder_component" "ssh_agent_enable" {
   description = "Habilita o ssh_agent no boot da instância."
 
   data = templatefile("${path.module}/components/ssh_agent_enable.tpl", {
-    name = upper("${var.shortname}_ssh_agent_enable")
+    NAME = upper("${var.shortname}_ssh_agent_enable")
   })
 }
 
@@ -155,6 +155,6 @@ resource "aws_imagebuilder_component" "ssh_agent_start" {
   description = "Inicia o ssh_agent na instância."
 
   data = templatefile("${path.module}/components/ssh_agent_start.tpl", {
-    name = upper("${var.shortname}_ssh_agent_start")
+    NAME = upper("${var.shortname}_ssh_agent_start")
   })
 }

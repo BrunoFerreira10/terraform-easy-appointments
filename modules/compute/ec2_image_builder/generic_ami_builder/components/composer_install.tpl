@@ -6,6 +6,6 @@ phases:
           commands:
             - |
               apt-get install -y composer
-        name: ${name}
+        name: ${NAME}
         onFailure: "Abort"
 schemaVersion: 1.0

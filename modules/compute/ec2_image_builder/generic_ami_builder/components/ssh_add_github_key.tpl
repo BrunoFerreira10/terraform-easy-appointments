@@ -11,6 +11,6 @@ phases:
             # Passar a chave diretamente para o ssh-add
             - "echo \"$PRIVATE_KEY\" | ssh-add -"
             
-        name: ${name}
+        name: ${NAME}
         onFailure: "Abort"
 schemaVersion: 1.0

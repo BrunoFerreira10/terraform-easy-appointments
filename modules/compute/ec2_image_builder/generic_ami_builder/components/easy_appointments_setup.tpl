@@ -9,16 +9,16 @@ phases:
               cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
               cp -f ./nginx.conf /etc/nginx/sites-available/default
 
-              echo '${name}: Alterando owner do diretório /var/www/html para www-data'
+              echo '${NAME}: Alterando owner do diretório /var/www/html para www-data'
               chown -R www-data:www-data /var/www/
 
-              echo '${name}: Acessando /var/www/html.'
+              echo '${NAME}: Acessando /var/www/html.'
               cd /var/www/html
 
-              echo "${name}: Define permissões para 'storage'"
+              echo "${NAME}: Define permissões para 'storage'"
               chmod a+rwx ./storage
 
-              echo "${name}: Configura arquivo 'config-sample.php' e 'config.php'"
+              echo "${NAME}: Configura arquivo 'config-sample.php' e 'config.php'"
               sed -i "s|const BASE_URL = '.*';|const BASE_URL = '${BASE_URL}';|" config-sample.php
               sed -i "s|const DB_HOST = '.*';|const DB_HOST = '${DB_HOST}';|" config-sample.php
               sed -i "s|const DB_NAME = '.*';|const DB_NAME = '${DB_NAME}';|" config-sample.php
@@ -27,15 +27,15 @@ phases:
 
               sudo -u www-data cp config-sample.php config.php
 
-              echo '${name}: Executando composer install'
+              echo '${NAME}: Executando composer install'
               sudo -u www-data composer install
 
-              echo '${name}: Executando npm install'
+              echo '${NAME}: Executando npm install'
               sudo -u www-data npm install
 
-              # echo '${name}: Executando npm run build'
+              # echo '${NAME}: Executando npm run build'
               sudo -u www-data npm run build
-        name: '${name}'
+        name: '${NAME}'
         onFailure: "Abort"
 schemaVersion: 1.0
 

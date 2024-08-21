@@ -5,6 +5,6 @@ phases:
         inputs:
           commands:
             - "systemctl restart nginx"
-        name: ${name}
+        name: ${NAME}
         onFailure: "Abort"
 schemaVersion: 1.0

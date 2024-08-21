@@ -5,6 +5,6 @@ phases:
         inputs:
           commands:
             - "eval $(ssh-agent -s)"
-        name: "${name}"
+        name: "${NAME}"
         onFailure: "Abort"
 schemaVersion: 1.0

@@ -1,7 +1,7 @@
 // Auto-scaling
 resource "aws_autoscaling_group" "this" {
 
-  name = "asg_${var.shortname}"
+  name = replace("asg-${var.shortname}","_","-")
 
   tag {
     key                 = "Name"

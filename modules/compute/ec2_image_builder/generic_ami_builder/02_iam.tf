@@ -26,7 +26,7 @@ resource "aws_iam_role" "img_builder_ec2" {
   })
 
   tags = {
-    Name = name
+    Name = "role_img_builder_ec2_${var.shortname}"
   }
 }
 

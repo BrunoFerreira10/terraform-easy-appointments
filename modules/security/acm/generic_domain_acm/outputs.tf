@@ -1,4 +1,8 @@
 output "certificate" {
   description = "ACM Certificate information"
-  value = nonsensitive(aws_acm_certificate.certificate)
+  value       = {
+    id = aws_acm_certificate.certificate.id
+    arn = aws_acm_certificate.certificate.arn
+    domain_name = aws_acm_certificate.certificate.domain_name
+  }
 }

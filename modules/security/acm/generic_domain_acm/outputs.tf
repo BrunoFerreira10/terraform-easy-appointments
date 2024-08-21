@@ -1,3 +1,4 @@
-output "acm_certificate_arn" {
-  value = aws_acm_certificate.certificate.arn
+output "certificate" {
+  description = "ACM Certificate information"
+  value = aws_acm_certificate.certificate
 }

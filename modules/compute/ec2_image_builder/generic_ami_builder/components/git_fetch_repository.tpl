@@ -9,7 +9,7 @@ phases:
               eval $(ssh-agent -s)
 
               echo '${NAME}: Adicionando chave privada do github ao ssh-agent'
-              PRIVATE_KEY=$(aws ssm get-parameter --name 'SSH_PRIVATE_KEY_GITHUB' --with-decryption --query 'Parameter.Value' --output text)
+              PRIVATE_KEY=$(aws ssm get-parameter --name '/github_secrets/ssh_private_key_github' --with-decryption --query 'Parameter.Value' --output text)
               echo "$PRIVATE_KEY" > /tmp/github_ssh_key
               chmod 600 /tmp/github_ssh_key
               ssh-add /tmp/github_ssh_key

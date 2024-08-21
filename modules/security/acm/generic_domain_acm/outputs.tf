@@ -1,4 +1,4 @@
 output "certificate" {
   description = "ACM Certificate information"
-  value = aws_acm_certificate.certificate
+  value = nonsensitive(aws_acm_certificate.certificate)
 }

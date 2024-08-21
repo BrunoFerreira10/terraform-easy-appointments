@@ -51,7 +51,7 @@ locals {
 resource "aws_imagebuilder_image_recipe" "application" {
   name         = "recipe_application_${var.shortname}"
   version      = "1.0.0"
-  parent_image = tolist(aws_imagebuilder_image.image_installation.output_resources[0].amis)[0].image
+  parent_image = tolist(aws_imagebuilder_image.installation.output_resources[0].amis)[0].image
 
   dynamic "component" {
     for_each = local.component_arns_app_setup

@@ -6,7 +6,7 @@ variable "shortname" {
 variable "acm_configuration" {
   description = "ACM Certificate configuration"
   type = object({
-    domain = string,
-    subdomains = optional(list(string),[])
+    domain     = string,
+    subdomains = optional(list(string), [])
   })
 }

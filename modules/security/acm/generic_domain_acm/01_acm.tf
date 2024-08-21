@@ -3,7 +3,7 @@ resource "aws_acm_certificate" "certificate" {
   validation_method = "DNS"
 
   subject_alternative_names = [
-    for subdomain in var.acm_configuration.subdomains : 
+    for subdomain in var.acm_configuration.subdomains :
     "${subdomain}.${var.acm_configuration.domain}"
   ]
 

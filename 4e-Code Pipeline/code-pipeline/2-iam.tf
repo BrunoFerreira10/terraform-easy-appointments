@@ -5,11 +5,11 @@ resource "aws_iam_role" "role_codebuild_1" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect    = "Allow"
+        Effect = "Allow"
         Principal = {
           Service = "codebuild.amazonaws.com"
         }
-        Action    = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
       },
     ]
   })

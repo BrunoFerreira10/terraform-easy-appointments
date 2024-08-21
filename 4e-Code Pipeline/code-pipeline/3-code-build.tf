@@ -1,12 +1,12 @@
 resource "aws_codebuild_project" "code_build_1" {
-  name          = "code_build_1"
-  description   = "Code build para aplicação ${var.GENERAL_TAG_SHORTNAME}"
-  service_role  = aws_iam_role.role_codebuild_1.arn
+  name         = "code_build_1"
+  description  = "Code build para aplicação ${var.GENERAL_TAG_SHORTNAME}"
+  service_role = aws_iam_role.role_codebuild_1.arn
 
   artifacts {
-    type = "S3"
-    location = "your-s3-bucket-name"
-    path = "build-output"
+    type      = "S3"
+    location  = "your-s3-bucket-name"
+    path      = "build-output"
     packaging = "ZIP"
   }
 
@@ -27,12 +27,12 @@ resource "aws_codebuild_project" "code_build_1" {
     git_clone_depth = 1
   }
 
-  build_timeout    = 30
-  queued_timeout   = 15
+  build_timeout  = 30
+  queued_timeout = 15
 
   logs_config {
     cloudwatch_logs {
-      group_name = "/aws/codebuild/php-nodejs-build"
+      group_name  = "/aws/codebuild/php-nodejs-build"
       stream_name = "codebuild"
     }
   }

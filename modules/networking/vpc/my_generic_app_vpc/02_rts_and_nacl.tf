@@ -42,7 +42,7 @@ resource "aws_default_network_acl" "default" {
 }
 
 resource "aws_network_acl" "public" {
-  vpc_id = aws_vpc.app.id 
+  vpc_id = aws_vpc.app.id
 
   tags = {
     Name = "nacl_public_app_${var.shortname}"
@@ -50,7 +50,7 @@ resource "aws_network_acl" "public" {
 }
 
 resource "aws_network_acl" "private" {
-  vpc_id = aws_vpc.app.id 
+  vpc_id = aws_vpc.app.id
 
   tags = {
     Name = "nacl_private_app_${var.shortname}"
@@ -110,7 +110,7 @@ resource "aws_network_acl_rule" "public" {
 }
 
 resource "aws_network_acl_rule" "private" {
- for_each = local.private_nacl_rules_map
+  for_each = local.private_nacl_rules_map
 
   network_acl_id = aws_network_acl.private.id
   rule_number    = each.value.rule_number

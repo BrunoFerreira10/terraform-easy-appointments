@@ -1,5 +1,5 @@
 resource "aws_db_subnet_group" "rds" {
-  name = "rds_${var.shortname}"
+  name       = "rds_${var.shortname}"
   subnet_ids = var.rds_configuration.subnet_ids
 
   tags = {
@@ -8,7 +8,7 @@ resource "aws_db_subnet_group" "rds" {
 }
 
 resource "aws_db_instance" "rds" {
-  identifier           = lower(replace("rds-${var.shortname}","_","-"))
+  identifier           = lower(replace("rds-${var.shortname}", "_", "-"))
   db_name              = var.rds_configuration.db_name
   username             = var.rds_configuration.db_username
   password             = data.aws_ssm_parameter.db_password.value

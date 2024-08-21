@@ -1,6 +1,6 @@
 resource "aws_lb_target_group" "this" {
 
-  name     = "tg_${var.shortname}"
+  name     = replace("tg-${var.shortname}","_","-")
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc.id

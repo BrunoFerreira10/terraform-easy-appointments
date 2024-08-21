@@ -16,7 +16,7 @@ variable "ec2_ssh_keypair_name" {
 
 variable "ami_image_id" {
   description = "Image AMI for launch template"
-  type        = any
+  type        = string
 }
 
 variable "shortname" {

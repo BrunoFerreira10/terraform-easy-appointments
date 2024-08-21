@@ -14,8 +14,6 @@ resource "aws_route53_record" "A" {
 
 resource "aws_route53_record" "www" {
 
-  for_each = var.acm_certificate.sub
-
   allow_overwrite = true
   zone_id         = data.aws_route53_zone.this.zone_id
   name            = "www.${var.domain}"

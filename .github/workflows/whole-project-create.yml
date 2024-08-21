@@ -46,3 +46,17 @@ jobs:
     with:
       RESOURCE: '3b'
     secrets: inherit
+
+  efs_static_files:
+    needs: [github_sync, vpc_app]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '3c'
+    secrets: inherit
+
+  app_ami:
+    needs: [github_sync, vpc_app, rds_mysql]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '4c'
+    secrets: inherit

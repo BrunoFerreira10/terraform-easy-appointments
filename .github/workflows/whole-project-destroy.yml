@@ -13,7 +13,22 @@ jobs:
   #################################
   ######## Destroy project ########
   #################################
+  app_ami:
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '4c'
+      ACTION: 'd'
+    secrets: inherit
+
+  efs_static_files:
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '3c'
+      ACTION: 'd'
+    secrets: inherit
+      
   rds_mysql:
+    needs: ['app_ami']
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '3b'
@@ -35,7 +50,7 @@ jobs:
     secrets: inherit
 
   vpc_network:
-    needs: [bastion, rds_mysql]
+    needs: [bastion, rds_mysql, efs_static_files, app_ami]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '2a'
@@ -46,7 +61,8 @@ jobs:
     needs: [
       vpc_network, acm_ssl, 
       bastion, 
-      rds_mysql
+      rds_mysql, efs_static_files,
+      app_ami
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:

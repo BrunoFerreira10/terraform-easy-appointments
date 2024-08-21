@@ -1,6 +1,6 @@
 # Sobre o projeto
 ## Descrição
-Implementação de sistema Starfood na AWS usando IaC Terraform e repositório no 
+Implementação de sistema Easy Appointments na AWS usando IaC Terraform e repositório no 
 Github.<br>
 Execução dos scripts Terraform através do Github Actions.
 

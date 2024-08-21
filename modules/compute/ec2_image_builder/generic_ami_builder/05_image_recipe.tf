@@ -5,14 +5,14 @@
 locals {
   component_arns_installation = [
     "arn:aws:imagebuilder:${var.region}:aws:component/amazon-cloudwatch-agent-linux/1.0.1/1",
-    aws_imagebuilder_component.apt_update.arn,
-    aws_imagebuilder_component.apt_upgrade.arn,
-    aws_imagebuilder_component.ssh_agent_enable.arn,
-    aws_imagebuilder_component.aws_cli_install.arn,
-    aws_imagebuilder_component.nginx_install.arn,
-    aws_imagebuilder_component.php_install.arn,
-    aws_imagebuilder_component.composer_install.arn,
-    aws_imagebuilder_component.node_install.arn
+    aws_imagebuilder_component.this.apt_update.arn,
+    aws_imagebuilder_component.this.apt_upgrade.arn,
+    aws_imagebuilder_component.this.ssh_agent_enable.arn,
+    aws_imagebuilder_component.this.aws_cli_install.arn,
+    aws_imagebuilder_component.this.nginx_install.arn,
+    aws_imagebuilder_component.this.php_install.arn,
+    aws_imagebuilder_component.this.composer_install.arn,
+    aws_imagebuilder_component.this.node_install.arn
   ]
 }
 
@@ -40,10 +40,10 @@ resource "aws_imagebuilder_image_recipe" "installation" {
 ## Recipe components
 locals {
   component_arns_app_setup = [
-    aws_imagebuilder_component.git_fetch_repository.arn,
-    aws_imagebuilder_component.easy_appointments_setup.arn,
-    aws_imagebuilder_component.daemon_reload.arn,
-    aws_imagebuilder_component.nginx_restart.arn
+    aws_imagebuilder_component.this.git_fetch_repository.arn,
+    aws_imagebuilder_component.this.easy_appointments_setup.arn,
+    aws_imagebuilder_component.this.daemon_reload.arn,
+    aws_imagebuilder_component.this.nginx_restart.arn
   ]
 }
 

@@ -69,7 +69,7 @@ resource "aws_imagebuilder_component" "this" {
   description = each.value.description
 
   data = templatefile("${path.module}/components/${each.key}.tpl", merge({
-    NAME = upper("${var.shortname}_${each.value.key}")
+    NAME = upper("${var.shortname}_${each.key}")
   }, lookup(each.value, "template_payload", {})))
 }
 

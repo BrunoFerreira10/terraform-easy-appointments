@@ -1,4 +1,4 @@
-variable "GENERAL_PROJECT_BUCKET_NAME" {
+variable "general_project_bucket_name" {
   type        = string
   description = "Bucket name onde está o remote state"
 }

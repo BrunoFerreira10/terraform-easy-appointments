@@ -137,11 +137,12 @@ PROJECT_VARS=$(echo "$SECTION" | awk -F '=' '
 echo "PROJECT_VARS: $PROJECT_VARS"
 
 for var in $(echo "$VARS_JSON" | jq -r 'keys[]'); do
+  lower_var=$(echo "$var" | tr '[:upper:]' '[:lower:]')
   echo "Checking if $var is in PROJECT_VARS"
   if echo "$PROJECT_VARS" | grep -q "^$var$"; then
     value=$(echo "$VARS_JSON" | jq -r --arg var "$var" '.[$var]')
-    echo "Adding variable: $var with value: $value"
-    ./.github/scripts/add-to-variables.sh "$LOCAL_FOLDER" "{\"$var\":\"$value\"}"
+    echo "Adding variable: $lower_var with value: $value"
+    ./.github/scripts/add-to-variables.sh "$LOCAL_FOLDER" "{\"$lower_var\":\"$value\"}"
   else
     echo "$var is not in PROJECT_VARS"
   fi

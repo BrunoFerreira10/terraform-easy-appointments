@@ -4,7 +4,7 @@ resource "aws_launch_template" "this" {
   update_default_version = true
 
   # AMI
-  image_id = var.image_ami.id
+  image_id = var.ami_image_id
 
   # Instance type
   instance_type = var.instance_type

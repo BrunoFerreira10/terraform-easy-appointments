@@ -33,13 +33,6 @@ jobs:
       RESOURCE: '2c'
     secrets: inherit
 
-  bastion:
-    needs: [github_sync, vpc_app]
-    uses: ./.github/workflows/single-sub-project-run.yml
-    with:
-      RESOURCE: '3a'
-    secrets: inherit
-
   rds_mysql:
     needs: [github_sync, vpc_app]
     uses: ./.github/workflows/single-sub-project-run.yml

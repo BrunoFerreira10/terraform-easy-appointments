@@ -6,7 +6,7 @@ resource "aws_lb" "this" {
     aws_security_group.elb.id
   ]
   subnets = [
-    for subnet in var.vpc.subnets.private :
+    for subnet in var.vpc.subnets.public :
     subnet.id
   ]
 

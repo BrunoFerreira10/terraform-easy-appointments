@@ -6,7 +6,8 @@ resource "aws_lb" "this" {
     aws_security_group.elb.id
   ]
   subnets = [
-    var.vpc.subnets.private[*].id
+    for subnet in var.vpc.subnets.private :
+    subnet.id
   ]
 
   enable_deletion_protection = false

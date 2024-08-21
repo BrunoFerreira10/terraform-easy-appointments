@@ -10,6 +10,10 @@ resource "aws_imagebuilder_distribution_configuration" "installation" {
       }
     }
   }
+
+  tags = {
+    Name = "distribution_installation_${var.shortname}"
+  }
 }
 
 resource "aws_imagebuilder_distribution_configuration" "application" {
@@ -23,5 +27,9 @@ resource "aws_imagebuilder_distribution_configuration" "application" {
         Name = "ami_${var.shortname}_{{imagebuilder:buildDate}}"
       }
     }
+  }
+
+  tags = {
+    Name = "distribution_application_${var.shortname}"
   }
 }

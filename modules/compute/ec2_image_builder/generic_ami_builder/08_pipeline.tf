@@ -11,4 +11,8 @@ resource "aws_imagebuilder_image_pipeline" "this" {
   workflow {
     workflow_arn = aws_imagebuilder_workflow.build.arn
   }
+
+  tags = {
+    Name = "pipeline_${var.shortname}"
+  }
 }

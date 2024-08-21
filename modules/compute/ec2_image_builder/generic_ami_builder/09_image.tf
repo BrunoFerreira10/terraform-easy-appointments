@@ -8,6 +8,10 @@ resource "aws_imagebuilder_image" "installation" {
   workflow {
     workflow_arn = aws_imagebuilder_workflow.build.arn
   }
+
+  tags = {
+    Name = "image_installation_${var.shortname}"
+  }
 }
 
 resource "aws_imagebuilder_image" "application" {
@@ -19,5 +23,9 @@ resource "aws_imagebuilder_image" "application" {
   execution_role = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/imagebuilder.amazonaws.com/AWSServiceRoleForImageBuilder"
   workflow {
     workflow_arn = aws_imagebuilder_workflow.build.arn
+  }
+
+  tags = {
+    Name = "image_application_${var.shortname}"
   }
 }

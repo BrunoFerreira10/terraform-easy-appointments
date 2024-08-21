@@ -46,7 +46,7 @@ resource "aws_iam_instance_profile" "img_builder_ec2" {
   role = aws_iam_role.img_builder_ec2.name
 
   tags = {
-    Name = name
+    Name = "profile_img_builder_ec2_${var.shortname}"
   }
 }
 ## --------------------------------------------------------------------------------------------------------------------

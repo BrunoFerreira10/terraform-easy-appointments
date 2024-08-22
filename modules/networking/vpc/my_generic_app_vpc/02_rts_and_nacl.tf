@@ -68,7 +68,7 @@ resource "aws_network_acl_rule" "public_ingress" {
   egress         = false
   protocol       = each.value.protocol
   rule_action    = each.value.rule_action
-  cidr_block     = lookup(each.value,"cidr_blocks",aws_vpc.app.cidr_block)
+  cidr_block     = lookup(each.value,"cidr_block",aws_vpc.app.cidr_block)
   from_port      = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
   to_port        = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
 }
@@ -81,7 +81,7 @@ resource "aws_network_acl_rule" "public_egress" {
   egress         = true
   protocol       = each.value.protocol
   rule_action    = each.value.rule_action
-  cidr_block     = lookup(each.value,"cidr_blocks",aws_vpc.app.cidr_block)
+  cidr_block     = lookup(each.value,"cidr_block",aws_vpc.app.cidr_block)
   from_port      = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
   to_port        = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
 }
@@ -94,7 +94,7 @@ resource "aws_network_acl_rule" "private_ingress" {
   egress         = false
   protocol       = each.value.protocol
   rule_action    = each.value.rule_action
-  cidr_block     = lookup(each.value,"cidr_blocks",aws_vpc.app.cidr_block)
+  cidr_block     = lookup(each.value,"cidr_block",aws_vpc.app.cidr_block)
   from_port      = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
   to_port        = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
 }
@@ -107,7 +107,7 @@ resource "aws_network_acl_rule" "private_egress" {
   egress         = true
   protocol       = each.value.protocol
   rule_action    = each.value.rule_action
-  cidr_block     = lookup(each.value,"cidr_blocks",aws_vpc.app.cidr_block)
+  cidr_block     = lookup(each.value,"cidr_block",aws_vpc.app.cidr_block)
   from_port      = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
   to_port        = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
 }

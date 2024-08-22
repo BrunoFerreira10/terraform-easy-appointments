@@ -17,29 +17,29 @@ variable "vpc" {
   type        = any
 }
 
-# variable "sg_bastion_rules" {
-#   description = "Rules for bastion host security group"
-#   type        = any
-# }
-
 variable "sg_bastion_rules" {
   description = "Rules for bastion host security group"
-  type        = object({
-    ingress = map(object({
-      description = optional(string),
-      cidr_ipv4   = optional(string),
-      ip_protocol = optional(string, "tcp"),
-      from_port   = optional(number),
-      to_port     = optional(number),
-      port        = optional(number)
-    })),
-    egress = map(object({
-      description = optional(string),
-      cidr_ipv4   = optional(string),
-      ip_protocol = optional(string, "tcp"),
-      from_port   = optional(number),
-      to_port     = optional(number),
-      port        = optional(number)
-    }))
-  })
+  type        = any
 }
+
+# variable "sg_bastion_rules" {
+#   description = "Rules for bastion host security group"
+#   type        = object({
+#     ingress = map(object({
+#       description = optional(string),
+#       cidr_ipv4   = optional(string),
+#       ip_protocol = optional(string, "tcp"),
+#       from_port   = optional(number),
+#       to_port     = optional(number),
+#       port        = optional(number)
+#     })),
+#     egress = map(object({
+#       description = optional(string),
+#       cidr_ipv4   = optional(string),
+#       ip_protocol = optional(string, "tcp"),
+#       from_port   = optional(number),
+#       to_port     = optional(number),
+#       port        = optional(number)
+#     }))
+#   })
+# }

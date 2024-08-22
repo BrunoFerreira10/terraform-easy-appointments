@@ -3,12 +3,6 @@ resource "aws_autoscaling_group" "this" {
 
   name = replace("asg-${var.shortname}","_","-")
 
-  tag {
-    key                 = "Name"
-    value               = "asg_${var.shortname}"
-    propagate_at_launch = true
-  }
-
   // Group Details  
   capacity_rebalance = true
   desired_capacity   = 1
@@ -63,6 +57,12 @@ resource "aws_autoscaling_group" "this" {
   ]
 
   metrics_granularity = "1Minute"
+
+  tag {
+    key                 = "Name"
+    value               = "asg_${var.shortname}"
+    propagate_at_launch = true
+  }
 
 }
 

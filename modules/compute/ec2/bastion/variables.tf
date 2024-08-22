@@ -1,10 +1,15 @@
+variable "ec2_ssh_keypair_name" {
+  type = string
+}
+
 variable "region" {
   description = "Região onde a infraestrutura será criada."
   type        = string
 }
 
-variable "ec2_ssh_keypair_name" {
-  type = string
+variable "shortname" {
+  description = "Nome curto para identificação dos recursos na AWS"
+  type        = string
 }
 
 variable "vpc" {

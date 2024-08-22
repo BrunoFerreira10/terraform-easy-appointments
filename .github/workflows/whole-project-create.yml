@@ -28,7 +28,7 @@ jobs:
       RESOURCE: '2a'
     secrets: inherit
 
-  acm_ssl:
+  acm_app:
     needs: [
       github_sync
     ]
@@ -37,7 +37,7 @@ jobs:
       RESOURCE: '2c'
     secrets: inherit
 
-  rds_mysql:
+  rds_app:
     needs: [
       github_sync, 
       vpc_app
@@ -47,21 +47,21 @@ jobs:
       RESOURCE: '3b'
     secrets: inherit
 
-  # efs_static_files:
-  #   needs: [
-  #     github_sync, 
-  #     vpc_app
-  #   ]
-  #   uses: ./.github/workflows/single-sub-project-run.yml
-  #   with:
-  #     RESOURCE: '3c'
-  #   secrets: inherit
+  efs_app:
+    needs: [
+      github_sync, 
+      vpc_app
+    ]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '3c'
+    secrets: inherit
 
-  app_ami:
+  ami_app:
     needs: [
       github_sync,
       vpc_app,
-      rds_mysql
+      rds_app, efs_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
@@ -71,9 +71,9 @@ jobs:
   elb_app:
     needs: [
       github_sync,
-      vpc_app,
-      rds_mysql,
-      app_ami
+      vpc_app, acm_app,
+      rds_app, efs_app,
+      ami_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:

@@ -20,7 +20,7 @@ jobs:
       ACTION: 'd'
     secrets: inherit
 
-  app_ami:
+  ami_app:
     needs: [
       elb_app
     ]
@@ -30,17 +30,21 @@ jobs:
       ACTION: 'd'
     secrets: inherit
 
-  efs_static_files:
+  efs_app:
+    needs: [
+      elb_app,
+      ami_app
+    ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '3c'
       ACTION: 'd'
     secrets: inherit
       
-  rds_mysql:
+  rds_app:
     needs: [
       elb_app, 
-      app_ami
+      ami_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
@@ -48,14 +52,14 @@ jobs:
       ACTION: 'd'
     secrets: inherit
 
-  bastion:
+  bastion_vpc_app:
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '3a'
       ACTION: 'd'
     secrets: inherit
 
-  acm_ssl:
+  acm_app:
     needs: [
       elb_app
     ]
@@ -68,8 +72,8 @@ jobs:
   vpc_network:
     needs: [
       elb_app, 
-      app_ami, 
-      efs_static_files, rds_mysql, bastion
+      ami_app, 
+      efs_app, rds_app, bastion_vpc_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
@@ -80,10 +84,10 @@ jobs:
   github_sync:
     needs: [
       elb_app,
-      app_ami,
-      bastion, 
-      rds_mysql, efs_static_files,
-      vpc_network, acm_ssl
+      ami_app,
+      bastion_vpc_app, 
+      rds_app, efs_app,
+      vpc_network, acm_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:

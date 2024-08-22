@@ -4,4 +4,14 @@ module "bastion" {
   region               = module.data.github_vars.general_region
   shortname            = module.data.github_vars.general_tag_shortname
   vpc                  = module.data.projects.vpc_app.vpc
+  sg_bastion_rules     = {
+    ingress = {
+      SSH = {port = 22, cidr_block = "0.0.0.0/0"}
+    },
+    egress = {
+      SSH = {port = 22},
+      HTTP = {port = 80, cidr_block = "0.0.0.0/0"},
+      HTTPS = {port = 443, cidr_block = "0.0.0.0/0"}
+    }
+  }
 }

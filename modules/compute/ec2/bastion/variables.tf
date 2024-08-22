@@ -16,3 +16,8 @@ variable "vpc" {
   description = "VPC that will allocate the bastion host security group"
   type        = any
 }
+
+variable "sg_bastion_rules" {
+  description = "Rules for bastion host security group"
+  type        = any
+}

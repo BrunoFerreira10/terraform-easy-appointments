@@ -12,6 +12,8 @@ resource "aws_lb" "this" {
 
   enable_deletion_protection = false
 
+  idle_timeout = 600
+
   tags = {
     Name = "elb_${var.shortname}"
   }

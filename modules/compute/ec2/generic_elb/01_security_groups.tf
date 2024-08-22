@@ -1,93 +1,21 @@
-## --------------------------------------------------------------------------------------------------------------------
-## Security group for ELB. Dynamic created.
-## --------------------------------------------------------------------------------------------------------------------
-locals {
-  sg_elb_setup = {
-    ingress = {
-      HTTP  = { port = 80, cidr_blocks = "0.0.0.0/0" },
-      HTTPS = { port = 443, cidr_blocks = "0.0.0.0/0"}
-    },
-    egress = {
-      All = {ip_protocol="-1", cidr_blocks = "0.0.0.0/0"}
-    }
+module "sg_elb" {
+  source    = "../../../networking/vpc/generic_security_group"
+  shortname = var.shortname
+  vpc       = var.vpc
+  security_group_settings = {
+    id_name     = "bastion"
+    description = "Security group for bastion host"
+    rules       = var.sg_elb_rules
   }
 }
 
-resource "aws_security_group" "elb" {
-  name        = "sg_elb_${var.shortname}"
-  description = "Security group para o ELB"
-  vpc_id      = var.vpc.id
-
-  tags = {
-    Name = "sg_elb_${var.shortname}"
+module "sg_launch_tpl" {
+  source    = "../../../networking/vpc/generic_security_group"
+  shortname = var.shortname
+  vpc       = var.vpc
+  security_group_settings = {
+    id_name     = "bastion"
+    description = "Security group for bastion host"
+    rules       = var.sg_launch_tpl_rules
   }
 }
-
-resource "aws_vpc_security_group_ingress_rule" "elb" {
-  for_each = local.sg_elb_setup.ingress
-
-  description       = lookup(each.value,"description","Allow ${each.key}")
-  security_group_id = aws_security_group.elb.id
-  cidr_ipv4         = lookup(each.value,"cidr_blocks",var.vpc.cidr_block)
-  ip_protocol       = lookup(each.value,"ip_protocol","tcp")
-  from_port         = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
-  to_port           = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
-}
-
-resource "aws_vpc_security_group_egress_rule" "elb" {
-  for_each = local.sg_elb_setup.egress
-
-  description       = lookup(each.value,"description","Allow ${each.key}")
-  security_group_id = aws_security_group.elb.id
-  cidr_ipv4         = lookup(each.value,"cidr_blocks",var.vpc.cidr_block)
-  ip_protocol       = lookup(each.value,"ip_protocol","tcp")
-  from_port         = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
-  to_port           = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
-}
-
-## --------------------------------------------------------------------------------------------------------------------
-## Security group for Instance on Target Group. Dynamic created.
-## --------------------------------------------------------------------------------------------------------------------
-locals {
-  sg_launch_tpl_setup = {
-    ingress = {
-      HTTP = {port = 80, cidr_blocks = "0.0.0.0/0"}
-    },
-    egress = {
-      All = {ip_protocol="-1", cidr_blocks = "0.0.0.0/0"}
-    }
-  }
-}
-
-resource "aws_security_group" "launch_tpl" {
-  name        = "sg_launch_tpl_${var.shortname}"
-  description = "Security group para o ELB"
-  vpc_id      = var.vpc.id
-
-  tags = {
-    Name = "sg_launch_tpl_${var.shortname}"
-  }
-}
-
-resource "aws_vpc_security_group_ingress_rule" "launch_tpl" {
-  for_each = local.sg_launch_tpl_setup.ingress
-
-  description       = lookup(each.value,"description","Allow ${each.key}")
-  security_group_id = aws_security_group.launch_tpl.id
-  cidr_ipv4         = lookup(each.value,"cidr_blocks",var.vpc.cidr_block)
-  ip_protocol       = lookup(each.value,"ip_protocol","tcp")
-  from_port         = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
-  to_port           = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
-}
-
-resource "aws_vpc_security_group_egress_rule" "launch_tpl" {
-  for_each = local.sg_launch_tpl_setup.egress
-
-  description       = lookup(each.value,"description","Allow ${each.key}")
-  security_group_id = aws_security_group.launch_tpl.id
-  cidr_ipv4         = lookup(each.value,"cidr_blocks",var.vpc.cidr_block)
-  ip_protocol       = lookup(each.value,"ip_protocol","tcp")
-  from_port         = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
-  to_port           = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
-}
-## --------------------------------------------------------------------------------------------------------------------

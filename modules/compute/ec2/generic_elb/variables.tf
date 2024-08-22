@@ -29,6 +29,16 @@ variable "vpc" {
   type        = any
 }
 
+variable "sg_elb_rules" {
+  description = "Rules for ELB security group"
+  type        = any
+}
+
+variable "sg_launch_tpl_rules" {
+  description = "Rules Launch Template (instances) security group"
+  type        = any
+}
+
 ## Optional variables
 variable "instance_type" {
   description = "Instance type for Load Balancer"

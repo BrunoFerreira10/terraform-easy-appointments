@@ -61,48 +61,46 @@ resource "aws_network_acl" "private" {
 ## NACLs Rules 
 ## --------------------------------------------------------------------------------------------------------------------
 locals {
-  public_nacl_rules = [
-    { rule_number = 100, egress = false, cidr = "0.0.0.0/0", port = 22 },
-    { rule_number = 200, egress = false, cidr = "0.0.0.0/0", port = 80 },
-    { rule_number = 300, egress = false, cidr = "0.0.0.0/0", port = 443 },
-    { rule_number = 400, egress = false, cidr = "0.0.0.0/0", from_port = 1024, to_port = 65535 },
-    { rule_number = 100, egress = true, cidr = "0.0.0.0/0", port = 22 },
-    { rule_number = 200, egress = true, cidr = "0.0.0.0/0", port = 80 },
-    { rule_number = 300, egress = true, cidr = "0.0.0.0/0", port = 443 },
-    { rule_number = 401, egress = true, cidr = "0.0.0.0/0", port = 3306 },
-    { rule_number = 501, egress = true, cidr = "0.0.0.0/0", from_port = 32768, to_port = 65535 }
-  ]
-  private_nacl_rules = [
-    { rule_number = 100, egress = false, cidr = aws_vpc.app.cidr_block, port = 22 },
-    { rule_number = 200, egress = false, cidr = "0.0.0.0/0", port = 80 },
-    { rule_number = 300, egress = false, cidr = "0.0.0.0/0", port = 443 },
-    { rule_number = 400, egress = false, cidr = "0.0.0.0/0", port = 3306 },
-    { rule_number = 500, egress = false, cidr = "0.0.0.0/0", from_port = 32768, to_port = 65535 },
-    { rule_number = 100, egress = true, cidr = "0.0.0.0/0", from_port = 1024, to_port = 65535 },
-  ]
-}
-
-## --------------------------------------------------------------------------------------------------------------------
-## Create a map with 'ids' from original list.
-## --------------------------------------------------------------------------------------------------------------------
-locals {
-  public_nacl_rules_map = zipmap(
-    range(length(local.public_nacl_rules)), local.public_nacl_rules
-  )
-  private_nacl_rules_map = zipmap(
-    range(length(local.private_nacl_rules)), local.private_nacl_rules
-  )
+  nacl_rules = {
+    public = {
+      ingress = {
+        SSH       = { rule_number = 101, cidr = "0.0.0.0/0", port = 22 },
+        HTTP      = { rule_number = 201, cidr = "0.0.0.0/0", port = 80 },
+        HTTPS     = { rule_number = 301, cidr = "0.0.0.0/0", port = 443 },
+        EPHEMERAL = { rule_number = 401, cidr = "0.0.0.0/0", from_port = 1024, to_port = 65535 }
+      },
+      egress = {
+        SSH       = { rule_number = 101, cidr = "0.0.0.0/0", port = 22 },
+        HTTP      = { rule_number = 201, cidr = "0.0.0.0/0", port = 80 },
+        HTTPS     = { rule_number = 301, cidr = "0.0.0.0/0", port = 443 },
+        MYSQL     = { rule_number = 402, cidr = "0.0.0.0/0", port = 3306 },
+        EPHEMERAL = { rule_number = 502, cidr = "0.0.0.0/0", from_port = 32768, to_port = 65535 }
+      }
+    },
+    private = {
+      ingress = {
+        SSH       = { rule_number = 100, cidr = aws_vpc.app.cidr_block, port = 22 },
+        HTTP      = { rule_number = 200, cidr = "0.0.0.0/0", port = 80 },
+        HTTPS     = { rule_number = 300, cidr = "0.0.0.0/0", port = 443 },
+        MYSQL     = { rule_number = 400, cidr = "0.0.0.0/0", port = 3306 },
+        EPHEMERAL = { rule_number = 500, cidr = "0.0.0.0/0", from_port = 32768, to_port = 65535 }
+      },
+      egress = {
+        EPHEMERAL = { rule_number = 100, cidr = "0.0.0.0/0", from_port = 1024, to_port = 65535 }
+      }
+    }
+  }
 }
 
 ## --------------------------------------------------------------------------------------------------------------------
 ## Create NACL rules dynamically
 ## --------------------------------------------------------------------------------------------------------------------
-resource "aws_network_acl_rule" "public" {
-  for_each = local.public_nacl_rules_map
+resource "aws_network_acl_rule" "public_ingress" {
+  for_each = local.nacl_rules.public.ingress
 
   network_acl_id = aws_network_acl.public.id
   rule_number    = each.value.rule_number
-  egress         = each.value.egress
+  egress         = false
   protocol       = "tcp"
   rule_action    = "allow"
   cidr_block     = each.value.cidr
@@ -110,12 +108,38 @@ resource "aws_network_acl_rule" "public" {
   to_port        = contains(keys(each.value), "port") ? each.value.port : each.value.to_port
 }
 
-resource "aws_network_acl_rule" "private" {
-  for_each = local.private_nacl_rules_map
+resource "aws_network_acl_rule" "public_egress" {
+  for_each = local.nacl_rules.public.egress
+
+  network_acl_id = aws_network_acl.public.id
+  rule_number    = each.value.rule_number
+  egress         = true
+  protocol       = "tcp"
+  rule_action    = "allow"
+  cidr_block     = each.value.cidr
+  from_port      = contains(keys(each.value), "port") ? each.value.port : each.value.from_port
+  to_port        = contains(keys(each.value), "port") ? each.value.port : each.value.to_port
+}
+
+resource "aws_network_acl_rule" "private_ingress" {
+  for_each = local.nacl_rules.private.ingress
 
   network_acl_id = aws_network_acl.private.id
   rule_number    = each.value.rule_number
-  egress         = each.value.egress
+  egress         = false
+  protocol       = "tcp"
+  rule_action    = "allow"
+  cidr_block     = each.value.cidr
+  from_port      = contains(keys(each.value), "port") ? each.value.port : each.value.from_port
+  to_port        = contains(keys(each.value), "port") ? each.value.port : each.value.to_port
+}
+
+resource "aws_network_acl_rule" "private_egress" {
+  for_each = local.nacl_rules.private.egress
+
+  network_acl_id = aws_network_acl.private.id
+  rule_number    = each.value.rule_number
+  egress         = true
   protocol       = "tcp"
   rule_action    = "allow"
   cidr_block     = each.value.cidr

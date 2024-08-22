@@ -37,8 +37,8 @@ resource "aws_vpc_security_group_ingress_rule" "elb" {
   security_group_id = aws_security_group.elb.id
   cidr_ipv4         = lookup(each.value,"cidr_blocks",var.vpc.cidr_block)
   ip_protocol       = lookup(each.value,"ip_protocol","tcp")
-  from_port         = lookup(each.value,"from_port",each.value.port)
-  to_port           = lookup(each.value,"to_port",each.value.port)
+  from_port         = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
+  to_port           = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
 }
 
 resource "aws_vpc_security_group_egress_rule" "elb" {
@@ -48,8 +48,8 @@ resource "aws_vpc_security_group_egress_rule" "elb" {
   security_group_id = aws_security_group.elb.id
   cidr_ipv4         = lookup(each.value,"cidr_blocks",var.vpc.cidr_block)
   ip_protocol       = lookup(each.value,"ip_protocol","tcp")
-  from_port         = lookup(each.value,"from_port",each.value.port)
-  to_port           = lookup(each.value,"to_port",each.value.port)
+  from_port         = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
+  to_port           = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
 }
 
 ## --------------------------------------------------------------------------------------------------------------------
@@ -91,8 +91,8 @@ resource "aws_vpc_security_group_ingress_rule" "launch_tpl" {
   security_group_id = aws_security_group.launch_tpl.id
   cidr_ipv4         = lookup(each.value,"cidr_blocks",var.vpc.cidr_block)
   ip_protocol       = lookup(each.value,"ip_protocol","tcp")
-  from_port         = lookup(each.value,"from_port",each.value.port)
-  to_port           = lookup(each.value,"to_port",each.value.port)
+  from_port         = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
+  to_port           = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
 }
 
 resource "aws_vpc_security_group_egress_rule" "launch_tpl" {
@@ -102,7 +102,7 @@ resource "aws_vpc_security_group_egress_rule" "launch_tpl" {
   security_group_id = aws_security_group.launch_tpl.id
   cidr_ipv4         = lookup(each.value,"cidr_blocks",var.vpc.cidr_block)
   ip_protocol       = lookup(each.value,"ip_protocol","tcp")
-  from_port         = lookup(each.value,"from_port",each.value.port)
-  to_port           = lookup(each.value,"to_port",each.value.port)
+  from_port         = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
+  to_port           = lookup(each.value,"ip_protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
 }
 ## --------------------------------------------------------------------------------------------------------------------

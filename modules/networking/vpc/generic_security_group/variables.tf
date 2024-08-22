@@ -14,22 +14,22 @@ variable "security_group_settings" {
     id_name     = string ,
     description = optional(string, ""),
     rules = object({
-      ingress = object({
+      ingress = map(object({
         description = optional(string),
         cidr_ipv4   = optional(string),
         ip_protocol = optional(string, "tcp"),
         from_port   = optional(number),
         to_port     = optional(number),
         port        = optional(number)
-      }),
-      egress = object({
+      })),
+      egress = map(object({
         description = optional(string),
         cidr_ipv4   = optional(string),
         ip_protocol = optional(string, "tcp"),
         from_port   = optional(number),
         to_port     = optional(number),
         port        = optional(number)
-      })
+      }))
     })
   })
 }

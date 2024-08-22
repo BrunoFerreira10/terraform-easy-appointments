@@ -17,10 +17,10 @@ module "rds_mysql" {
   }
   sg_rds_rules     = {
     ingress = {
-      SSH = {port = 3306, cidr_block = "0.0.0.0/0"}
+      SSH = {port = 3306, cidr_ipv4 = "0.0.0.0/0"}
     },
     egress = {
-      All = {ip_protocol = "-1", cidr_block = "0.0.0.0/0"}
+      All = {ip_protocol = "-1", cidr_ipv4 = "0.0.0.0/0"}
     }
   }
 }

@@ -1,9 +1,9 @@
-module "generic_security_group" {
-  source = "../../../networking/vpc/generic_security_group"
+module "sg_rds" {
+  source    = "../../../networking/vpc/generic_security_group"
   shortname = var.shortname
-  vpc = var.vpc
+  vpc       = var.vpc
   security_group_settings = {
-    id_name = "rds"
+    id_name     = "rds"
     description = "RDS security group"
     rules       = var.sg_rds_rules
   }

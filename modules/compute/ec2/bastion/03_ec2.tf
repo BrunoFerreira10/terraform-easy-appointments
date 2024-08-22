@@ -8,7 +8,7 @@ resource "aws_instance" "bastion" {
   iam_instance_profile = aws_iam_instance_profile.bastion.name
 
   vpc_security_group_ids = [
-    aws_security_group.bastion.id
+    module.sg_bastion.security_group.id
   ]
 
   user_data_replace_on_change = true

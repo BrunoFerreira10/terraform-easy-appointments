@@ -60,9 +60,6 @@ locals {
     ingress = {
       HTTP = {
         port = 80, cidr_blocks = "0.0.0.0/0"
-      },
-      HTTPS = {
-        port = 443, cidr_blocks = "0.0.0.0/0"
       }
     },
     egress = {

@@ -11,7 +11,7 @@ resource "aws_security_group" "bastion" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
+  egress {
     description = "Allow HTTP"
     from_port   = 80
     to_port     = 80
@@ -19,7 +19,7 @@ resource "aws_security_group" "bastion" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
+  egress {
     description = "Allow HTTPS"
     from_port   = 443
     to_port     = 443
@@ -27,12 +27,12 @@ resource "aws_security_group" "bastion" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  # egress {
+  #   from_port   = 0
+  #   to_port     = 0
+  #   protocol    = "-1"
+  #   cidr_blocks = ["0.0.0.0/0"]
+  # }
 
   tags = {
     Name = "sg_bastion_${var.vpc.name}"

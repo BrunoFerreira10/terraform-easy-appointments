@@ -67,7 +67,7 @@ resource "aws_network_acl_rule" "public_ingress" {
   rule_number    = each.value.rule_number
   egress         = false
   protocol       = lookup(each.value,"protocol","tcp")
-  rule_action    = each.value.rule_action
+  rule_action    = lookup(each.value, "rule_action", "allow")
   cidr_block     = lookup(each.value,"cidr_block",aws_vpc.app.cidr_block)
   from_port      = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
   to_port        = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
@@ -80,7 +80,7 @@ resource "aws_network_acl_rule" "public_egress" {
   rule_number    = each.value.rule_number
   egress         = true
   protocol       = lookup(each.value,"protocol","tcp")
-  rule_action    = each.value.rule_action
+  rule_action    = lookup(each.value, "rule_action", "allow")
   cidr_block     = lookup(each.value,"cidr_block",aws_vpc.app.cidr_block)
   from_port      = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
   to_port        = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
@@ -93,7 +93,7 @@ resource "aws_network_acl_rule" "private_ingress" {
   rule_number    = each.value.rule_number
   egress         = false
   protocol       = lookup(each.value,"protocol","tcp")
-  rule_action    = each.value.rule_action
+  rule_action    = lookup(each.value, "rule_action", "allow")
   cidr_block     = lookup(each.value,"cidr_block",aws_vpc.app.cidr_block)
   from_port      = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
   to_port        = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
@@ -106,7 +106,7 @@ resource "aws_network_acl_rule" "private_egress" {
   rule_number    = each.value.rule_number
   egress         = true
   protocol       = lookup(each.value,"protocol","tcp")
-  rule_action    = each.value.rule_action
+  rule_action    = lookup(each.value, "rule_action", "allow")
   cidr_block     = lookup(each.value,"cidr_block",aws_vpc.app.cidr_block)
   from_port      = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
   to_port        = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)

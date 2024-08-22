@@ -20,7 +20,7 @@ variable "security_group_settings" {
         ip_protocol = optional(string, "tcp"),
         from_port   = optional(number),
         to_port     = optional(number),
-        port        = optional(number),
+        port        = optional(number)
       })),
       egress = map(object({
         description = optional(string),

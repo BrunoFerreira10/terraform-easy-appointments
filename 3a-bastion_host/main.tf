@@ -9,7 +9,7 @@ module "bastion" {
       SSH = {port = 22, cidr_ipv4 = "0.0.0.0/0"}
     },
     egress = {
-      SSH = {port = 22},
+      SSH = {port = 22, cidr_ipv4 = "0.0.0.0/0"},
       HTTP = {port = 80, cidr_ipv4 = "0.0.0.0/0"},
       HTTPS = {port = 443, cidr_ipv4 = "0.0.0.0/0"}
     }

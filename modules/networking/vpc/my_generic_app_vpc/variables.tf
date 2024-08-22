@@ -14,7 +14,7 @@ variable "vpc_settings" {
     nacl_rules = map(object({
       ingress = map(object({
         rule_number = number
-        protocol    = optional(string,"tcp")
+        protocol    = optional(string)
         rule_action = optional(string,"allow")
         cidr_block  = optional(string)
         port        = optional(number)
@@ -23,7 +23,7 @@ variable "vpc_settings" {
       }))
       egress = map(object({
         rule_number = number
-        protocol    = optional(string,"tcp")
+        protocol    = optional(string)
         rule_action = optional(string,"allow")
         cidr_block  = optional(string)
         port        = optional(number)

@@ -11,7 +11,7 @@ module "sg_bastion" {
       },
       egress = {
         SSH = {port = 22},
-        HTTP = {port = 80, cidr_block = "0.0.0.0/0"}
+        HTTP = {port = 80, cidr_block = "0.0.0.0/0"},
         HTTPS = {port = 443, cidr_block = "0.0.0.0/0"}
       }
     }

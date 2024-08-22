@@ -12,26 +12,26 @@ variable "vpc_settings" {
   description = "Configurações da VPC."
   type = object({
     nacl_rules = map(object({
-      # ingress = map(any)
-      ingress = map(object({
-        rule_number = number
-        protocol    = optional(string)
-        rule_action = optional(string,"allow")
-        cidr_block  = optional(string)
-        port        = optional(number)
-        from_port   = optional(number)
-        to_port     = optional(number)
-      }))
-      # egress = map(any)
-      egress = map(object({
-        rule_number = number
-        protocol    = optional(string)
-        rule_action = optional(string,"allow")
-        cidr_block  = optional(string)
-        port        = optional(number)
-        from_port   = optional(number)
-        to_port     = optional(number)
-      }))
+      ingress = map(any)
+      # ingress = map(object({
+      #   rule_number = number
+      #   protocol    = optional(string)
+      #   rule_action = optional(string,"allow")
+      #   cidr_block  = optional(string)
+      #   port        = optional(number)
+      #   from_port   = optional(number)
+      #   to_port     = optional(number)
+      # }))
+      egress = map(any)
+      # egress = map(object({
+      #   rule_number = number
+      #   protocol    = optional(string)
+      #   rule_action = optional(string,"allow")
+      #   cidr_block  = optional(string)
+      #   port        = optional(number)
+      #   from_port   = optional(number)
+      #   to_port     = optional(number)
+      # }))
     }))
   })
 }

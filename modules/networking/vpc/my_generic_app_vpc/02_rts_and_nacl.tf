@@ -65,7 +65,7 @@ locals {
     { rule_number = 100, egress = false, cidr = "0.0.0.0/0", port = 22 },
     { rule_number = 200, egress = false, cidr = "0.0.0.0/0", port = 80 },
     { rule_number = 300, egress = false, cidr = "0.0.0.0/0", port = 443 },
-    { rule_number = 400, egress = false, cidr = "0.0.0.0/0", from_port = 32768, to_port = 65535 },
+    { rule_number = 400, egress = false, cidr = "0.0.0.0/0", from_port = 1024, to_port = 65535 },
     { rule_number = 100, egress = true, cidr = "0.0.0.0/0", port = 22 },
     { rule_number = 200, egress = true, cidr = "0.0.0.0/0", port = 80 },
     { rule_number = 300, egress = true, cidr = "0.0.0.0/0", port = 443 },

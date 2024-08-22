@@ -12,7 +12,7 @@ variable "vpc_settings" {
   description = "Configurações da VPC."
   type = object({
     nacl_rules = map(object({
-      ingress = map(any)
+      ingress = map(object(any))
       # ingress = map(object({
       #   rule_number = number
       #   protocol    = optional(string)
@@ -22,7 +22,7 @@ variable "vpc_settings" {
       #   from_port   = optional(number)
       #   to_port     = optional(number)
       # }))
-      egress = map(any)
+      egress = map(object(any))
       # egress = map(object({
       #   rule_number = number
       #   protocol    = optional(string)

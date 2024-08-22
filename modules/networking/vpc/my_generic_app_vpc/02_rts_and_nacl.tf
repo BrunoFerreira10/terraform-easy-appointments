@@ -69,8 +69,8 @@ resource "aws_network_acl_rule" "public_ingress" {
   protocol       = lookup(each.value, "protocol", "tcp")
   rule_action    = lookup(each.value, "rule_action", "allow")
   cidr_block     = lookup(each.value, "cidr_block", aws_vpc.app.cidr_block)
-  from_port      = lookup(each.value, "protocol", "tcp") == "-1" ? null : lookup(each.value, "from_port", each.value.port)
-  to_port        = lookup(each.value, "protocol", "tcp") == "-1" ? null : lookup(each.value, "to_port", each.value.port)
+  from_port      = lookup(each.value, "protocol", "tcp") == "-1" ? null : (contains(keys(each.value), "from_port") ? each.value.from_port : each.value.port)
+  to_port        = lookup(each.value, "protocol", "tcp") == "-1" ? null : (contains(keys(each.value), "to_port") ? each.value.to_port : each.value.port)
 }
 
 resource "aws_network_acl_rule" "public_egress" {
@@ -82,8 +82,8 @@ resource "aws_network_acl_rule" "public_egress" {
   protocol       = lookup(each.value, "protocol", "tcp")
   rule_action    = lookup(each.value, "rule_action", "allow")
   cidr_block     = lookup(each.value, "cidr_block", aws_vpc.app.cidr_block)
-  from_port      = lookup(each.value, "protocol", "tcp") == "-1" ? null : lookup(each.value, "from_port", each.value.port)
-  to_port        = lookup(each.value, "protocol", "tcp") == "-1" ? null : lookup(each.value, "to_port", each.value.port)
+  from_port      = lookup(each.value, "protocol", "tcp") == "-1" ? null : (contains(keys(each.value), "from_port") ? each.value.from_port : each.value.port)
+  to_port        = lookup(each.value, "protocol", "tcp") == "-1" ? null : (contains(keys(each.value), "to_port") ? each.value.to_port : each.value.port)
 }
 
 resource "aws_network_acl_rule" "private_ingress" {
@@ -95,8 +95,8 @@ resource "aws_network_acl_rule" "private_ingress" {
   protocol       = lookup(each.value, "protocol", "tcp")
   rule_action    = lookup(each.value, "rule_action", "allow")
   cidr_block     = lookup(each.value, "cidr_block", aws_vpc.app.cidr_block)
-  from_port      = lookup(each.value, "protocol", "tcp") == "-1" ? null : lookup(each.value, "from_port", each.value.port)
-  to_port        = lookup(each.value, "protocol", "tcp") == "-1" ? null : lookup(each.value, "to_port", each.value.port)
+  from_port      = lookup(each.value, "protocol", "tcp") == "-1" ? null : (contains(keys(each.value), "from_port") ? each.value.from_port : each.value.port)
+  to_port        = lookup(each.value, "protocol", "tcp") == "-1" ? null : (contains(keys(each.value), "to_port") ? each.value.to_port : each.value.port)
 }
 
 resource "aws_network_acl_rule" "private_egress" {
@@ -108,6 +108,6 @@ resource "aws_network_acl_rule" "private_egress" {
   protocol       = lookup(each.value, "protocol", "tcp")
   rule_action    = lookup(each.value, "rule_action", "allow")
   cidr_block     = lookup(each.value, "cidr_block", aws_vpc.app.cidr_block)
-  from_port      = lookup(each.value, "protocol", "tcp") == "-1" ? null : lookup(each.value, "from_port", each.value.port)
-  to_port        = lookup(each.value, "protocol", "tcp") == "-1" ? null : lookup(each.value, "to_port", each.value.port)
+  from_port      = lookup(each.value, "protocol", "tcp") == "-1" ? null : (contains(keys(each.value), "from_port") ? each.value.from_port : each.value.port)
+  to_port        = lookup(each.value, "protocol", "tcp") == "-1" ? null : (contains(keys(each.value), "to_port") ? each.value.to_port : each.value.port)
 }

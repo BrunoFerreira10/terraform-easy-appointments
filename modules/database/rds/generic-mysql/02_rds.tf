@@ -25,7 +25,7 @@ resource "aws_db_instance" "rds" {
   publicly_accessible = var.rds_configuration.publicly_accessible
 
   vpc_security_group_ids = [
-    module.generic_security_group.security_group.id
+    module.sg_rds.security_group.id
   ]
 
   tags = {

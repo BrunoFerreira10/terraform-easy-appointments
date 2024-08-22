@@ -4,18 +4,11 @@
 locals {
   sg_elb_setup = {
     ingress = {
-      HTTP = {
-        port = 80, cidr_blocks = "0.0.0.0/0"
-      },
-      HTTPS = {
-        port = 443, cidr_blocks = "0.0.0.0/0"
-      }
+      HTTP  = { port = 80, cidr_blocks = "0.0.0.0/0" },
+      HTTPS = { port = 443, cidr_blocks = "0.0.0.0/0"}
     },
     egress = {
-      All = {
-        ip_protocol="-1", cidr_blocks = "0.0.0.0/0",
-        description = "Allow all traffic"
-      }
+      All = {ip_protocol="-1", cidr_blocks = "0.0.0.0/0"}
     }
   }
 }
@@ -58,15 +51,10 @@ resource "aws_vpc_security_group_egress_rule" "elb" {
 locals {
   sg_launch_tpl_setup = {
     ingress = {
-      HTTP = {
-        port = 80, cidr_blocks = "0.0.0.0/0"
-      }
+      HTTP = {port = 80, cidr_blocks = "0.0.0.0/0"}
     },
     egress = {
-      All = {
-        ip_protocol="-1", cidr_blocks = "0.0.0.0/0",
-        description = "Allow all traffic"
-      }
+      All = {ip_protocol="-1", cidr_blocks = "0.0.0.0/0"}
     }
   }
 }

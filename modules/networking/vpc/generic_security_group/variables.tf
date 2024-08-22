@@ -12,7 +12,7 @@ variable "security_group_settings" {
   description = "Security group specific settings"
   type        = object({
     id_name     = string ,
-    description = optional(string, "")
+    description = optional(string, ""),
     rules = map(object({
       ingress = map(object({
         description = optional(string)

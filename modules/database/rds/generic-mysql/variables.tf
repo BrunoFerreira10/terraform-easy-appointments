@@ -31,3 +31,8 @@ variable "rds_configuration" {
     availability_zone         = optional(string, null)
   })
 }
+
+variable "sg_rds_rules" {
+  description = "Rules form RDS security group"
+  type = any
+}

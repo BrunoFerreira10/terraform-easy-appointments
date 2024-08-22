@@ -15,4 +15,12 @@ module "rds_mysql" {
       module.data.projects.vpc_app.vpc.subnets.private.az_c.id
     ]
   }
+  sg_rds_rules     = {
+    ingress = {
+      SSH = {port = 3306, cidr_block = "0.0.0.0/0"}
+    },
+    egress = {
+      All = {ip_protocol = "-1", cidr_block = "0.0.0.0/0"}
+    }
+  }
 }

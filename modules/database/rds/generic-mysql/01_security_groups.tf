@@ -1,25 +1,10 @@
-resource "aws_security_group" "rds" {
-  name        = "sg_rds_${var.shortname}"
-  description = "Security group o RDS do projeto ${var.shortname}"
-  vpc_id      = var.vpc.id
-
-  ingress {
-    description = "Allow MySQL"
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "TCP"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    description = "Allow All output traffic."
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "sg_rds_${var.shortname}"
+module "generic_security_group" {
+  source = "../../../networking/vpc/generic_security_group"
+  shortname = var.shortname
+  vpc = var.vpc
+  security_group_settings = {
+    id_name = "rds"
+    description = "RDS security group"
+    rules       = var.sg_rds_rules
   }
 }

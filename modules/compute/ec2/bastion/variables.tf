@@ -19,5 +19,5 @@ variable "vpc" {
 
 variable "sg_bastion_rules" {
   description = "Rules for bastion host security group"
-  type        = any
+  type        = tomap(any)
 }

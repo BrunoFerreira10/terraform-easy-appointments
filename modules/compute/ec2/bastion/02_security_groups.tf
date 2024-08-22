@@ -8,7 +8,7 @@ module "sg_bastion" {
     rules = {
       ingress = {
         SSH = {port = 22, cidr_block = "0.0.0.0/0"}
-      }
+      },
       egress = {
         SSH = {port = 22},
         HTTP = {port = 80, cidr_block = "0.0.0.0/0"}

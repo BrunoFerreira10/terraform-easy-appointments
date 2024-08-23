@@ -91,7 +91,9 @@ echo ${MEU_TESTE} > meu_teste.conf
 ## --------------------------------------------------------------------------------------------------------------------
 cd /var/www/html
 echo "#### Apagando dados de /var/www/html ####"
-rm -rf /var/www/html/{*,.*}
+shopt -s dotglob
+rm -rf /var/www/html/*
+shopt -u dotglob
 
 echo "#### Move pasta build ####"
 mv /tmp/app/build/* /var/www/html

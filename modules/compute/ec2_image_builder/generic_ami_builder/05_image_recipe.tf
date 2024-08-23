@@ -7,7 +7,7 @@ locals {
     "arn:aws:imagebuilder:${var.region}:aws:component/amazon-cloudwatch-agent-linux/1.0.1/1",
     aws_imagebuilder_component.this["apt_update"].arn,
     aws_imagebuilder_component.this["apt_upgrade"].arn,
-    aws_imagebuilder_component.this["apt_efs_utils"].arn,
+    aws_imagebuilder_component.this["efs_utils_install"].arn,
     aws_imagebuilder_component.this["aws_cli_install"].arn,
     aws_imagebuilder_component.this["nginx_install"].arn,
     aws_imagebuilder_component.this["php_install"].arn,

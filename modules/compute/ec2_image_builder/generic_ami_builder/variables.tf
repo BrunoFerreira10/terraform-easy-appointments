@@ -32,3 +32,8 @@ variable "vpc" {
 variable "rds" {
   type = any
 }
+
+variable "sg_img_builder_instance_rules" {
+  description = "Rules for image builder instance security group"
+  type        = any
+}

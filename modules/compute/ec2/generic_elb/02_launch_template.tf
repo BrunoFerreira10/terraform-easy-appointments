@@ -14,7 +14,7 @@ resource "aws_launch_template" "this" {
       DB_HOST            = var.rds.private_ip,
       DB_NAME            = var.rds.db_name,
       DB_USERNAME        = var.rds.db_username,
-      DB_PASSWORD        = data.aws_ssm_parameter.db_password.value
+      DB_PASSWORD        = data.aws_ssm_parameter.db_password.value,
       MEU_TESTE = templatefile(
         "${path.module}/scripts/teste.tftpl",{
           DOMAIN = "maooooes.com"

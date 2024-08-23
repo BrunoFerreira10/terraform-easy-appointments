@@ -12,12 +12,6 @@ echo "${EFS_DNS_NAME}:/ /var/www/html efs defaults,_netdev 0 0" >> /etc/fstab
 mount -a
 
 ## --------------------------------------------------------------------------------------------------------------------
-## Change /var/www owner to www-data
-## --------------------------------------------------------------------------------------------------------------------
-# echo "#### Definine proprietario de /var/www ####"
-# chown -R www-data:www-data /var/www
-
-## --------------------------------------------------------------------------------------------------------------------
 ## Download git repository to /tmp/app
 ## --------------------------------------------------------------------------------------------------------------------
 echo "#### Iniciando ssh-agent ####"
@@ -103,25 +97,6 @@ shopt -u dotglob
 echo "#### Move pasta build ####"
 chown -R www-data:www-data /tmp/app/build
 mv /tmp/app/build/* /var/www/html
-
-## --------------------------------------------------------------------------------------------------------------------
-## NGINX Configuration
-## --------------------------------------------------------------------------------------------------------------------
-# echo "#### Configurar nginx"
-# bash -c 'cat <<EOF > /etc/nginx/conf.d/magento2.conf
-# upstream fastcgi_backend {
-#   server unix:/run/php/php8.3-fpm.sock;
-# }
-
-# server {
-#   listen 80;
-#   server_name ${DOMAIN} www.${DOMAIN};
-#   set \$MAGE_ROOT /var/www/html;
-#   include /var/www/magento2/nginx.conf.sample;
-# }
-# EOF'
-
-
 
 ## --------------------------------------------------------------------------------------------------------------------
 ## PHP and NGINX reload and restart

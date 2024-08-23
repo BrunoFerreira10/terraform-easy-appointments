@@ -8,11 +8,6 @@ variable "shortname" {
   type        = string
 }
 
-variable "domain" {
-  type        = string
-  description = "Domínio base da aplicação"
-}
-
 variable "ec2_ssh_keypair_name" {
   type = string
 }
@@ -26,10 +21,6 @@ variable "app_repository_url" {
 }
 
 variable "vpc" {
-  type = any
-}
-
-variable "rds" {
   type = any
 }
 

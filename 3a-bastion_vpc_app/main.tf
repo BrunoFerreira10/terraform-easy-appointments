@@ -6,7 +6,7 @@ module "bastion" {
   vpc                  = module.data.projects.vpc_app.vpc
   sg_bastion_rules     = {
     ingress = {
-      SSH = {port = 22, cidr_ipv4 = "${module.data.github_secrets.general_my_ip}/32"}
+      SSH = {port = 22, cidr_ipv4 = "${data.aws_ssm_parameter.my_ip}/32"}
     },
     egress = {
       SSH = {port = 22}

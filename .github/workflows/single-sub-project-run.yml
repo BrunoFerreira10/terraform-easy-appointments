@@ -29,8 +29,7 @@ on:
 
 env:
   AWS_ACCESS_KEY_ID: ${{ vars.IAM_AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.IAM_AWS_SECRET_ACCESS_KEY }}
-  TF_LOG_SENSITIVE: 1
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.IAM_AWS_SECRET_ACCESS_KEY }}  
 
 jobs:
   action:    
@@ -104,6 +103,9 @@ jobs:
       - name: Run Terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }}
         if: ${{ steps.process-inputs.outputs.SUB_PROJECT_NAME != 'github_sync' }}
         run: |
+          export TF_LOG_SENSITIVE=1
+          TF_LOG=debug terraform apply
+          export TF_LOG=debug terraform apply
           cd "./${{ steps.process-inputs.outputs.LOCAL_FOLDER }}"
           cat ./variables.tfvars
           terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} -auto-approve \

@@ -4,10 +4,8 @@ module "app_ami" {
   ec2_ssh_keypair_name      = module.data.github_vars.ec2_ssh_keypair_name
   region                    = module.data.github_vars.general_region
   shortname                 = module.data.github_vars.general_tag_shortname
-  domain                    = module.data.github_vars.rt53_domain
   installation_parent_image = module.data.github_vars.image_builder_parent_image
-  vpc                       = module.data.projects.vpc_app.vpc
-  rds                       = module.data.projects.rds_app.rds
+  vpc                       = module.data.projects.vpc_app.vpc  
   sg_img_builder_instance_rules     = {
     ingress = {
       SSH = {port = 22, cidr_ipv4 = "${data.aws_ssm_parameter.my_ip.value}/32"}

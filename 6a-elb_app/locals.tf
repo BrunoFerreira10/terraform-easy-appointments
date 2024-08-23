@@ -4,6 +4,6 @@
 locals {
   fuv = {
     instance_type = "t3a.medium"
-    launch_template_version = "7"
+    launch_template_version = "1"
   }
 }

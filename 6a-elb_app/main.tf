@@ -5,7 +5,9 @@ module "elb_app" {
   ec2_ssh_keypair_name = module.data.github_vars.ec2_ssh_keypair_name
   ami_image_id         = module.data.projects.app_ami.golden_image_id
   shortname            = module.data.github_vars.general_tag_shortname
+  app_repository_url   = module.data.github_vars.app_repository_url
   vpc                  = module.data.projects.vpc_app.vpc
+  rds                  = module.data.projects.vpc_app.rds
   efs                  = module.data.projects.efs_app.efs
   sg_elb_rules     = {
     ingress = {

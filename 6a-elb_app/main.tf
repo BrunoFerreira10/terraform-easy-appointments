@@ -22,6 +22,9 @@ module "elb_app" {
       SSH = {port = 22}
       HTTP = {port = 80, cidr_ipv4 = "0.0.0.0/0"}
     },
-    egress = {}
+    egress = {
+      EFS = {port = 2049}
+      MYSQL = {port = 3306}
+    }
   }
 }

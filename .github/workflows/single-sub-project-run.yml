@@ -107,7 +107,6 @@ jobs:
           cat ./variables.tfvars
           terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} -auto-approve \
             -var-file=./variables.tfvars
-          terraform output rds_full
 
       # Usado apenas no sub-projeto Secrets Manager
       - name: Run Terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} - Github Sync SSM

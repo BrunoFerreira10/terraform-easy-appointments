@@ -61,3 +61,8 @@ variable "instance_type" {
   default     = "t3.micro"
 }
 
+variable "asg_settings" {
+  type = object({
+    launch_template_version = optional(string,"$latest")
+  })
+}

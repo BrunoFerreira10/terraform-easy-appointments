@@ -9,6 +9,10 @@ module "elb_app" {
   vpc                  = module.data.projects.vpc_app.vpc
   rds                  = module.data.projects.rds_app.rds
   efs                  = module.data.projects.efs_app.efs
+  instance_type        = "t3a.medium"
+  asg_settings         = {
+    launch_template_version = "5"
+  }
   sg_elb_rules = {
     ingress = {
       HTTP = { port = 443, cidr_ipv4 = "0.0.0.0/0" }

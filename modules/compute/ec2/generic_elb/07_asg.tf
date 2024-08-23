@@ -16,7 +16,7 @@ resource "aws_autoscaling_group" "this" {
   // Launch template
   launch_template {
     id      = aws_launch_template.this.id
-    version = "3"
+    version = var.asg_settings.launch_template_version
   }
 
   // Instance refresh

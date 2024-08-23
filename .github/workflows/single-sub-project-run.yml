@@ -30,6 +30,7 @@ on:
 env:
   AWS_ACCESS_KEY_ID: ${{ vars.IAM_AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.IAM_AWS_SECRET_ACCESS_KEY }}
+  TF_LOG_SENSITIVE: 1
 
 jobs:
   action:    
@@ -107,7 +108,8 @@ jobs:
           cat ./variables.tfvars
           terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} -auto-approve \
             -var-file=./variables.tfvars
-          terraform show -json
+          terraform show -json > terraform_state.json
+          cat terraform_state.json
 
       # Usado apenas no sub-projeto Secrets Manager
       - name: Run Terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} - Github Sync SSM

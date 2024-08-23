@@ -3,7 +3,7 @@ resource "aws_lb" "this" {
   internal           = false
   load_balancer_type = "application"
   security_groups = [
-    aws_security_group.elb.id
+    module.sg_elb.security_group.id
   ]
   subnets = [
     for subnet in var.vpc.subnets.public :

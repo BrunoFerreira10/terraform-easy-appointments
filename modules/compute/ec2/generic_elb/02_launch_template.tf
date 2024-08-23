@@ -14,7 +14,7 @@ resource "aws_launch_template" "this" {
 
   # Network settings
   vpc_security_group_ids = [
-    aws_security_group.launch_tpl.id
+    module.sg_launch_tpl.security_group.id
   ]
 
   # Resource tags

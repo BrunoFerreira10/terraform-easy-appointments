@@ -1,4 +1,4 @@
-module "sg_rds" {
+module "sg_efs" {
   source    = "../../../networking/vpc/generic_security_group"
   shortname = var.shortname
   vpc       = var.vpc

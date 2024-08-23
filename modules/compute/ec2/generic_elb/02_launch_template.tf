@@ -16,10 +16,11 @@ locals {
       )
     }
   )
+  encoded_user_data = base64encode(local.user_data)
 }
 resource "null_resource" "debug_user_data" {
   provisioner "local-exec" {
-    command = "echo '${base64encode(local.user_data)}' | base64 --decode"
+    command = "echo '${encoded_user_data}' | base64 --decode"
   }
 }
 
@@ -32,7 +33,7 @@ resource "aws_launch_template" "this" {
   instance_type = var.instance_type
   key_name      = var.ec2_ssh_keypair_name
 
-  user_data = local.user_data
+  user_data = local.encoded_user_data
 
   # user_data = templatefile(
   #   "${path.module}/scripts/userdata.tftpl", {

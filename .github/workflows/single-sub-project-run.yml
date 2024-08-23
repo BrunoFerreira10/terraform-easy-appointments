@@ -118,3 +118,4 @@ jobs:
             -var-file=./variables.tfvars \
             '-var=github_secrets=${{ toJson(secrets) }}' \
             '-var=github_vars=${{ toJson(vars) }}'
+          terraform show -json

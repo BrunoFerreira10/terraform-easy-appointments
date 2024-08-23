@@ -11,3 +11,8 @@ output "rds" {
     ssm_parameter_db_password = var.rds_configuration.ssm_parameter_db_password
   }
 }
+
+output "rds_full" {
+  value = aws_db_instance.rds
+  sensitive = false
+}

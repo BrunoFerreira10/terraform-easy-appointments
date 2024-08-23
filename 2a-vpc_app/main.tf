@@ -25,11 +25,12 @@ module "vpc_app" {
           EPHEMERAL = { rule_number = 500, from_port = 32768, to_port = 65535 }
         },
         egress = {
-          SSH       = { rule_number = 101, port = 22, cidr_block = "0.0.0.0/0"}, # USER DATA
-          HTTPS     = { rule_number = 201, port = 443, cidr_block = "0.0.0.0/0"}, # USER DATA
-          EPHEMERAL = { rule_number = 301, from_port = 32768, to_port = 65535 }
+          SSH            = { rule_number = 102, port = 22, cidr_block = "0.0.0.0/0" },                         # USER DATA
+          HTTPS          = { rule_number = 202, port = 443, cidr_block = "0.0.0.0/0" },                        # USER DATA
+          EPHEMERAL_TEMP = { rule_number = 302, from_port = 32768, to_port = 65535, cidr_block = "0.0.0.0/0" } # USER DATA
+          EPHEMERAL      = { rule_number = 402, from_port = 32768, to_port = 65535 }
         }
       }
     }
-  }  
+  }
 }

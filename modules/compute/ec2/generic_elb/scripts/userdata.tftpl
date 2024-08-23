@@ -8,7 +8,7 @@ echo "#### Iniciado user data ####"
 ## Update /etc/fstab and mount filesystems
 ## --------------------------------------------------------------------------------------------------------------------
 echo "#### Montagem do sistema de arquivos EFS ####"
-echo "${EFS_DNS_NAME}:/ /var/www/magento2 efs defaults,_netdev 0 0" >> /etc/fstab
+echo "${EFS_DNS_NAME}:/ /var/www/html efs defaults,_netdev 0 0" >> /etc/fstab
 mount -a
 
 ## --------------------------------------------------------------------------------------------------------------------

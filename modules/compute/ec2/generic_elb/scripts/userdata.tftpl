@@ -34,6 +34,9 @@ echo "#### Apagando dados de /var/www/html ####"
 cd /var/www/html
 rm -rf ./*
 
+echo "#### Definindo env HOME ####"
+export HOME="/root"
+
 echo "#### Configurando /var/www/html com um diretório seguro para o git. ####"
 git config --global --add safe.directory /var/www/html
 

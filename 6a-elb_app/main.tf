@@ -27,7 +27,6 @@ module "elb_app" {
       MYSQL = { port = 3306 }
       SSH   = { port = 22, cidr_ipv4 = "0.0.0.0/0" }  # USER DATA
       HTTPS = { port = 443, cidr_ipv4 = "0.0.0.0/0" } # USER DATA
-      HTTP = { port = 80, cidr_ipv4 = "0.0.0.0/0" } # USER DATA
     }
   }
 }

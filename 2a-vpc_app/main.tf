@@ -28,7 +28,6 @@ module "vpc_app" {
         egress = {
           SSH            = { rule_number = 102, port = 22, cidr_block = "0.0.0.0/0" },                         # USER DATA
           HTTPS          = { rule_number = 202, port = 443, cidr_block = "0.0.0.0/0" },                        # USER DATA
-          HTTP           = { rule_number = 302, port = 80, cidr_block = "0.0.0.0/0" },                        # USER DATA
           EPHEMERAL      = { rule_number = 402, from_port = 32768, to_port = 65535 }
         }
       }

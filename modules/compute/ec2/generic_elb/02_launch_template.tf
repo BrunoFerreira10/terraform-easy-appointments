@@ -10,7 +10,7 @@ resource "aws_launch_template" "this" {
     "${path.module}/scripts/userdata.tftpl",{
       EFS_DNS_NAME = var.efs.dns_name,
       APP_REPOSITORY_URL = var.app_repository_url,
-      BASE_URL           = var.domain,
+      DOMAIN             = var.domain,
       DB_HOST            = var.rds.private_ip,
       DB_NAME            = var.rds.db_name,
       DB_USERNAME        = var.rds.db_username,

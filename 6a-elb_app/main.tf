@@ -7,7 +7,7 @@ module "elb_app" {
   shortname            = module.data.github_vars.general_tag_shortname
   app_repository_url   = module.data.github_vars.app_repository_url
   vpc                  = module.data.projects.vpc_app.vpc
-  rds                  = module.data.projects.vpc_app.rds
+  rds                  = module.data.projects.rds_app.rds
   efs                  = module.data.projects.efs_app.efs
   sg_elb_rules     = {
     ingress = {

@@ -104,7 +104,6 @@ jobs:
         if: ${{ steps.process-inputs.outputs.SUB_PROJECT_NAME != 'github_sync' }}
         run: |
           export TF_LOG_SENSITIVE=1
-          TF_LOG=debug terraform apply
           export TF_LOG=debug terraform apply
           cd "./${{ steps.process-inputs.outputs.LOCAL_FOLDER }}"
           cat ./variables.tfvars

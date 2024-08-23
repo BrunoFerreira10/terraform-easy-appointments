@@ -6,7 +6,7 @@ module "vpc_app" {
     nacl_rules = {
       public = {
         ingress = {
-          SSH       = { rule_number = 100, cidr_block = "${module.data.github_secrets.general_my_ip}/32", port = 22 },
+          SSH       = { rule_number = 100, cidr_block = "${data.aws_ssm_parameter.my_ip}/32", port = 22 },
           HTTP      = { rule_number = 200, cidr_block = "0.0.0.0/0", port = 80 },
           HTTPS     = { rule_number = 300, cidr_block = "0.0.0.0/0", port = 443 },
           EPHEMERAL = { rule_number = 400, cidr_block = "0.0.0.0/0", from_port = 32768, to_port = 65535 }

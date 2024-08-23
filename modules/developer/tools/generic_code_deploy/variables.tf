@@ -1,3 +1,7 @@
+variable "app_repository_url" {
+  type = string
+}
+
 variable "shortname" {
   description = "Nome curto para identificação dos recursos na AWS"
   type        = string

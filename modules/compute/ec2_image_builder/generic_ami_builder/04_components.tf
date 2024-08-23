@@ -23,7 +23,7 @@ locals {
       "template_payload" = {
         APP_REPOSITORY_URL = var.app_repository_url,
         BASE_URL           = var.domain,
-        DB_HOST            = var.rds.endpoint,
+        DB_HOST            = var.rds.private_ip,
         DB_NAME            = var.rds.db_name,
         DB_USERNAME        = var.rds.db_username,
         DB_PASSWORD        = data.aws_ssm_parameter.db_password.value

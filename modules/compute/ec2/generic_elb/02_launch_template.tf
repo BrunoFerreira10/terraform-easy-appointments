@@ -17,14 +17,16 @@ locals {
     }
   )
 }
-# resource "null_resource" "debug_user_data" {
-#   provisioner "local-exec" {
-#     command = "echo '${local.user_data}'"
-#   }
-# }
+resource "null_resource" "debug_user_data" {
+  provisioner "local-exec" {
+    command = <<-EOT
+      printf '%s' "${local.user_data}"
+    EOT
+  }
+}
 
 resource "aws_launch_template" "this" {
-  # depends_on = [ null_resource.debug_user_data ]
+  depends_on = [ null_resource.debug_user_data ]
   name                   = "launch_tpl_${var.shortname}"
   update_default_version = true
 

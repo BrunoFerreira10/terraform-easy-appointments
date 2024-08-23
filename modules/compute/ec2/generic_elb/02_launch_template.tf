@@ -1,4 +1,6 @@
-
+## --------------------------------------------------------------------------------------------------------------------
+## Launch template instances user-data
+## --------------------------------------------------------------------------------------------------------------------
 locals {
   user_data = templatefile(
     "${path.module}/scripts/userdata.tftpl", {
@@ -18,14 +20,11 @@ locals {
   )
   encoded_user_data = base64encode(local.user_data)
 }
-resource "null_resource" "debug_user_data" {
-  provisioner "local-exec" {
-    command = "echo '${local.encoded_user_data}' | base64 --decode"
-  }
-}
 
+## --------------------------------------------------------------------------------------------------------------------
+## Launch template
+## --------------------------------------------------------------------------------------------------------------------
 resource "aws_launch_template" "this" {
-  depends_on = [ null_resource.debug_user_data ]
   name                   = "launch_tpl_${var.shortname}"
   update_default_version = true
 
@@ -34,23 +33,6 @@ resource "aws_launch_template" "this" {
   key_name      = var.ec2_ssh_keypair_name
 
   user_data = local.encoded_user_data
-
-  # user_data = templatefile(
-  #   "${path.module}/scripts/userdata.tftpl", {
-  #     EFS_DNS_NAME       = var.efs.dns_name,
-  #     APP_REPOSITORY_URL = var.app_repository_url,
-  #     DOMAIN             = var.domain,
-  #     DB_HOST            = var.rds.private_ip,
-  #     DB_NAME            = var.rds.db_name,
-  #     DB_USERNAME        = var.rds.db_username,
-  #     DB_PASSWORD        = data.aws_ssm_parameter.db_password.value,
-  #     MEU_TESTE = templatefile(
-  #       "${path.module}/scripts/teste.tftpl", {
-  #         DOMAIN = "maooooes.com"
-  #       }
-  #     )
-  #   }
-  # )
 
   vpc_security_group_ids = [
     module.sg_launch_tpl.security_group.id
@@ -90,4 +72,4 @@ resource "aws_launch_template" "this" {
     Name = "launch_tpl_${var.shortname}"
   }
 }
-
+## --------------------------------------------------------------------------------------------------------------------

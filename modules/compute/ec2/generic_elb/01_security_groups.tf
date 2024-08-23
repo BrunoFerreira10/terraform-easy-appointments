@@ -3,8 +3,8 @@ module "sg_elb" {
   shortname = var.shortname
   vpc       = var.vpc
   security_group_settings = {
-    id_name     = "bastion"
-    description = "Security group for bastion host"
+    id_name     = "elb"
+    description = "Security group for ELB"
     rules       = var.sg_elb_rules
   }
 }
@@ -14,8 +14,8 @@ module "sg_launch_tpl" {
   shortname = var.shortname
   vpc       = var.vpc
   security_group_settings = {
-    id_name     = "bastion"
-    description = "Security group for bastion host"
+    id_name     = "launch_tpl"
+    description = "Security group launch template (instances)"
     rules       = var.sg_launch_tpl_rules
   }
 }

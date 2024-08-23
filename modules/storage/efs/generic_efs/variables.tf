@@ -12,3 +12,9 @@ variable "vpc" {
   description = "VPC for EFS allocations"
   type        = any
 }
+
+variable "sg_efs_rules" {
+  description = "Rules form RDS security group"
+  type = any
+}
+

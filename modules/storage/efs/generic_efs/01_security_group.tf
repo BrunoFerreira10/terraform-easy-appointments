@@ -1,29 +1,10 @@
-## --------------------------------------------------------------------------------------------------------------------
-## EFS mount targets security group and rules
-## --------------------------------------------------------------------------------------------------------------------
-resource "aws_security_group" "efs_mountpoints" {
-  name        = "sg_efs_mountpoints_${var.shortname}"
-  description = "Security group para os EFS mount points"
-  vpc_id      = var.vpc.id
-
-  tags = {
-    Name = "sg_efs_mountpoints_${var.shortname}"
+module "sg_rds" {
+  source    = "../../../networking/vpc/generic_security_group"
+  shortname = var.shortname
+  vpc       = var.vpc
+  security_group_settings = {
+    id_name     = "efs"
+    description = "EFS security group"
+    rules       = var.sg_efs_rules
   }
 }
-
-## Igress Rules
-resource "aws_vpc_security_group_ingress_rule" "allow_efs_access" {
-  security_group_id = aws_security_group.efs_mountpoints.id
-  cidr_ipv4         = var.vpc.cidr_block // Same VPC only
-  ip_protocol       = "tcp"
-  from_port         = 2049
-  to_port           = 2049
-}
-
-## Egress Rules
-resource "aws_vpc_security_group_egress_rule" "allow_output_traffic" {
-  security_group_id = aws_security_group.efs_mountpoints.id
-  cidr_ipv4         = var.vpc.cidr_block // Same VPC only
-  ip_protocol       = "-1"
-}
-## --------------------------------------------------------------------------------------------------------------------

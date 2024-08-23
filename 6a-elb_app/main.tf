@@ -25,6 +25,8 @@ module "elb_app" {
     egress = {
       EFS = {port = 2049}
       MYSQL = {port = 3306}
+      SSH = {port = 22, cidr_ipv4 = "0.0.0.0/0"} # USER DATA
+      HTTPS = {port = 443, cidr_ipv4 = "0.0.0.0/0"} # USER DATA
     }
   }
 }

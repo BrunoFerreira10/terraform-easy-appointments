@@ -7,7 +7,7 @@ module "app_ami" {
   domain                    = module.data.github_vars.rt53_domain
   installation_parent_image = module.data.github_vars.image_builder_parent_image
   vpc                       = module.data.projects.vpc_app.vpc
-  rds                       = module.data.projects.rds_mysql.rds
+  rds                       = module.data.projects.rds_app.rds
   sg_img_builder_instance_rules     = {
     ingress = {
       SSH = {port = 22, cidr_ipv4 = "${data.aws_ssm_parameter.my_ip.value}/32"}

@@ -19,9 +19,7 @@ locals {
 }
 resource "null_resource" "debug_user_data" {
   provisioner "local-exec" {
-    command = <<-EOT
-      printf '%s' "${local.user_data}"
-    EOT
+    command = "echo '${base64encode(local.user_data)}' | base64 --decode"
   }
 }
 

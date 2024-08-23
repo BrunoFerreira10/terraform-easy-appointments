@@ -10,7 +10,7 @@ module "app_ami" {
   rds                       = module.data.projects.rds_mysql.rds
   sg_img_builder_instance_rules     = {
     ingress = {
-      SSH = {port = 22, cidr_ipv4 = "${data.aws_ssm_parameter.my_ip}/32"}
+      SSH = {port = 22, cidr_ipv4 = "${data.aws_ssm_parameter.my_ip.value}/32"}
       HTTP = {port = 80, cidr_ipv4 = "0.0.0.0/0"}
     },
     egress = {

@@ -3,6 +3,9 @@
 ## --------------------------------------------------------------------------------------------------------------------
 locals {
   components_configuration = {
+    apache_uninstall = {
+      description = "Desinstala apache2"
+    },
     apt_update = {
       description = "Atualiza lista de pacotes do apt."
     },
@@ -18,25 +21,18 @@ locals {
     daemon_reload = {
       description = "Recarrega configurações do gerenciador de serviços systemd."
     },
-    easy_appointments_setup = {
-      description = "Configuração da aplicação Easy Appointments.",
-      "template_payload" = {
-        APP_REPOSITORY_URL = var.app_repository_url,
-        BASE_URL           = var.domain,
-        DB_HOST            = var.rds.private_ip,
-        DB_NAME            = var.rds.db_name,
-        DB_USERNAME        = var.rds.db_username,
-        DB_PASSWORD        = data.aws_ssm_parameter.db_password.value
-      }
-    },
     efs_utils_install = {
       description = "Instala EFS utils"
     },
     git_fetch_repository = {
-      description = "Download da aplicação '${var.shortname}' hospedada no Github.",
+      description = "Download do repositorio de '${var.shortname}' para /tmp/app",
       "template_payload" = {
         APP_REPOSITORY_URL = var.app_repository_url
       }
+    },
+    nginx_config = {
+      description = "Configuração basica do nginx.",
+      "template_payload" = {}
     },
     nginx_install = {
       description = "Instala o nginx."

@@ -3,21 +3,30 @@ resource "aws_launch_template" "this" {
   name                   = "launch_tpl_${var.shortname}"
   update_default_version = true
 
-  # AMI
   image_id = var.ami_image_id
-
-  # Instance type
   instance_type = var.instance_type
-
-  # Key pair (ec2 ssh login)
   key_name = var.ec2_ssh_keypair_name
-
-  # Network settings
+  user_data = templatefile(
+    "${path.module}/scripts/userdata.tftpl",{
+      EFS_DNS_NAME = var.efs.dns_name,
+      APP_REPOSITORY_URL = var.app_repository_url,
+      BASE_URL           = var.domain,
+      DB_HOST            = var.rds.private_ip,
+      DB_NAME            = var.rds.db_name,
+      DB_USERNAME        = var.rds.db_username,
+      DB_PASSWORD        = data.aws_ssm_parameter.db_password.value
+      MEU_TESTE = templatefile(
+        "${path.module}/scripts/teste.tftpl",{
+          DOMAIN = "maooooes.com"
+        }
+      )
+    }
+  )
+  
   vpc_security_group_ids = [
     module.sg_launch_tpl.security_group.id
   ]
 
-  # Resource tags
   tag_specifications {
     resource_type = "instance"
 
@@ -42,14 +51,11 @@ resource "aws_launch_template" "this" {
     }
   }
 
-  # Advanced details
   instance_initiated_shutdown_behavior = "terminate"
 
   monitoring {
     enabled = true
   }
-
-  # ebs_optimized = true
 
   tags = {
     Name = "launch_tpl_${var.shortname}"

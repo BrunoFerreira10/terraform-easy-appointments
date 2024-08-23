@@ -24,9 +24,24 @@ variable "shortname" {
   type        = string
 }
 
+variable "app_repository_url" {
+  description = "URL from app repository"
+  type        = string
+}
+
 variable "vpc" {
   description = "VPC for ELB allocation"
   type        = any
+}
+
+variable "rds" {
+  description = "RDS from app configuration"
+  type = any
+}
+
+variable "efs" {
+  description = "EFS from EC2 instances"
+  type = any
 }
 
 variable "sg_elb_rules" {

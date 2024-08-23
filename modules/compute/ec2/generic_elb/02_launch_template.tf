@@ -3,26 +3,26 @@ resource "aws_launch_template" "this" {
   name                   = "launch_tpl_${var.shortname}"
   update_default_version = true
 
-  image_id = var.ami_image_id
+  image_id      = var.ami_image_id
   instance_type = var.instance_type
-  key_name = var.ec2_ssh_keypair_name
+  key_name      = var.ec2_ssh_keypair_name
   user_data = templatefile(
-    "${path.module}/scripts/userdata.tftpl",{
-      EFS_DNS_NAME = var.efs.dns_name,
+    "${path.module}/scripts/userdata.tftpl", {
+      EFS_DNS_NAME       = var.efs.dns_name,
       APP_REPOSITORY_URL = var.app_repository_url,
       DOMAIN             = var.domain,
       DB_HOST            = var.rds.private_ip,
       DB_NAME            = var.rds.db_name,
       DB_USERNAME        = var.rds.db_username,
-      DB_PASSWORD        = data.aws_ssm_parameter.db_password.value,
+      DB_PASSWORD        = base64encode(data.aws_ssm_parameter.db_password.value),
       MEU_TESTE = templatefile(
-        "${path.module}/scripts/teste.tftpl",{
+        "${path.module}/scripts/teste.tftpl", {
           DOMAIN = "maooooes.com"
         }
       )
     }
   )
-  
+
   vpc_security_group_ids = [
     module.sg_launch_tpl.security_group.id
   ]

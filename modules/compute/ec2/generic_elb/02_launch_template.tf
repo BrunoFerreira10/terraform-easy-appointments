@@ -20,7 +20,7 @@ locals {
 }
 resource "null_resource" "debug_user_data" {
   provisioner "local-exec" {
-    command = "echo '${encoded_user_data}' | base64 --decode"
+    command = "echo '${local.encoded_user_data}' | base64 --decode"
   }
 }
 

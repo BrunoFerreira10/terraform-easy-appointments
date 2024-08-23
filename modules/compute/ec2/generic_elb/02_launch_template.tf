@@ -8,7 +8,7 @@ locals {
       DB_HOST            = var.rds.private_ip,
       DB_NAME            = var.rds.db_name,
       DB_USERNAME        = var.rds.db_username,
-      DB_PASSWORD        = data.aws_ssm_parameter.db_password.value,
+      DB_PASSWORD        = base64encode(data.aws_ssm_parameter.db_password.value),
       MEU_TESTE = templatefile(
         "${path.module}/scripts/teste.tftpl", {
           DOMAIN = "maooooes.com"
@@ -17,11 +17,11 @@ locals {
     }
   )
 }
-resource "null_resource" "debug_user_data" {
-  provisioner "local-exec" {
-    command = "echo '${local.user_data}'"
-  }
-}
+# resource "null_resource" "debug_user_data" {
+#   provisioner "local-exec" {
+#     command = "echo '${local.user_data}'"
+#   }
+# }
 
 resource "aws_launch_template" "this" {
   depends_on = [ null_resource.debug_user_data ]

@@ -1,4 +1,4 @@
-resource "aws_iam_role" "role_codebuild_1" {
+resource "aws_iam_role" "codebuild" {
   name = "codebuild-role"
 
   assume_role_policy = jsonencode({
@@ -15,8 +15,8 @@ resource "aws_iam_role" "role_codebuild_1" {
   })
 }
 
-resource "aws_iam_policy_attachment" "role_codebuild_1_attach_1" {
-  name       = "role_codebuild_1_attach_1"
-  roles      = [aws_iam_role.role_codebuild_1.name]
+resource "aws_iam_policy_attachment" "codebuild_attach_developer_access" {
+  name       = "codebuild_attach_1"
+  roles      = [aws_iam_role.codebuild.name]
   policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess"
 }

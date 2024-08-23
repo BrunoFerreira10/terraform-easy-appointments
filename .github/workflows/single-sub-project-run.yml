@@ -103,14 +103,10 @@ jobs:
       - name: Run Terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }}
         if: ${{ steps.process-inputs.outputs.SUB_PROJECT_NAME != 'github_sync' }}
         run: |
-          export TF_LOG_SENSITIVE=1
-          export TF_LOG=debug terraform apply
           cd "./${{ steps.process-inputs.outputs.LOCAL_FOLDER }}"
           cat ./variables.tfvars
           terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} -auto-approve \
             -var-file=./variables.tfvars
-          terraform show -json > terraform_state.json
-          cat terraform_state.json
           terraform output rds_full
 
       # Usado apenas no sub-projeto Secrets Manager

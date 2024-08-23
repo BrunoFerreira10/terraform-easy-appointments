@@ -86,12 +86,16 @@ echo "#### Executando npm run build ####"
 npm run build
 echo ${MEU_TESTE} > meu_teste.conf
 
+
 ## --------------------------------------------------------------------------------------------------------------------
 ## Move build to /var/www/html
 ## --------------------------------------------------------------------------------------------------------------------
+cd /var/www/html
 echo "#### Apagando dados de /var/www/html ####"
-rm -rf /var/www/html
-mv /tmp/app/build /var/www/html
+rm -rf /var/www/html/{*,.*}
+
+echo "#### Move pasta build ####"
+mv /tmp/app/build/* /var/www/html
 
 echo "#### Alterando owner do diretório /tmp/app para www-data ####"
 chown -R www-data:www-data /var/www

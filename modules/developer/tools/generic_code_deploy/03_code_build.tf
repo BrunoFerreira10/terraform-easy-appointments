@@ -28,7 +28,7 @@ resource "aws_codebuild_webhook" "this" {
     }
 
     filter {
-      type    = "BASE_REF"
+      type    = "HEAD_REF"
       pattern = "master"
     }
   }

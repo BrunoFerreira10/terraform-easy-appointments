@@ -3,10 +3,18 @@ variable "app_repository_url_https" {
 }
 
 variable "codebuild_settings" {
-  description = "Codebuild project settings"
+  description = "CodeBuild project settings"
   type = object({
     project_name = string
     github_connection_name = string
+  })
+}
+
+variable "codedeploy_settings" {
+  description = "CodeDeploy project settings"
+  type = object({
+    application_name = string
+    elb = any
   })
 }
 

@@ -5,7 +5,10 @@ module "build_app" {
     project_name = "EasyAppointments"
     github_connection_name = module.data.github_vars.my_github_connection_name
   }
-  
+  codedeploy_settings = {
+    application_name = "EasyAppointments"
+    elb = module.data.projects.elb_app.elb
+  }  
   project_bucket_name = module.data.github_vars.general_project_bucket_name
   region              = module.data.github_vars.general_region
   shortname           = module.data.github_vars.general_tag_shortname

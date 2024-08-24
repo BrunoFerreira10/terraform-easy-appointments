@@ -1,4 +1,4 @@
-module "build_app" {
+module "deploy_app" {
   source                   = "../modules/developer/tools/generic_code_deploy"
   app_repository_url_https = module.data.github_vars.app_repository_url_https
   codebuild_settings = {

@@ -58,7 +58,7 @@ resource "aws_iam_policy" "base" {
           "codebuild:BatchPutCodeCoverages"
         ],
         "Resource" : [
-          "arn:aws:codebuild:us-east-1:339712924273:report-group/${var.codebuild_settings.project_name}-*"
+          "arn:aws:codebuild:us-east-1:${data.aws_caller_identity.current.account_id}:report-group/${var.codebuild_settings.project_name}-*"
         ]
       }
     ]
@@ -85,8 +85,9 @@ resource "aws_iam_policy" "connections" {
           "codeconnections:GetConnection"
         ],
         "Resource" : [
-          "arn:aws:codestar-connections:us-east-1:339712924273:connection/48875c7b-6fdb-45e6-9bb2-74bd01d296d9",
-          "arn:aws:codeconnections:us-east-1:339712924273:connection/48875c7b-6fdb-45e6-9bb2-74bd01d296d9"
+          # "arn:aws:codestar-connections:us-east-1:${data.aws_caller_identity.current.account_id}:connection/48875c7b-6fdb-45e6-9bb2-74bd01d296d9",
+          # "arn:aws:codeconnections:us-east-1:${data.aws_caller_identity.current.account_id}:connection/48875c7b-6fdb-45e6-9bb2-74bd01d296d9"
+          data.aws_codestarconnections_connection.github_app_connection.arn
         ]
       }
     ]
@@ -121,7 +122,7 @@ resource "aws_iam_policy" "connections" {
 
 
 resource "aws_iam_role" "codebuild" {
-  name = "CodeBuild${var.codebuild_settings.project_name}"
+  name = "${var.codebuild_settings.project_name}RoleForCodeBuild"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

@@ -6,13 +6,9 @@ variable "codebuild_settings" {
   description = "Codebuild project settings"
   type = object({
     project_name = string
+    github_connection_name = string
   })
 }
-
-# variable "github_connection" {
-#   description = "Github connection to user account"
-#   type = any
-# }
 
 variable "project_bucket_name" {
   description = "Project bucket name"

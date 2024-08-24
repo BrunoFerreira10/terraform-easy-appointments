@@ -5,6 +5,6 @@ data "aws_ssm_parameter" "github_token" {
 }
 
 data "aws_codestarconnections_connection" "github_app_connection" {
-  name = "github_app_connection"
+  name = var.codebuild_settings.github_connection_name
 }
 

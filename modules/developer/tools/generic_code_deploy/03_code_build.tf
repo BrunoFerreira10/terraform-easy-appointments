@@ -12,7 +12,7 @@ resource "aws_codebuild_source_credential" "this" {
   ## https://awscli.amazonaws.com/v2/documentation/api/latest/reference/codebuild/import-source-credentials.html
   auth_type   = "CODECONNECTIONS"
   server_type = "GITHUB"
-  token       = aws_codebuild_source_credential.github_app_connections.token
+  token       = var.github_app_connection.token
 }
 
 ## --------------------------------------------------------------------------------------------------------------------

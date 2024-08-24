@@ -9,6 +9,11 @@ variable "codebuild_settings" {
   })
 }
 
+variable "github_connection" {
+  description = "Github connection to user account"
+  type = any
+}
+
 variable "project_bucket_name" {
   description = "Project bucket name"
   type = string

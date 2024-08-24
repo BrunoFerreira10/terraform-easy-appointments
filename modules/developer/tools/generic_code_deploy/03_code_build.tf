@@ -20,7 +20,7 @@ resource "aws_codebuild_source_credential" "this" {
   ## https://awscli.amazonaws.com/v2/documentation/api/latest/reference/codebuild/import-source-credentials.html
   auth_type   = "PERSONAL_ACCESS_TOKEN"
   server_type = "GITHUB"
-  token       = aws_ssm_parameter.github_token.value
+  token       = data.aws_ssm_parameter.github_token.value
 }
 
 ## --------------------------------------------------------------------------------------------------------------------

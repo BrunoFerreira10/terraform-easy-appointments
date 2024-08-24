@@ -44,7 +44,7 @@ resource "aws_codebuild_project" "this" {
 
   source {
     type            = "GITHUB"
-    location        = var.app_repository_url // "https://github.com/your-repo-url.git"
+    location        = var.app_repository_url_https // "https://github.com/your-repo-url.git"
     git_clone_depth = 1
     buildspec = templatefile("${path.module}/scripts/codebuild_spec.yml.tpl",{})
   }

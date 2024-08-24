@@ -1,4 +1,4 @@
-variable "app_repository_url" {
+variable "app_repository_url_https" {
   type = string
 }
 

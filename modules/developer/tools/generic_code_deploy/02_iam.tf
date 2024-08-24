@@ -121,7 +121,7 @@ resource "aws_iam_policy" "connections" {
 
 
 resource "aws_iam_role" "codebuild" {
-  name = "${var.codebuild_settings.project_name}"
+  name = "${var.codebuild_settings.project_name}CodeBuild"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

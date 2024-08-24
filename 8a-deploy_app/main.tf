@@ -1,15 +1,17 @@
 module "deploy_app" {
   source                   = "../modules/developer/tools/generic_code_deploy"
   app_repository_url_https = module.data.github_vars.app_repository_url_https
-  codebuild_settings = {
+  codebuild_settings = { # TODO - Rever essa divisão
     project_name = "EasyAppointments"
     github_connection_name = module.data.github_vars.my_github_connection_name
   }
-  codedeploy_settings = {
+  codedeploy_settings = { # TODO - Rever essa divisão
     application_name = "EasyAppointments"
     elb = module.data.projects.elb_app.elb
-  }  
+  }
+  domain              = module.data.github_vars.rt53_domain
   project_bucket_name = module.data.github_vars.general_project_bucket_name
   region              = module.data.github_vars.general_region
+  rds                 = module.data.projects.rds_app.rds
   shortname           = module.data.github_vars.general_tag_shortname
 }

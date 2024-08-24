@@ -18,9 +18,19 @@ variable "codedeploy_settings" {
   })
 }
 
+variable "domain" {
+  description = "Domínio base da aplicação"
+  type        = string
+}
+
 variable "project_bucket_name" {
   description = "Project bucket name"
   type = string
+}
+
+variable "rds" {
+  description = "Application RDS"
+  type        = any
 }
 
 variable "region" {

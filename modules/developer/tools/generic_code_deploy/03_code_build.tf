@@ -1,5 +1,44 @@
+## --------------------------------------------------------------------------------------------------------------------
+## Therefore, when you define aws_codebuild_source_credential, 
+## aws_codebuild_project resource defined in the same module will use it.
+## Note from this link: #
+##     https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_source_credential.html
+## Ao acicionar o recurso "aws_codebuild_source_credential" em algum modulo o(s) recurso(s) aws_codebuild_project
+## vão automaticamente usá-lo para o acesso ao github.
+## --------------------------------------------------------------------------------------------------------------------
+
+resource "aws_codebuild_source_credential" "this" {
+  ## Possible values
+  ## https://awscli.amazonaws.com/v2/documentation/api/latest/reference/codebuild/import-source-credentials.html
+  auth_type   = "CODECONNECTIONS"
+  server_type = "GITHUB"
+  token       = aws_codebuild_source_credential.github_app_connections.token
+}
+
+## --------------------------------------------------------------------------------------------------------------------
+## Webhooks - Qual evento no repositorio dispara o codebuild.
+## --------------------------------------------------------------------------------------------------------------------
+resource "aws_codebuild_webhook" "this" {
+  project_name = aws_codebuild_project.this.name
+  build_type   = "BUILD"
+  filter_group {
+    filter {
+      type    = "EVENT"
+      pattern = "PUSH"
+    }
+
+    filter {
+      type    = "BASE_REF"
+      pattern = "master"
+    }
+  }
+}
+
+## --------------------------------------------------------------------------------------------------------------------
+## Code build project
+## --------------------------------------------------------------------------------------------------------------------
 resource "aws_codebuild_project" "this" {
-  name         = "codebuild_${var.shortname}"
+  name         = "${var.codebuild_settings.project_name}"
   description  = "Code build para aplicação ${var.shortname}"
   service_role = aws_iam_role.codebuild.arn
 
@@ -7,46 +46,36 @@ resource "aws_codebuild_project" "this" {
     type            = "GITHUB"
     location        = var.app_repository_url // "https://github.com/your-repo-url.git"
     git_clone_depth = 1
+    buildspec = templatefile("${path.module}/scripts/codebuild_spec.yml.tpl",{})
   }
 
   environment {
-
-    registry_credential {
-      credential_provider = "SECRETS_MANAGER"
-      credential = ""
-    }
-
+    type         = "LINUX_CONTAINER" 
     compute_type = "BUILD_GENERAL1_SMALL"
-    image        = "aws/codebuild/standard:5.0"
-    type         = "LINUX_CONTAINER"
-
-    environment_variable {
-      name  = "NODE_ENV"
-      value = "production"
-    }
-
-    
+    # Check AWS Managed images:
+    # aws codebuild list-curated-environment-images
+    image        = "aws/codebuild/standard:7.0"
   }
 
   artifacts {
     type      = "S3"
     location  = var.project_bucket_name
-    path      = "build-output"
+    name      = "build.zip"
+    path      = "code_deploy_outputs"
     packaging = "ZIP"
-  }
-
+  }  
 
   build_timeout  = 30
-  queued_timeout = 15
+  queued_timeout = 10
 
   logs_config {
     cloudwatch_logs {
-      group_name  = "/aws/codebuild/php-nodejs-build"
-      stream_name = "codebuild"
+      group_name  = "/aws/codebuild/${var.codebuild_settings.project_name}"
+      stream_name = "codebuild_${var.codebuild_settings.project_name}"
     }
   }
 
   tags = {
-    Name = "PHPNodeJSBuildProject"
+    Name = "codebuild_${var.shortname}"
   }
 }

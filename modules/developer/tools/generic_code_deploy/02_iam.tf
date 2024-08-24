@@ -34,20 +34,20 @@ resource "aws_iam_policy" "base" {
       #     "s3:GetBucketLocation"
       #   ]
       # },
-      # {
-      #   "Effect" : "Allow",
-      #   "Resource" : [
-      #     "arn:aws:s3:::brunoferreira86dev-easy-appointments-logging",
-      #     "arn:aws:s3:::brunoferreira86dev-easy-appointments-logging/*"
-      #   ],
-      #   "Action" : [
-      #     "s3:PutObject",
-      #     "s3:GetObject",
-      #     "s3:GetBucketAcl",
-      #     "s3:GetBucketLocation",
-      #     "s3:ListBucket"
-      #   ]
-      # },
+      {
+        "Effect" : "Allow",
+        "Resource" : [
+          "arn:aws:s3:::${var.project_bucket_name}",
+          "arn:aws:s3:::${var.project_bucket_name}/*"
+        ],
+        "Action" : [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:GetBucketAcl",
+          "s3:GetBucketLocation",
+          "s3:ListBucket"
+        ]
+      },
       {
         "Effect" : "Allow",
         "Action" : [

@@ -15,13 +15,18 @@
 #   token       = var.github_app_connection.token
 # }
 
-resource "aws_codebuild_source_credential" "this" {
-  ## Possible values
-  ## https://awscli.amazonaws.com/v2/documentation/api/latest/reference/codebuild/import-source-credentials.html
-  auth_type   = "PERSONAL_ACCESS_TOKEN"
-  server_type = "GITHUB"
-  token       = data.aws_ssm_parameter.github_token.value
+
+data "aws_codestarconnections_connection" "github_app_connection" {
+  name = "github_app_connection"
 }
+
+# resource "aws_codebuild_source_credential" "this" {
+#   ## Possible values
+#   ## https://awscli.amazonaws.com/v2/documentation/api/latest/reference/codebuild/import-source-credentials.html
+#   auth_type   = "PERSONAL_ACCESS_TOKEN"
+#   server_type = "GITHUB"
+#   token       = data.aws_ssm_parameter.github_token.value
+# }
 
 ## --------------------------------------------------------------------------------------------------------------------
 ## Webhooks - Qual evento no repositorio dispara o codebuild.

@@ -3,7 +3,7 @@
 ## --------------------------------------------------------------------------------------------------------------------
 resource "aws_iam_policy" "base" {
   name = "CodeBuildBasePolicy-${var.codebuild_settings.project_name}-${var.region}"
-  path = "/TerraforManaged"
+  path = "/TerraformManaged/"
   description = "Policy used in trust relationship with CodeBuild and ${var.shortname} application"
   
   policy = jsonencode({
@@ -70,7 +70,7 @@ resource "aws_iam_policy" "base" {
 ## Policy used in trust relationship with CodeBuild
 resource "aws_iam_policy" "connections" {
   name = "CodeBuildCodeConnectionsSourceCredentialsPolicy-${var.codebuild_settings.project_name}-${var.region}"
-  path = "/TerraforManaged"
+  path = "/TerraformManaged/"
   description = "Policy used in trust relationship with CodeBuild and ${var.shortname} application"
   
   policy = jsonencode({
@@ -121,7 +121,7 @@ resource "aws_iam_policy" "connections" {
 
 
 resource "aws_iam_role" "codebuild" {
-  name = "codebuild-role"
+  name = "role-codebuild"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

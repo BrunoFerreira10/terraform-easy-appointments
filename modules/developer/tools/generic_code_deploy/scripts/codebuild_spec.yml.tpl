@@ -33,7 +33,8 @@ phases:
   post_build:
     commands:
       - echo "Build completed. Starting deployment..."
-      - aws deploy create-deployment \
+      - |
+        aws deploy create-deployment \
           --application-name ${APPLICATION_NAME} \
           --deployment-group-name ${APPLICATION_NAME} \
           --s3-location bucket=${PROJECT_BUCKET_NAME},key=/code_deploy_outputs/build.zip,bundleType=zip \

@@ -9,7 +9,8 @@ phases:
       - apt install -y composer
   build:
     commands:
-      - composer install
+      - ls -la
+      - composer install -n
       - npm install
       - npm run build
 

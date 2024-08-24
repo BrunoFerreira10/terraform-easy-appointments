@@ -6,17 +6,12 @@
 ## Ao acicionar o recurso "aws_codebuild_source_credential" em algum modulo o(s) recurso(s) aws_codebuild_project
 ## vão automaticamente usá-lo para o acesso ao github.
 ## --------------------------------------------------------------------------------------------------------------------
-
 resource "aws_codebuild_source_credential" "this" {
   ## Possible values
   ## https://awscli.amazonaws.com/v2/documentation/api/latest/reference/codebuild/import-source-credentials.html
   auth_type   = "CODECONNECTIONS"
   server_type = "GITHUB"
   token       = data.aws_codestarconnections_connection.github_app_connection.arn
-}
-
-data "aws_codestarconnections_connection" "github_app_connection" {
-  name = "github_app_connection"
 }
 
 # resource "aws_codebuild_source_credential" "this" {

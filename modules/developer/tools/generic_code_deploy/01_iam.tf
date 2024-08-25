@@ -1,4 +1,81 @@
 ## --------------------------------------------------------------------------------------------------------------------
+## Lambda policies and role
+## --------------------------------------------------------------------------------------------------------------------
+resource "aws_iam_policy" "lambda_codedeploy_policy" {
+  name        = "LambdaCodeDeployPolicy-${var.codedeploy_settings.application_name}-${var.region}"
+  path        = "/TerraformManaged/"
+  description = "Policy to allow Lambda function to trigger CodeDeploy for ${var.codedeploy_settings.application_name}"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "codedeploy:CreateDeployment",
+          "codedeploy:RegisterApplicationRevision"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Resource": "arn:aws:s3:::${var.project_bucket_name}/*"
+      }
+    ]
+  })
+}
+
+## Lamda role
+resource "aws_iam_role" "lambda_codedeploy_role" {
+  name = "${var.codedeploy_settings.application_name}LambdaRole"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_codedeploy_attach_policy" {
+  role       = aws_iam_role.lambda_codedeploy_role.name
+  policy_arn = aws_iam_policy.lambda_codedeploy_policy.arn
+}
+
+## --------------------------------------------------------------------------------------------------------------------
+## SNS 
+## --------------------------------------------------------------------------------------------------------------------
+# Documento de política IAM para permitir que o S3 publique mensagens no SNS
+data "aws_iam_policy_document" "topic" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["s3.amazonaws.com"]
+    }
+
+    actions   = ["SNS:Publish"]
+    resources = [aws_sns_topic.s3_deployment_notifications.arn]  # Corrigido para referenciar o tópico SNS criado
+
+    condition {
+      test     = "ArnLike"
+      variable = "aws:SourceArn"
+      values   = [data.aws_s3_bucket.project_bucket_name.arn]  # Corrigido para usar o ARN do bucket S3 referenciado
+    }
+  }
+}
+
+## --------------------------------------------------------------------------------------------------------------------
 ## CodeBuild Policies
 ## --------------------------------------------------------------------------------------------------------------------
 resource "aws_iam_policy" "base" {
@@ -21,19 +98,6 @@ resource "aws_iam_policy" "base" {
           "logs:PutLogEvents"
         ]
       },
-      # {
-      #   "Effect" : "Allow",
-      #   "Resource" : [
-      #     "arn:aws:s3:::codepipeline-us-east-1-*"
-      #   ],
-      #   "Action" : [
-      #     "s3:PutObject",
-      #     "s3:GetObject",
-      #     "s3:GetObjectVersion",
-      #     "s3:GetBucketAcl",
-      #     "s3:GetBucketLocation"
-      #   ]
-      # },
       {
         "Effect" : "Allow",
         "Resource" : [
@@ -65,7 +129,6 @@ resource "aws_iam_policy" "base" {
   })
 }
 
-
 ## CodeBuildCodeConnectionsSourceCredentialsPolicy-TesteBuild-us-east-1
 ## Policy used in trust relationship with CodeBuild
 resource "aws_iam_policy" "connections" {
@@ -95,31 +158,6 @@ resource "aws_iam_policy" "connections" {
 }
 
 
-
-##CodeBuildSecretsManagerSourceCredentialsPolicy-TesteBuild-us-east-1
-## Policy used in trust relationship with CodeBuild
-# resource "aws_iam_policy" "secret_manager" {
-#   name = "CodeBuildSecretsManagerSourceCredentialsPolicy-${var.codebuild_settings.project_name}-${var.region}"
-#   path = "/TerraforManaged"
-#   description = "Policy used in trust relationship with CodeBuild and ${var.shortname} application"
-
-#   policy = jsonencode({
-#     Version = "2012-10-17"
-#     Statement = [
-#       {
-#         "Sid" : "SidGetSecretValue",
-#         "Effect" : "Allow",
-#         "Action" : [
-#           "secretsmanager:GetSecretValue"
-#         ],
-#         "Resource" : [
-#           "arn:aws:secretsmanager:us-east-1:339712924273:secret:SECRET_AWS_SERVICES_TOKEN-kZVQ62"
-#         ]
-#       }
-#     ]
-#   })
-# }
-
 ## --------------------------------------------------------------------------------------------------------------------
 ## CodeBuild Role
 ## --------------------------------------------------------------------------------------------------------------------
@@ -141,25 +179,20 @@ resource "aws_iam_role" "codebuild" {
   })
 }
 
-# resource "aws_iam_role_policy_attachment" "codebuild_attach_base" {
-#   role       = aws_iam_role.codebuild.name
-#   policy_arn = aws_iam_policy.base.arn
-# }
-
-# resource "aws_iam_role_policy_attachment" "codebuild_attach_connections" {
-#   role       = aws_iam_role.codebuild.name
-#   policy_arn = aws_iam_policy.connections.arn
-# }
-
-# resource "aws_iam_role_policy_attachment" "codebuild_attach_secrets" {
-#   role       = aws_iam_role.codebuild.name
-#   policy_arn = aws_iam_policy.secret_manager.arn
-# }
-
-resource "aws_iam_role_policy_attachment" "codebuild_attach_developer_access" {
+resource "aws_iam_role_policy_attachment" "codebuild_attach_base" {
   role       = aws_iam_role.codebuild.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildAdminAccess"
+  policy_arn = aws_iam_policy.base.arn
 }
+
+resource "aws_iam_role_policy_attachment" "codebuild_attach_connections" {
+  role       = aws_iam_role.codebuild.name
+  policy_arn = aws_iam_policy.connections.arn
+}
+
+# resource "aws_iam_role_policy_attachment" "codebuild_attach_developer_access" {
+#   role       = aws_iam_role.codebuild.name
+#   policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess"
+# }
 
 ## --------------------------------------------------------------------------------------------------------------------
 ## CodeDeploy Role

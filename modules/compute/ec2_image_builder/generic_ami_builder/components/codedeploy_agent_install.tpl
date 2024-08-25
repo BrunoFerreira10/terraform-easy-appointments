@@ -4,7 +4,7 @@ phases:
       - action: ExecuteBash
         inputs:
           commands:
-            - sudo apt install ruby-full
+            - sudo apt install -y ruby-full
             - cd /home/ubuntu
             - wget https://aws-codedeploy-${REGION}.s3.${REGION}.amazonaws.com/latest/install
             - chmod +x ./install

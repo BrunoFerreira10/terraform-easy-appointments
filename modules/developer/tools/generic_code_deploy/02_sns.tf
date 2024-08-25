@@ -1,8 +1,3 @@
-# Referência ao bucket S3 existente usando o nome fornecido pela variável
-data "aws_s3_bucket" "project_bucket_name" {
-  bucket = var.project_bucket_name
-}
-
 # Criação do tópico SNS para receber notificações do S3
 resource "aws_sns_topic" "s3_deployment_notifications" {
   name = "s3-deployment-notifications"

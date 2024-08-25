@@ -74,5 +74,5 @@ resource "aws_imagebuilder_component" "this" {
 
   data = templatefile("${path.module}/components/${each.key}.tpl", merge({
     NAME = upper("${var.shortname}_${each.key}")
-  }, lookup(each.value, template_payload, {})))
+  }, lookup(each.value, "template_payload", {})))
 }

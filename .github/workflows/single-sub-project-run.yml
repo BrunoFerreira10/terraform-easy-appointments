@@ -108,6 +108,7 @@ jobs:
           terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} -auto-approve \
             -var-file=./variables.tfvars
           ls -Rla
+          echo "hello subproject"
 
       # Usado apenas no sub-projeto Secrets Manager
       - name: Run Terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} - Github Sync SSM

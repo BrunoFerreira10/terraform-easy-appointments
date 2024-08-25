@@ -8,7 +8,7 @@ phases:
             - cd /home/ubuntu
             - wget https://aws-codedeploy-${REGION}.s3.${REGION}.amazonaws.com/latest/install
             - chmod +x ./install
-            - sudo -u ubuntu ./install auto > /tmp/codedeploy-agent-install.log
+            - ./install auto
             - systemctl status codedeploy-agent
         name: ${NAME}
         onFailure: "Abort"

@@ -30,8 +30,8 @@ resource "aws_codedeploy_deployment_group" "this" {
 
   ec2_tag_set {
     ec2_tag_filter {
-      key   = "Project"
-      value = "terraform_easy_appointments"
+      key   = "Name"
+      value = "asg_easy_appointments"
       type  = "KEY_AND_VALUE"
     }
   }

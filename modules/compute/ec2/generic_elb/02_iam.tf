@@ -29,7 +29,7 @@ resource "aws_iam_role" "launch_tpl" {
 }
 
 # Necessária para download do build.zip no s3 durante o deploy.
-resource "aws_iam_role_policy_attachment" "ssm_managed_to_launch_tpl" {
+resource "aws_iam_role_policy_attachment" "s3_read_to_launch_tpl" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
   role       = aws_iam_role.launch_tpl.name
 }

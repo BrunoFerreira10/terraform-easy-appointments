@@ -119,10 +119,3 @@ jobs:
             -var-file=./variables.tfvars \
             '-var=github_secrets=${{ toJson(secrets) }}' \
             '-var=github_vars=${{ toJson(vars) }}'
-
-      # Usado para todos os sub-projetos, exceto Secrets Manager
-      - name: depurando
-        run: |          
-          tree -a modules/developer/tools/generic_code_deploy/
-          tree -a 8a-deploy_app/
-          tree -a -L 1 /

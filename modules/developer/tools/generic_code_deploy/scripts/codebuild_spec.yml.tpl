@@ -22,13 +22,17 @@ phases:
       - composer install -n
 
       - echo "------ Executando npm install ------"
-      - npm install
+      - npm install 
 
       - echo "------ Executando npm run build ------"
       - npm run build
 
       - echo "------ Renomeia arquivo config-sample.php ------"
       - mv build/config-sample.php build/config.php
+
+      - echo "------ Copiar arquivo para deploy ------"
+      - cp appspec.yml build/
+      - cp -r deploy build/
 
 artifacts:
   files:

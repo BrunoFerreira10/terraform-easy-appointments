@@ -15,6 +15,7 @@ variable "codedeploy_settings" {
   type = object({
     application_name = string
     elb = any
+    target_group = any
   })
 }
 

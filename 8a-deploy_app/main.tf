@@ -8,6 +8,7 @@ module "deploy_app" {
   codedeploy_settings = { # TODO - Rever essa divisão
     application_name = "EasyAppointments"
     elb = module.data.projects.elb_app.elb
+    target_group = module.data.projects.elb_app.target_group
   }
   domain              = module.data.github_vars.rt53_domain
   project_bucket_name = module.data.github_vars.general_project_bucket_name

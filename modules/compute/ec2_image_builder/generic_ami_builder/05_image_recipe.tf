@@ -12,9 +12,9 @@ locals {
     aws_imagebuilder_component.this["codedeploy_agent_install"].arn,
     aws_imagebuilder_component.this["nginx_install"].arn,
     aws_imagebuilder_component.this["php_install"].arn,
-    aws_imagebuilder_component.this["apache_uninstall"].arn,
-    aws_imagebuilder_component.this["composer_install"].arn,
-    aws_imagebuilder_component.this["node_install"].arn
+    aws_imagebuilder_component.this["apache_uninstall"].arn, 
+    aws_imagebuilder_component.this["composer_install"].arn, # REMOVER
+    aws_imagebuilder_component.this["node_install"].arn # REMOVER
   ]
 }
 
@@ -42,10 +42,10 @@ resource "aws_imagebuilder_image_recipe" "installation" {
 ## Recipe components
 locals {
   component_arns_app_setup = [
-    aws_imagebuilder_component.this["git_fetch_repository"].arn,
-    aws_imagebuilder_component.this["nginx_config"].arn,
-    aws_imagebuilder_component.this["daemon_reload"].arn,
-    aws_imagebuilder_component.this["nginx_restart"].arn
+    aws_imagebuilder_component.this["git_fetch_repository"].arn, # REMOVER
+    aws_imagebuilder_component.this["nginx_config"].arn, # REMOVER
+    aws_imagebuilder_component.this["daemon_reload"].arn, # REMOVER
+    aws_imagebuilder_component.this["nginx_restart"].arn # REMOVER
   ]
 }
 

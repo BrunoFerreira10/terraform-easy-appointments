@@ -18,8 +18,11 @@ resource "aws_codedeploy_deployment_group" "this" {
   }
 
   load_balancer_info {
-    elb_info {
-      name = var.codedeploy_settings.elb.name
+    # elb_info {
+    #   name = var.codedeploy_settings.elb.name
+    # }
+    target_group_info {
+      name = var.codedeploy_settings.target_group.name
     }
   }
 

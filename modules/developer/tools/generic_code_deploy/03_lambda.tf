@@ -12,6 +12,7 @@ resource "local_file" "lambda_zip" {
 }
 
 data "archive_file" "lambda_zip" {
+  depends_on = [ local_file.lambda_zip ]
   type        = "zip"
   source_file = "${path.module}/scripts/lambda_function.py"
   output_path = "lambda_function.zip"  

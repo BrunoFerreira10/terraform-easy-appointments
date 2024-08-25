@@ -28,6 +28,14 @@ resource "aws_codedeploy_deployment_group" "this" {
     events  = ["DEPLOYMENT_FAILURE"]
   }
 
+  ec2_tag_set {
+    ec2_tag_filter {
+      key   = "Project"
+      value = "terraform_easy_appointments"
+      type  = "KEY_AND_VALUE"
+    }
+  }
+
   # Opcional: Alarms Configuration
   # alarm_configuration {
   #   enabled                  = true

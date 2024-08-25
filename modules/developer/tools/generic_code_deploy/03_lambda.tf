@@ -18,8 +18,8 @@ resource "aws_lambda_function" "codedeploy_trigger_lambda" {
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.9"
 
-  filename         = "lambda_function.zip"
-  source_code_hash = filebase64sha256("lambda_function.zip")
+  filename         = local.local_file.filename
+  source_code_hash = filebase64sha256(local.local_file.filename)
 
   environment {
     variables = {

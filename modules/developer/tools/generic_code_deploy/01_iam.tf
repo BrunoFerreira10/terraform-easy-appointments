@@ -12,6 +12,7 @@ resource "aws_iam_policy" "lambda_codedeploy_policy" {
       {
         "Effect": "Allow",
         "Action": [
+          "codedeploy:GetDeploymentConfig",
           "codedeploy:CreateDeployment",
           "codedeploy:RegisterApplicationRevision"
         ],

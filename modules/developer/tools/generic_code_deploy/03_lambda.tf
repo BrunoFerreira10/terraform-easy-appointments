@@ -1,7 +1,7 @@
 #Criação do arquivo ZIP contendo o código da função Lambda
 resource "local_file" "lambda_zip" {
   filename = "lambda_function.zip"
-  content  = filebase64("${path.module}/scripts/lambda_function.py")
+  content  = "${path.module}/scripts/lambda_function.py"
 
   provisioner "local-exec" {
     command = <<EOT

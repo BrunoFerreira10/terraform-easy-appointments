@@ -141,25 +141,25 @@ resource "aws_iam_role" "codebuild" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "codebuild_attach_base" {
-  role       = aws_iam_role.codebuild.name
-  policy_arn = aws_iam_policy.base.arn
-}
+# resource "aws_iam_role_policy_attachment" "codebuild_attach_base" {
+#   role       = aws_iam_role.codebuild.name
+#   policy_arn = aws_iam_policy.base.arn
+# }
 
-resource "aws_iam_role_policy_attachment" "codebuild_attach_connections" {
-  role       = aws_iam_role.codebuild.name
-  policy_arn = aws_iam_policy.connections.arn
-}
+# resource "aws_iam_role_policy_attachment" "codebuild_attach_connections" {
+#   role       = aws_iam_role.codebuild.name
+#   policy_arn = aws_iam_policy.connections.arn
+# }
 
 # resource "aws_iam_role_policy_attachment" "codebuild_attach_secrets" {
 #   role       = aws_iam_role.codebuild.name
 #   policy_arn = aws_iam_policy.secret_manager.arn
 # }
 
-# resource "aws_iam_role_policy_attachment" "codebuild_attach_developer_access" {
-#   role       = aws_iam_role.codebuild.name
-#   policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess"
-# }
+resource "aws_iam_role_policy_attachment" "codebuild_attach_developer_access" {
+  role       = aws_iam_role.codebuild.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess"
+}
 
 ## --------------------------------------------------------------------------------------------------------------------
 ## CodeDeploy Role

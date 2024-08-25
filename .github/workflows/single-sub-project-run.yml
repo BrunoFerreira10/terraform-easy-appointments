@@ -120,3 +120,11 @@ jobs:
             -var-file=./variables.tfvars \
             '-var=github_secrets=${{ toJson(secrets) }}' \
             '-var=github_vars=${{ toJson(vars) }}'
+
+      # Usado para todos os sub-projetos, exceto Secrets Manager
+      - name: depurando
+        run: |
+          cd "./${{ steps.process-inputs.outputs.LOCAL_FOLDER }}"
+          tree
+          ls -Rla
+          echo "hello subproject"

@@ -102,6 +102,7 @@ jobs:
       # Usado para todos os sub-projetos, exceto Secrets Manager
       - name: Run Terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }}
         if: ${{ steps.process-inputs.outputs.SUB_PROJECT_NAME != 'github_sync' }}
+        continue-on-error: true
         run: |
           cd "./${{ steps.process-inputs.outputs.LOCAL_FOLDER }}"
           cat ./variables.tfvars

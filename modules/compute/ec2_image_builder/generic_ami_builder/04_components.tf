@@ -15,6 +15,12 @@ locals {
     aws_cli_install = {
       description = "Instala o AWS CLI."
     },
+    codedeploy_agent_install = {
+      description = "Instala o CodeDeploy agent",
+      template_payload = {
+        REGION = var.region
+      }
+    },
     composer_install = {
       description = "Instala o composer."
     },
@@ -26,13 +32,13 @@ locals {
     },
     git_fetch_repository = {
       description = "Download do repositorio de '${var.shortname}' para /tmp/app",
-      "template_payload" = {
+      template_payload = {
         APP_REPOSITORY_URL = var.app_repository_url
       }
     },
     nginx_config = {
       description = "Configuração basica do nginx.",
-      "template_payload" = {}
+      template_payload = {}
     },
     nginx_install = {
       description = "Instala o nginx."
@@ -69,5 +75,5 @@ resource "aws_imagebuilder_component" "this" {
 
   data = templatefile("${path.module}/components/${each.key}.tpl", merge({
     NAME = upper("${var.shortname}_${each.key}")
-  }, lookup(each.value, "template_payload", {})))
+  }, lookup(each.value, template_payload, {})))
 }

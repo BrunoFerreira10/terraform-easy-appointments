@@ -9,6 +9,7 @@ locals {
     aws_imagebuilder_component.this["apt_upgrade"].arn,
     aws_imagebuilder_component.this["efs_utils_install"].arn,
     aws_imagebuilder_component.this["aws_cli_install"].arn,
+    aws_imagebuilder_component.this["codedeploy_agent_install"].arn,
     aws_imagebuilder_component.this["nginx_install"].arn,
     aws_imagebuilder_component.this["php_install"].arn,
     aws_imagebuilder_component.this["apache_uninstall"].arn,

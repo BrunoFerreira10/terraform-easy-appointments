@@ -158,7 +158,7 @@ resource "aws_iam_role" "codebuild" {
 
 resource "aws_iam_role_policy_attachment" "codebuild_attach_developer_access" {
   role       = aws_iam_role.codebuild.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildAdminAccess"
 }
 
 ## --------------------------------------------------------------------------------------------------------------------

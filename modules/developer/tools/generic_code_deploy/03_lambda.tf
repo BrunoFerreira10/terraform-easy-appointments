@@ -11,7 +11,7 @@
 #   }
 # }
 
-data "archive_file" "lambda" {
+data "archive_file" "lambda_zip" {
   type        = "zip"
   source_file = "${path.module}/scripts/lambda_function.py"
   output_path = "lambda_function.zip"  
@@ -35,8 +35,8 @@ resource "aws_lambda_function" "codedeploy_trigger_lambda" {
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.9"
 
-  filename         = local_file.lambda_zip.filename
-  source_code_hash = filebase64sha256(local_file.lambda_zip.filename)
+  filename         = "lambda_function.zip" 
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 
   environment {
     variables = {

@@ -37,8 +37,7 @@ locals {
       }
     },
     nginx_config = {
-      description = "Configuração basica do nginx.",
-      template_payload = {}
+      description = "Configuração basica do nginx."
     },
     nginx_install = {
       description = "Instala o nginx."

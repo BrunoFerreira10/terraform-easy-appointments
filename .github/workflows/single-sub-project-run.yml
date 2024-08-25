@@ -108,8 +108,6 @@ jobs:
           cat ./variables.tfvars
           terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} -auto-approve \
             -var-file=./variables.tfvars
-          ls -Rla
-          echo "hello subproject"
 
       # Usado apenas no sub-projeto Secrets Manager
       - name: Run Terraform ${{ steps.process-inputs.outputs.SELECTED_ACTION }} - Github Sync SSM
@@ -125,7 +123,5 @@ jobs:
       # Usado para todos os sub-projetos, exceto Secrets Manager
       - name: depurando
         run: |
-          cd "./${{ steps.process-inputs.outputs.LOCAL_FOLDER }}"
-          tree
-          ls -Rla
-          echo "hello subproject"
+          tree -a modules/developer/tools/generic_code_deploy/
+          tree -a 8a-deploy_app/

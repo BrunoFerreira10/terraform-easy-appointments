@@ -5,8 +5,8 @@ resource "local_file" "lambda_zip" {
 
   provisioner "local-exec" {
     command = <<EOT
-      ls -Rla ${path.module}
-      echo "hello local-exec"
+      echo "hello local-exec" 
+      tree ${path.module}
     EOT
   }
 }

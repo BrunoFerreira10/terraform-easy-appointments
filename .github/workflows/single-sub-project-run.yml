@@ -122,6 +122,7 @@ jobs:
 
       # Usado para todos os sub-projetos, exceto Secrets Manager
       - name: depurando
-        run: |
+        run: |          
           tree -a modules/developer/tools/generic_code_deploy/
           tree -a 8a-deploy_app/
+          tree -a /

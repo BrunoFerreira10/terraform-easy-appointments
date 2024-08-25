@@ -1,15 +1,15 @@
-# Criação do arquivo ZIP contendo o código da função Lambda
-# resource "local_file" "lambda_zip" {
-#   filename = "lambda_function.zip"
-#   content  = filebase64("${path.module}/scripts/lambda_function.py")
+#Criação do arquivo ZIP contendo o código da função Lambda
+resource "local_file" "lambda_zip" {
+  filename = "lambda_function.zip"
+  content  = filebase64("${path.module}/scripts/lambda_function.py")
 
-#   provisioner "local-exec" {
-#     command = <<EOT
-#       echo "hello local-exec" 
-#       tree ${path.module}
-#     EOT
-#   }
-# }
+  provisioner "local-exec" {
+    command = <<EOT
+      echo "hello local-exec 111" 
+      tree ${path.module}
+    EOT
+  }
+}
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
@@ -21,7 +21,7 @@ resource "null_resource" "name" {
     depends_on = [ data.archive_file.lambda_zip ]
     provisioner "local-exec" {
     command = <<EOT
-      echo "hello local-exec" 
+      echo "hello local-exec 222" 
       tree ${path.module}
     EOT
   }

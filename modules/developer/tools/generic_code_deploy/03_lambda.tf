@@ -13,6 +13,7 @@ resource "local_file" "lambda_zip" {
 
 # Criação da função Lambda
 resource "aws_lambda_function" "codedeploy_trigger_lambda" {
+  depends_on = [ local_file.lambda_zip ]
   function_name = "CodeDeployTriggerLambda"
   role          = aws_iam_role.lambda_codedeploy_role.arn
   handler       = "lambda_function.lambda_handler"

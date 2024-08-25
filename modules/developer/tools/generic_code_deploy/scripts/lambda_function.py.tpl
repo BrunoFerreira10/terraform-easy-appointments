@@ -1,6 +1,6 @@
 # scripts/lambda_function.py
 
-import boto3
+import boto3 # type: ignore
 import json
 import os
 

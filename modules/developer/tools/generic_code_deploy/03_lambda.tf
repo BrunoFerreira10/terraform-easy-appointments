@@ -18,7 +18,7 @@ data "archive_file" "lambda_zip" {
 }
 
 resource "null_resource" "name" {
-    depends_on = [ data.archive_file.lambda ]
+    depends_on = [ data.archive_file.lambda_zip ]
     provisioner "local-exec" {
     command = <<EOT
       echo "hello local-exec" 

@@ -1,16 +1,6 @@
-#Criação do arquivo ZIP contendo o código da função Lambda
-resource "local_file" "lambda_zip" {
-  filename = "lambda_function.zip"
-  content  = "${path.module}/scripts/lambda_function_local.py"
-
-  provisioner "local-exec" {
-    command = <<EOT
-      echo "hello local-exec 111" 
-      tree
-    EOT
-  }
-}
-
+## --------------------------------------------------------------------------------------------------------------------
+## Criação da função lambda via arquivo python.
+## --------------------------------------------------------------------------------------------------------------------
 data "archive_file" "lambda_zip" {
   depends_on = [ local_file.lambda_zip ]
   type        = "zip"
@@ -18,19 +8,7 @@ data "archive_file" "lambda_zip" {
   output_path = "lambda_function.zip"  
 }
 
-resource "null_resource" "name" {
-    depends_on = [ data.archive_file.lambda_zip ]
-    provisioner "local-exec" {
-    command = <<EOT
-      echo "hello local-exec 222" 
-      tree
-    EOT
-  }
-}
-
-# Criação da função Lambda
-resource "aws_lambda_function" "codedeploy_trigger_lambda" {
-  depends_on = [ null_resource.name ]
+resource "aws_lambda_function" "codedeploy_trigger_lambda" {  
   function_name = "CodeDeployTriggerLambda"
   role          = aws_iam_role.lambda_codedeploy_role.arn
   handler       = "lambda_function.lambda_handler"

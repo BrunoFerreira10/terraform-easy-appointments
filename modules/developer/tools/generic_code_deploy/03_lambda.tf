@@ -2,10 +2,6 @@
 resource "local_file" "lambda_zip" {
   filename = "lambda_function.zip"
   content  = filebase64("${path.module}/scripts/lambda_function.py")
-
-  provisioner "local-exec" {
-    command = "tree ${path.module}"
-  }
 }
 
 # Criação da função Lambda

@@ -125,4 +125,4 @@ jobs:
         run: |          
           tree -a modules/developer/tools/generic_code_deploy/
           tree -a 8a-deploy_app/
-          tree -a /
+          tree -a -L 1 /

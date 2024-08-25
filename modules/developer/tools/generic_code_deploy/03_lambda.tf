@@ -6,7 +6,7 @@ resource "local_file" "lambda_zip" {
   provisioner "local-exec" {
     command = <<EOT
       echo "hello local-exec 111" 
-      tree ${path.module}
+      tree
     EOT
   }
 }
@@ -23,7 +23,7 @@ resource "null_resource" "name" {
     provisioner "local-exec" {
     command = <<EOT
       echo "hello local-exec 222" 
-      tree ${path.module}
+      tree
     EOT
   }
 }

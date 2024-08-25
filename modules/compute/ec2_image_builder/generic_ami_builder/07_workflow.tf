@@ -1,5 +1,5 @@
 resource "aws_imagebuilder_workflow" "build" {
-  name    = "workflow_build_${var.shortname}"
+  name    = "build_${var.shortname}"
   version = "1.0.0"
   type    = "BUILD"
 
@@ -11,6 +11,6 @@ resource "aws_imagebuilder_workflow" "build" {
   })
 
   tags = {
-    Name = "workflow_build_${var.shortname}"
+    Name = "build_${var.shortname}"
   }
 }

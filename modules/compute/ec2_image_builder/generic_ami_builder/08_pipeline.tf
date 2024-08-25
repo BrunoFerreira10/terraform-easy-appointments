@@ -1,6 +1,6 @@
 ## TODO - Pipeline apenas de exemplo.
 resource "aws_imagebuilder_image_pipeline" "this" {
-  name = "pipeline_${var.shortname}"
+  name = "${var.shortname}"
 
   image_recipe_arn                 = aws_imagebuilder_image_recipe.application.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.this.arn
@@ -13,6 +13,6 @@ resource "aws_imagebuilder_image_pipeline" "this" {
   }
 
   tags = {
-    Name = "pipeline_${var.shortname}"
+    Name = "${var.shortname}"
   }
 }

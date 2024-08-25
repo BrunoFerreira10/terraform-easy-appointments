@@ -20,7 +20,7 @@ locals {
 
 ## Recipe
 resource "aws_imagebuilder_image_recipe" "installation" {
-  name         = "recipe_installation_${var.shortname}"
+  name         = "installation_${var.shortname}"
   version      = "1.0.0"
   parent_image = var.installation_parent_image
 
@@ -32,7 +32,7 @@ resource "aws_imagebuilder_image_recipe" "installation" {
   }
 
   tags = {
-    Name = "recipe_installation_${var.shortname}"
+    Name = "installation_${var.shortname}"
   }
 }
 

@@ -10,7 +10,7 @@ resource "aws_imagebuilder_image" "installation" {
   }
 
   tags = {
-    Name = "image_installation_${var.shortname}"
+    Name = "installation_${var.shortname}"
   }
 }
 
@@ -26,6 +26,6 @@ resource "aws_imagebuilder_image" "application" {
   }
 
   tags = {
-    Name = "image_application_${var.shortname}"
+    Name = "application_${var.shortname}"
   }
 }

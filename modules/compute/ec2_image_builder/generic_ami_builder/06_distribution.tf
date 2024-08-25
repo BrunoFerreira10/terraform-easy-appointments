@@ -1,35 +1,35 @@
 resource "aws_imagebuilder_distribution_configuration" "installation" {
-  name = "distribution_installation_${var.shortname}"
+  name = "installation_${var.shortname}"
 
   distribution {
     region = var.region
     ami_distribution_configuration {
-      name = "ami_${var.shortname}_{{imagebuilder:buildDate}}"
+      name = "ami_installation_${var.shortname}_{{imagebuilder:buildDate}}"
       ami_tags = {
-        Name = "ami_${var.shortname}_{{imagebuilder:buildDate}}"
+        Name = "ami__installation_${var.shortname}_{{imagebuilder:buildDate}}"
       }
     }
   }
 
   tags = {
-    Name = "distribution_installation_${var.shortname}"
+    Name = "installation_${var.shortname}"
   }
 }
 
 resource "aws_imagebuilder_distribution_configuration" "application" {
-  name = "distribution_application_${var.shortname}"
+  name = "application_${var.shortname}"
 
   distribution {
     region = var.region
     ami_distribution_configuration {
-      name = "ami_${var.shortname}_{{imagebuilder:buildDate}}"
+      name = "ami_application_${var.shortname}_{{imagebuilder:buildDate}}"
       ami_tags = {
-        Name = "ami_${var.shortname}_{{imagebuilder:buildDate}}"
+        Name = "ami_application_${var.shortname}_{{imagebuilder:buildDate}}"
       }
     }
   }
 
   tags = {
-    Name = "distribution_application_${var.shortname}"
+    Name = "application_${var.shortname}"
   }
 }

@@ -9,7 +9,7 @@ echo "#### Iniciado user data ####"
 # --------------------------------------------------------------------------------------------------------------------
 echo "#### Montagem do sistema de arquivos EFS ####"
 
-bash -c 'echo ":enable_auth_policy: true" >> /etc/codedeploy-agent/conf/confcodedeployagent.yml'
+bash -c 'echo ":enable_auth_policy: true" >> /etc/codedeploy-agent/conf/codedeployagent.yml'
 systemctl daemon-reload
 systemctl restart codedeploy-agent.service
 

@@ -24,7 +24,7 @@ module "vpc_app" {
           #SSH       = { rule_number = 100, port = 22 }, # BATION HOST
           HTTP      = { rule_number = 200, port = 80 },
           #EPHEMERAL_TEMP = { rule_number = 400, from_port = 1024, to_port = 65535, cidr_block = "0.0.0.0/0" } # USER DATA
-          #EPHEMERAL = { rule_number = 500, from_port = 1024, to_port = 65535 } # BASTION HOST
+          EPHEMERAL = { rule_number = 500, from_port = 1024, to_port = 65535 } # BASTION HOST
         },
         egress = {
           #SSH            = { rule_number = 102, port = 22, cidr_block = "0.0.0.0/0" },                         # USER DATA

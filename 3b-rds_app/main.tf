@@ -19,8 +19,6 @@ module "rds_mysql" {
     ingress = {
       MYSQL = {port = 3306}
     },
-    egress = {
-      # All = {ip_protocol = "-1", cidr_ipv4 = "0.0.0.0/0"}
-    }
+    egress = {}
   }
 }

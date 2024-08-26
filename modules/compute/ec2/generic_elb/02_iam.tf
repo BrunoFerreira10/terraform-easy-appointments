@@ -3,7 +3,7 @@
 ## --------------------------------------------------------------------------------------------------------------------
 ## Policies
 resource "aws_iam_policy" "codedeploy_vcp_endpoint" {
-  name        = "CodeDeployVpcEndpoint-${var.codedeploy_settings.application_name}"
+  name        = "CodeDeployVpcEndpoint-${var.shortname}"
   path        = "/TerraformManaged/"
   description = "Politica para EC2 usar VPC endpoint do agente do CodeDeploy"
 

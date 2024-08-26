@@ -40,6 +40,32 @@ resource "aws_network_acl_rule" "public_ingress" {
   to_port        = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
 }
 
+resource "aws_network_acl_rule" "public_egress" {
+  for_each = local.nacl_rules.public.egress
+
+  network_acl_id = var.vpc.nacl.public.id
+  rule_number    = each.value.rule_number
+  egress         = true
+  protocol       = lookup(each.value,"protocol","tcp")
+  rule_action    = lookup(each.value,"rule_action","allow")
+  cidr_block     = lookup(each.value,"cidr_block",var.vpc.cidr_block) 
+  from_port      = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
+  to_port        = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
+}
+
+resource "aws_network_acl_rule" "private_ingress" {
+  for_each = local.nacl_rules.private.ingress
+
+  network_acl_id = var.vpc.nacl.private.id
+  rule_number    = each.value.rule_number
+  egress         = false
+  protocol       = lookup(each.value,"protocol","tcp")
+  rule_action    = lookup(each.value,"rule_action","allow")
+  cidr_block     = lookup(each.value,"cidr_block",var.vpc.cidr_block) 
+  from_port      = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"from_port",each.value.port)
+  to_port        = lookup(each.value,"protocol","tcp") == "-1" ? null : lookup(each.value,"to_port",each.value.port)
+}
+
 resource "aws_network_acl_rule" "private_egress" {
   for_each = local.nacl_rules.private.egress
 

@@ -1,0 +1,54 @@
+
+locals {
+  nacl_rules = {
+    public = {
+      ingress = {
+        SSH       = { rule_number = 100, port = 22, cidr_block = "${data.aws_ssm_parameter.my_ip.value}/32"},
+        # EPHEMERAL = { rule_number = 400, cidr_block = "0.0.0.0/0", from_port = 1024, to_port = 65535 }
+      },
+      egress = {
+        SSH       = { rule_number = 100, port = 22 },
+        HTTP      = { rule_number = 200, port = 80, cidr_block = "0.0.0.0/0"},
+        HTTPS     = { rule_number = 300, port = 443, cidr_block = "0.0.0.0/0" },
+        # EPHEMERAL = { rule_number = 500, cidr_block = "0.0.0.0/0", from_port = 1024, to_port = 65535 }
+      }
+    },
+    private = {
+      ingress = {
+        SSH       = { rule_number = 100, port = 22, cidr_block = "${aws_instance.bastion.public_ip}/32" },
+      },
+      egress = {}
+    }
+  }
+}
+
+
+
+## --------------------------------------------------------------------------------------------------------------------
+## Create NACL rules dynamically
+## --------------------------------------------------------------------------------------------------------------------
+resource "aws_network_acl_rule" "public_ingress" {
+  for_each = local.nacl_rules.public.ingress
+
+  network_acl_id = var.vpc.nacl.public.id
+  rule_number    = each.value.rule_number
+  egress         = false
+  protocol       = each.value.protocol
+  rule_action    = each.value.rule_action
+  cidr_block     = each.value.cidr_block != null ? each.value.cidr_block : aws_vpc.app.cidr_block
+  from_port      = each.value.protocol == "-1" ? null : each.value.from_port != null ? each.value.from_port : each.value.port
+  to_port        = each.value.protocol == "-1" ? null : each.value.to_port != null ? each.value.to_port : each.value.port
+}
+
+resource "aws_network_acl_rule" "private_egress" {
+  for_each = local.nacl_rules.private.egress
+
+  network_acl_id = var.vpc.nacl.private.id
+  rule_number    = each.value.rule_number
+  egress         = true
+  protocol       = each.value.protocol
+  rule_action    = each.value.rule_action
+  cidr_block     = each.value.cidr_block != null ? each.value.cidr_block : aws_vpc.app.cidr_block
+  from_port      = each.value.protocol == "-1" ? null : each.value.from_port != null ? each.value.from_port : each.value.port
+  to_port        = each.value.protocol == "-1" ? null : each.value.to_port != null ? each.value.to_port : each.value.port
+}

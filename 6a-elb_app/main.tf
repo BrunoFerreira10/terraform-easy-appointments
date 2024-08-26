@@ -9,9 +9,9 @@ module "elb_app" {
   vpc                  = module.data.projects.vpc_app.vpc
   rds                  = module.data.projects.rds_app.rds
   efs                  = module.data.projects.efs_app.efs
-  instance_type        = local.fuv.instance_type
+  instance_type        = "t3a.medium"
   asg_settings         = {
-    launch_template_version = local.fuv.launch_template_version
+    launch_template_version = "4"
   }
   sg_elb_rules = {
     ingress = {

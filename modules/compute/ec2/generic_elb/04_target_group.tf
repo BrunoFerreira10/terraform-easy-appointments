@@ -16,8 +16,8 @@ resource "aws_lb_target_group" "this" {
     protocol            = "HTTP"
     path                = "/"
     port                = 80
-    interval            = 60
-    timeout             = 20
+    interval            = 20
+    timeout             = 15
     healthy_threshold   = 2
     unhealthy_threshold = 3
     matcher             = "200-404"

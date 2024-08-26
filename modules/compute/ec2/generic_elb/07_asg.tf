@@ -42,10 +42,10 @@ resource "aws_autoscaling_group" "this" {
 
   // Health checks
   health_check_type         = "EC2"
-  health_check_grace_period = 60
+  health_check_grace_period = 20
 
   // Advanced configuration
-  default_cooldown = 180
+  default_cooldown = 10
 
   // Metrics
   enabled_metrics = [
@@ -70,7 +70,7 @@ resource "aws_autoscaling_policy" "add_instance" {
   name                   = "cpu_limit_add_instance"
   scaling_adjustment     = 1
   adjustment_type        = "ChangeInCapacity"
-  cooldown               = 60
+  cooldown               = 10
   autoscaling_group_name = aws_autoscaling_group.this.name
 }
 
@@ -78,6 +78,6 @@ resource "aws_autoscaling_policy" "remove_instance" {
   name                   = "cpu_limit_remove_instance"
   scaling_adjustment     = -1
   adjustment_type        = "ChangeInCapacity"
-  cooldown               = 60
+  cooldown               = 10
   autoscaling_group_name = aws_autoscaling_group.this.name
 }

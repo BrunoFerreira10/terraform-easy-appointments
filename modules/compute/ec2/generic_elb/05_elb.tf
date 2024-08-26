@@ -12,7 +12,7 @@ resource "aws_lb" "this" {
 
   enable_deletion_protection = false
 
-  idle_timeout = 600
+  idle_timeout = 60
 
   tags = {
     Name = "elb_${var.shortname}"

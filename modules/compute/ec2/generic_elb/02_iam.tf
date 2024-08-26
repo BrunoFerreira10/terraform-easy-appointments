@@ -52,7 +52,7 @@ resource "aws_iam_role" "launch_tpl" {
   }
 }
 
-resource "aws_iam_role_policy_attachment" "s3_read_to_launch_tpl" {
+resource "aws_iam_role_policy_attachment" "codedeploy_vcp_endpoint_to_launch_tpl" {
   policy_arn = aws_iam_policy.codedeploy_vcp_endpoint.arn
   role       = aws_iam_role.launch_tpl.name
 }

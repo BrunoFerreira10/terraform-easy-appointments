@@ -12,15 +12,16 @@ resource "aws_codedeploy_deployment_group" "this" {
   deployment_group_name = "${var.codedeploy_settings.application_name}"
   service_role_arn      = aws_iam_role.codedeploy.arn
 
+  autoscaling_groups = [
+    var.codedeploy_settings.asg.name
+  ]
+
   deployment_style {
     deployment_option = "WITH_TRAFFIC_CONTROL"
     deployment_type   = "IN_PLACE"
   }
 
   load_balancer_info {
-    # elb_info {
-    #   name = var.codedeploy_settings.elb.name
-    # }
     target_group_info {
       name = var.codedeploy_settings.target_group.name
     }

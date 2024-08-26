@@ -14,8 +14,9 @@ variable "codedeploy_settings" {
   description = "CodeDeploy project settings"
   type = object({
     application_name = string
-    elb = any
     target_group = any
+    elb = any
+    asg = any
   })
 }
 

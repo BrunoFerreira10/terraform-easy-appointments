@@ -27,10 +27,10 @@ resource "aws_codedeploy_deployment_group" "this" {
     }
   }
 
-  auto_rollback_configuration {
-    enabled = true
-    events  = ["DEPLOYMENT_FAILURE"]
-  }
+  # auto_rollback_configuration {
+  #   enabled = true
+  #   events  = ["DEPLOYMENT_FAILURE"]
+  # }
 
   ec2_tag_set {
     ec2_tag_filter {

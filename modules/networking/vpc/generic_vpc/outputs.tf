@@ -2,8 +2,8 @@ output "vpc" {
   description = "App VPC information"
   value = {
     name       = "vpc_app"
-    id         = aws_vpc.app.id
-    cidr_block = aws_vpc.app.cidr_block
+    id         = aws_vpc.this.id
+    cidr_block = aws_vpc.this.cidr_block
     subnets = {
       public = {
         az_a = {

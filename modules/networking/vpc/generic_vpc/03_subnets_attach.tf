@@ -2,7 +2,7 @@
 ## Public subnet - AZ: a
 ## --------------------------------------------------------------------------------------------------------------------
 resource "aws_subnet" "public_az_a" {
-  vpc_id                  = aws_vpc.app.id
+  vpc_id                  = aws_vpc.this.id
   cidr_block              = "10.1.1.0/24"
   availability_zone       = "${var.region}a"
   map_public_ip_on_launch = true
@@ -24,7 +24,7 @@ resource "aws_network_acl_association" "public_az_a" {
 ## Private subnet - AZ: a
 ## --------------------------------------------------------------------------------------------------------------------a
 resource "aws_subnet" "private_az_a" {
-  vpc_id            = aws_vpc.app.id
+  vpc_id            = aws_vpc.this.id
   cidr_block        = "10.1.2.0/24"
   availability_zone = "${var.region}a"
   
@@ -45,7 +45,7 @@ resource "aws_network_acl_association" "private_az_a" {
 ## Public subnet - AZ: b
 ## --------------------------------------------------------------------------------------------------------------------
 resource "aws_subnet" "public_az_b" {
-  vpc_id                  = aws_vpc.app.id
+  vpc_id                  = aws_vpc.this.id
   cidr_block              = "10.1.3.0/24"
   availability_zone       = "${var.region}b"
   map_public_ip_on_launch = true
@@ -67,7 +67,7 @@ resource "aws_network_acl_association" "public_az_b" {
 ## Private subnet - AZ: b
 ## --------------------------------------------------------------------------------------------------------------------b
 resource "aws_subnet" "private_az_b" {
-  vpc_id            = aws_vpc.app.id
+  vpc_id            = aws_vpc.this.id
   cidr_block        = "10.1.4.0/24"
   availability_zone = "${var.region}b"
   
@@ -88,7 +88,7 @@ resource "aws_network_acl_association" "private_az_b" {
 ## Public subnet - AZ: c
 ## --------------------------------------------------------------------------------------------------------------------
 resource "aws_subnet" "public_az_c" {
-  vpc_id                  = aws_vpc.app.id
+  vpc_id                  = aws_vpc.this.id
   cidr_block              = "10.1.5.0/24"
   availability_zone       = "${var.region}c"
   map_public_ip_on_launch = true
@@ -111,7 +111,7 @@ resource "aws_network_acl_association" "public_az_c" {
 ## Private subnet - AZ: c
 ## --------------------------------------------------------------------------------------------------------------------c
 resource "aws_subnet" "private_az_c" {
-  vpc_id            = aws_vpc.app.id
+  vpc_id            = aws_vpc.this.id
   cidr_block        = "10.1.6.0/24"
   availability_zone = "${var.region}c"
   

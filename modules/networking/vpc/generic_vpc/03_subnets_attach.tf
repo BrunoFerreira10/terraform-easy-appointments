@@ -27,7 +27,6 @@ resource "aws_subnet" "private_az_a" {
   vpc_id            = aws_vpc.app.id
   cidr_block        = "10.1.2.0/24"
   availability_zone = "${var.region}a"
-  map_public_ip_on_launch = true # USER DATA
 
   tags = {
     Name = "subnet_private_az_a_app_${var.shortname}"
@@ -71,7 +70,6 @@ resource "aws_subnet" "private_az_b" {
   vpc_id            = aws_vpc.app.id
   cidr_block        = "10.1.4.0/24"
   availability_zone = "${var.region}b"
-  map_public_ip_on_launch = true # USER DATA
 
   tags = {
     Name = "subnet_private_az_b_app_${var.shortname}"
@@ -116,7 +114,6 @@ resource "aws_subnet" "private_az_c" {
   vpc_id            = aws_vpc.app.id
   cidr_block        = "10.1.6.0/24"
   availability_zone = "${var.region}c"
-  map_public_ip_on_launch = true # USER DATA
 
   tags = {
     Name = "subnet_private_az_c_app_${var.shortname}"

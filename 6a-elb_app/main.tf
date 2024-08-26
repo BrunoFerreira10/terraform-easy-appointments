@@ -3,7 +3,8 @@ module "elb_app" {
   acm_certificate      = module.data.projects.acm_app.certificate
   domain               = module.data.github_vars.rt53_domain
   ec2_ssh_keypair_name = module.data.github_vars.ec2_ssh_keypair_name
-  ami_image_id         = module.data.projects.ami_app.golden_image_id
+  # ami_image_id         = module.data.projects.ami_app.golden_image_id
+  ami_image_id         = "ami-0b4100f416623c9e0"
   shortname            = module.data.github_vars.general_tag_shortname
   app_repository_url   = module.data.github_vars.app_repository_url
   vpc                  = module.data.projects.vpc_app.vpc
@@ -11,7 +12,7 @@ module "elb_app" {
   efs                  = module.data.projects.efs_app.efs
   instance_type        = "t3a.medium"
   asg_settings         = {
-    launch_template_version = "4"
+    launch_template_version = "5"
   }
   sg_elb_rules = {
     ingress = {

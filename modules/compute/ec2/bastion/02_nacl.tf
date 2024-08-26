@@ -3,19 +3,19 @@ locals {
   nacl_rules = {
     public = {
       ingress = {
-        SSH       = { rule_number = 100, port = 22, cidr_block = "${data.aws_ssm_parameter.my_ip.value}/32"},
+        SSH       = { rule_number = 1100, port = 22, cidr_block = "${data.aws_ssm_parameter.my_ip.value}/32"},
         # EPHEMERAL = { rule_number = 400, cidr_block = "0.0.0.0/0", from_port = 1024, to_port = 65535 }
       },
       egress = {
-        SSH       = { rule_number = 100, port = 22 },
-        HTTP      = { rule_number = 200, port = 80, cidr_block = "0.0.0.0/0"},
-        HTTPS     = { rule_number = 300, port = 443, cidr_block = "0.0.0.0/0" },
+        SSH       = { rule_number = 1100, port = 22 },
+        HTTP      = { rule_number = 1200, port = 80, cidr_block = "0.0.0.0/0"},
+        HTTPS     = { rule_number = 1300, port = 443, cidr_block = "0.0.0.0/0" },
         # EPHEMERAL = { rule_number = 500, cidr_block = "0.0.0.0/0", from_port = 1024, to_port = 65535 }
       }
     },
     private = {
       ingress = {
-        SSH       = { rule_number = 100, port = 22, cidr_block = "${aws_instance.bastion.public_ip}/32" },
+        SSH       = { rule_number = 1100, port = 22, cidr_block = "${aws_instance.bastion.public_ip}/32" },
       },
       egress = {}
     }

@@ -34,6 +34,11 @@ phases:
       - cp appspec.yml build/
       - cp -r deploy build/
 
+      - echo "------ Define permissões e proprietario ------"
+      - cd build
+      - chmod a+rwx ./storage
+      - chown -R www-data:www-data .
+
 artifacts:
   files:
     - "**/*"

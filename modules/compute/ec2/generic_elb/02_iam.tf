@@ -24,7 +24,7 @@ resource "aws_iam_policy" "codedeploy_vcp_endpoint" {
   })
 
   tags = {
-    Name = "CodeDeployVpcEndpoint-${var.codedeploy_settings.application_name}"
+    Name = "CodeDeployVpcEndpoint-${var.shortname}"
   }
 }
 

@@ -12,7 +12,7 @@ module "elb_app" {
   efs                  = module.data.projects.efs_app.efs
   instance_type        = "t3.micro"
   asg_settings         = {
-    launch_template_version = "7"
+    launch_template_version = "8"
   }
   sg_elb_rules = {
     ingress = {

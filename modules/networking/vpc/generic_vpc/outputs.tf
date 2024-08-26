@@ -4,6 +4,10 @@ output "vpc" {
     name       = "vpc_app"
     id         = aws_vpc.app.id
     cidr_block = aws_vpc.app.cidr_block
+    nacl = {
+      public = aws_network_acl.public
+      private = aws_network_acl.private
+    }
     subnets = {
       public = {
         az_a = {

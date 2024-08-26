@@ -12,14 +12,14 @@ resource "aws_vpc" "this" {
 ## Default security group deny all trafic 
 ## -----------------------------------------------------------------------------
 resource "aws_default_security_group" "default" {
-  vpc_id = aws_vpc.app.id
+  vpc_id = aws_vpc.this.id
 
   tags = {
     Name = "sg_default_app_${var.shortname}"
   }
 }
 
-resource "aws_internet_gateway" "this" {
+resource "aws_internet_gateway" "this" {  
   vpc_id = aws_vpc.this.id
 
   tags = {
@@ -28,13 +28,13 @@ resource "aws_internet_gateway" "this" {
 }
 
 resource "aws_eip" "nat_gateway" {
-  
+  depends_on = [aws_internet_gateway.this]
 }
 
 resource "aws_nat_gateway" "this" {
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
-  depends_on = [aws_internet_gateway.this]
+  depends_on = [aws_eip.nat_gateway]
 
   allocation_id = aws_eip.nat_gateway.id
   subnet_id     = aws_subnet.private_az_a.id

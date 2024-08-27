@@ -6,7 +6,7 @@ module "elb_app" {
   ami_image_id         = module.data.projects.ami_app.golden_image_id #"ami-0b4100f416623c9e0"
   app_repository_url   = module.data.github_vars.app_repository_url
   asg_settings         = {
-    launch_template_version = "2"
+    launch_template_version = "3"
   }
   efs                  = module.data.projects.efs_app.efs
   instance_type        = "t3.micro"

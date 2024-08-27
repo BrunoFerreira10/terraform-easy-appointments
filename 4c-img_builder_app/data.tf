@@ -5,7 +5,6 @@ data "aws_ssm_parameter" "my_ip" {
 module "data" {
   source = "../modules/data"
   requested_data = [
-    "vpc_app",
-    "rds_app"
+    "vpc_app"
   ]
 }

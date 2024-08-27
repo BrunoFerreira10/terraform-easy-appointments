@@ -1,4 +1,9 @@
-# output "golden_image_id" {
-#   description = "ID da Golden Image Information"
-#   value       = tolist(aws_imagebuilder_image.installation.output_resources[0].amis)[0].image
-# }
+output "image_builder" {
+  description = "Image builder information"
+  value       = object({
+    distribution = aws_imagebuilder_distribution_configuration.installation
+    recipe = aws_imagebuilder_image_recipe.installation
+    infrastructure = aws_imagebuilder_infrastructure_configuration.this
+    workflow = aws_imagebuilder_workflow.build
+  })
+}

@@ -1,4 +1,4 @@
-module "app_ami" {
+module "image_builder_app" {
   source                    = "../modules/compute/ec2_image_builder/generic_image_builder"
   app_repository_url        = module.data.github_vars.app_repository_url
   ec2_ssh_keypair_name      = module.data.github_vars.ec2_ssh_keypair_name

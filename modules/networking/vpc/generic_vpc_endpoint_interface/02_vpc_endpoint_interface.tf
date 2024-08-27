@@ -7,13 +7,18 @@ resource "aws_vpc_endpoint" "codedeploy" {
     module.sg_vpc_endpoint_codedeploy_rules.security_group.id
   ]
 
-  dynamic subnet_configuration {
-    for_each =  var.vpc.subnets.private
+  subnet_ids = [
+    for subnet in var.vpc.subnets.private 
+    : subnet.id
+  ]
+
+  # dynamic subnet_configuration {
+  #   for_each =  var.vpc.subnets.private
     
-    content {
-      subnet_id = subnet_configuration.value.id
-    }
-  }
+  #   content {
+  #     subnet_id = subnet_configuration.value.id
+  #   }
+  # }
 
   private_dns_enabled = true
 

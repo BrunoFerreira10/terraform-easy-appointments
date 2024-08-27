@@ -12,9 +12,9 @@ resource "aws_codedeploy_deployment_group" "this" {
   deployment_group_name = "${var.codedeploy_settings.application_name}"
   service_role_arn      = aws_iam_role.codedeploy.arn
 
-  autoscaling_groups = [
-    var.codedeploy_settings.asg.name
-  ]
+  # autoscaling_groups = [
+  #   var.codedeploy_settings.asg.name
+  # ]
 
   deployment_style {
     deployment_option = "WITH_TRAFFIC_CONTROL"

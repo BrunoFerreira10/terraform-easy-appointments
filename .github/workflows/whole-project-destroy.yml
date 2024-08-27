@@ -51,6 +51,17 @@ jobs:
       ACTION: 'd'
     secrets: inherit
 
+  ami_app:
+    needs: [
+      elb_app,
+      image_builder_app
+    ]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '5a'
+      ACTION: 'd'
+    secrets: inherit
+
   efs_app:
     needs: [
       elb_app,
@@ -95,7 +106,7 @@ jobs:
       deploy_app,
       vpc_endpoint_codedeploy, vpc_endpoint_s3,
       elb_app, 
-      image_builder_app, 
+      image_builder_app,
       efs_app, rds_app, bastion_vpc_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
@@ -109,8 +120,9 @@ jobs:
       deploy_app,
       vpc_endpoint_codedeploy, vpc_endpoint_s3,
       elb_app,
+      ami_app,
       image_builder_app,
-      bastion_vpc_app, 
+      bastion_vpc_app,
       rds_app, efs_app,
       vpc_network, acm_app
     ]

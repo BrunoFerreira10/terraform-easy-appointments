@@ -67,11 +67,23 @@ jobs:
       RESOURCE: '4c'
     secrets: inherit
 
+  ami_app:
+    needs: [
+      github_sync,
+      vpc_app,
+      image_builder_app
+    ]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '5a'
+    secrets: inherit
+
   elb_app:
     needs: [
       github_sync,
       vpc_app, acm_app,
-      rds_app, efs_app
+      rds_app, efs_app,
+      ami_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:

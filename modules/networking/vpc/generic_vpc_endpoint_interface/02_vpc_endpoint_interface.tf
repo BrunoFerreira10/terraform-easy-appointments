@@ -1,6 +1,7 @@
 resource "aws_vpc_endpoint" "codedeploy" {
   vpc_id            = var.vpc.id
   service_name      = "com.amazonaws.${var.region}.codedeploy-commands-secure"
+  vpc_endpoint_type = "Interface"
   
   security_group_ids = [
     module.sg_vpc_endpoint_codedeploy_rules.security_group.id

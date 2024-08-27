@@ -78,6 +78,26 @@ jobs:
       RESOURCE: '6a'
     secrets: inherit
 
+  vpc_endpoint_codedeploy:
+    needs: [
+      github_sync,
+      vpc_app
+    ]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '7a'
+    secrets: inherit
+    
+  vpc_endpoint_s3:
+    needs: [
+      github_sync,
+      vpc_app
+    ]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '7b'
+    secrets: inherit
+
   deploy_app:
     needs: [
       github_sync,

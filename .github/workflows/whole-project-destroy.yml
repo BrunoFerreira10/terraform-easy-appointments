@@ -19,6 +19,20 @@ jobs:
       RESOURCE: '8a'
       ACTION: 'd'
     secrets: inherit
+    
+  vpc_endpoint_s3:
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '7b'
+      ACTION: 'd'
+    secrets: inherit    
+
+  vpc_endpoint_codedeploy:
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '7a'
+      ACTION: 'd'
+    secrets: inherit
 
   elb_app:
     uses: ./.github/workflows/single-sub-project-run.yml
@@ -79,6 +93,7 @@ jobs:
   vpc_network:
     needs: [
       deploy_app,
+      vpc_endpoint_codedeploy, vpc_endpoint_s3,
       elb_app, 
       img_builder_app, 
       efs_app, rds_app, bastion_vpc_app
@@ -92,6 +107,7 @@ jobs:
   github_sync:
     needs: [
       deploy_app,
+      vpc_endpoint_codedeploy, vpc_endpoint_s3,
       elb_app,
       img_builder_app,
       bastion_vpc_app, 

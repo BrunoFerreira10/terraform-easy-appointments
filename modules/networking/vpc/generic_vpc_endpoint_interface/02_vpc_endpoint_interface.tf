@@ -8,4 +8,8 @@ resource "aws_vpc_endpoint" "codedeploy" {
   ]
 
   private_dns_enabled = true
+
+  tags = {
+    Name = "codedeploy_${var.shortname}"
+  }
 }

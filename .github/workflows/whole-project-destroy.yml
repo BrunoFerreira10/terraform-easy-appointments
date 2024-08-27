@@ -13,6 +13,13 @@ jobs:
   #################################
   ######## Destroy project ########
   #################################
+  deploy_app:
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '8a'
+      ACTION: 'd'
+    secrets: inherit
+
   elb_app:
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
@@ -20,7 +27,7 @@ jobs:
       ACTION: 'd'
     secrets: inherit
 
-  ami_app:
+  img_builder_app:
     needs: [
       elb_app
     ]
@@ -33,7 +40,7 @@ jobs:
   efs_app:
     needs: [
       elb_app,
-      ami_app
+      img_builder_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
@@ -44,7 +51,7 @@ jobs:
   rds_app:
     needs: [
       elb_app, 
-      ami_app
+      img_builder_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
@@ -71,8 +78,9 @@ jobs:
 
   vpc_network:
     needs: [
+      deploy_app,
       elb_app, 
-      ami_app, 
+      img_builder_app, 
       efs_app, rds_app, bastion_vpc_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
@@ -83,8 +91,9 @@ jobs:
 
   github_sync:
     needs: [
+      deploy_app,
       elb_app,
-      ami_app,
+      img_builder_app,
       bastion_vpc_app, 
       rds_app, efs_app,
       vpc_network, acm_app

@@ -57,11 +57,10 @@ jobs:
       RESOURCE: '3c'
     secrets: inherit
 
-  ami_app:
+  img_builder_app:
     needs: [
       github_sync,
-      vpc_app,
-      rds_app, efs_app
+      vpc_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
@@ -72,10 +71,21 @@ jobs:
     needs: [
       github_sync,
       vpc_app, acm_app,
-      rds_app, efs_app,
-      ami_app
+      rds_app, efs_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
       RESOURCE: '6a'
+    secrets: inherit
+
+  deploy_app:
+    needs: [
+      github_sync,
+      vpc_app,
+      rds_app,
+      elb_app
+    ]
+    uses: ./.github/workflows/single-sub-project-run.yml
+    with:
+      RESOURCE: '8a'
     secrets: inherit

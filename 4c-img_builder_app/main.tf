@@ -1,5 +1,5 @@
 module "app_ami" {
-  source                    = "../modules/compute/ec2_image_builder/generic_ami_builder"
+  source                    = "../modules/compute/ec2_image_builder/generic_image_builder"
   app_repository_url        = module.data.github_vars.app_repository_url
   ec2_ssh_keypair_name      = module.data.github_vars.ec2_ssh_keypair_name
   region                    = module.data.github_vars.general_region

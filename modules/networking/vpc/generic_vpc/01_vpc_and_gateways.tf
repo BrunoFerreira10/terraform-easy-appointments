@@ -1,3 +1,6 @@
+## -----------------------------------------------------------------------------
+## VPC Definition 
+## -----------------------------------------------------------------------------
 resource "aws_vpc" "this" {
   cidr_block           = "10.1.0.0/16"
   enable_dns_hostnames = true
@@ -8,9 +11,8 @@ resource "aws_vpc" "this" {
   }
 }
 
-## -----------------------------------------------------------------------------
+
 ## Default security group deny all trafic 
-## -----------------------------------------------------------------------------
 resource "aws_default_security_group" "default" {
   vpc_id = aws_vpc.this.id
 
@@ -19,6 +21,9 @@ resource "aws_default_security_group" "default" {
   }
 }
 
+## -----------------------------------------------------------------------------
+## Internet Gateway
+## -----------------------------------------------------------------------------
 resource "aws_internet_gateway" "this" {  
   vpc_id = aws_vpc.this.id
 
@@ -27,6 +32,9 @@ resource "aws_internet_gateway" "this" {
   }
 }
 
+## -----------------------------------------------------------------------------
+## Elastic ip and Nat Gateway
+## -----------------------------------------------------------------------------
 resource "aws_eip" "nat_gateway" {
   depends_on = [aws_internet_gateway.this]
 }
@@ -43,3 +51,4 @@ resource "aws_nat_gateway" "this" {
     Name = "nat_${var.shortname}"
   }
 }
+## -----------------------------------------------------------------------------

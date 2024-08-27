@@ -40,30 +40,30 @@ resource "aws_imagebuilder_image_recipe" "installation" {
 ## Recipe for AMI application.
 ## --------------------------------------------------------------------------------------------------------------------
 ## Recipe components
-locals {
-  component_arns_app_setup = [
-    aws_imagebuilder_component.this["git_fetch_repository"].arn, # REMOVER
-    aws_imagebuilder_component.this["nginx_config"].arn, # REMOVER
-    aws_imagebuilder_component.this["daemon_reload"].arn, # REMOVER
-    aws_imagebuilder_component.this["nginx_restart"].arn # REMOVER
-  ]
-}
+# locals {
+#   component_arns_app_setup = [
+#     aws_imagebuilder_component.this["git_fetch_repository"].arn, # REMOVER
+#     aws_imagebuilder_component.this["nginx_config"].arn, # REMOVER
+#     aws_imagebuilder_component.this["daemon_reload"].arn, # REMOVER
+#     aws_imagebuilder_component.this["nginx_restart"].arn # REMOVER
+#   ]
+# }
 
-## Recipe
-resource "aws_imagebuilder_image_recipe" "application" {
-  name         = "recipe_application_${var.shortname}"
-  version      = "1.0.0"
-  parent_image = tolist(aws_imagebuilder_image.installation.output_resources[0].amis)[0].image
+# ## Recipe
+# resource "aws_imagebuilder_image_recipe" "application" {
+#   name         = "recipe_application_${var.shortname}"
+#   version      = "1.0.0"
+#   parent_image = tolist(aws_imagebuilder_image.installation.output_resources[0].amis)[0].image
 
-  dynamic "component" {
-    for_each = local.component_arns_app_setup
-    content {
-      component_arn = component.value
-    }
-  }
+#   dynamic "component" {
+#     for_each = local.component_arns_app_setup
+#     content {
+#       component_arn = component.value
+#     }
+#   }
 
-  tags = {
-    Name = "recipe_application_${var.shortname}"
-  }
-}
+#   tags = {
+#     Name = "recipe_application_${var.shortname}"
+#   }
+# }
 ## --------------------------------------------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 module "rds_mysql" {
-  source              = "../modules/database/rds/generic-mysql"
+  source              = "../modules/database/rds/generic_mysql"
   region              = module.data.github_vars.general_region
   project_bucket_name = module.data.github_vars.general_project_bucket_name
   shortname           = module.data.github_vars.general_tag_shortname

@@ -5,6 +5,6 @@ module "data" {
     "acm_app",
     "rds_app",
     "efs_app",
-    "ami_app"
+    "img_builder_app"
   ]
 }

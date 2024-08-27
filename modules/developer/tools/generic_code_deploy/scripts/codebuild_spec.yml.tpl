@@ -31,6 +31,7 @@ phases:
       - mv build/config-sample.php build/config.php
 
       - echo "------ Copiar arquivo para deploy ------"
+      - cp nginx.conf build/
       - cp appspec.yml build/
       - cp -r deploy build/
 

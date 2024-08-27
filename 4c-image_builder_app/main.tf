@@ -6,7 +6,7 @@ module "image_builder_app" {
   shortname                 = module.data.github_vars.general_tag_shortname
   installation_parent_image = module.data.github_vars.image_builder_parent_image
   vpc                       = module.data.projects.vpc_app.vpc  
-  sg_img_builder_instance_rules     = {
+  sg_image_builder_instance_rules     = {
     ingress = {
       SSH = {port = 22, cidr_ipv4 = "${data.aws_ssm_parameter.my_ip.value}/32"}
       HTTP = {port = 80, cidr_ipv4 = "0.0.0.0/0"}

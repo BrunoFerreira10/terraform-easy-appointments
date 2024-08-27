@@ -24,7 +24,7 @@ variable "vpc" {
   type = any
 }
 
-variable "sg_img_builder_instance_rules" {
+variable "sg_image_builder_instance_rules" {
   description = "Rules for image builder instance security group"
   type        = any
 }

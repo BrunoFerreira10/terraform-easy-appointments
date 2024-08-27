@@ -41,7 +41,7 @@ jobs:
       ACTION: 'd'
     secrets: inherit
 
-  img_builder_app:
+  image_builder_app:
     needs: [
       elb_app
     ]
@@ -54,7 +54,7 @@ jobs:
   efs_app:
     needs: [
       elb_app,
-      img_builder_app
+      image_builder_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
@@ -65,7 +65,7 @@ jobs:
   rds_app:
     needs: [
       elb_app, 
-      img_builder_app
+      image_builder_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
     with:
@@ -95,7 +95,7 @@ jobs:
       deploy_app,
       vpc_endpoint_codedeploy, vpc_endpoint_s3,
       elb_app, 
-      img_builder_app, 
+      image_builder_app, 
       efs_app, rds_app, bastion_vpc_app
     ]
     uses: ./.github/workflows/single-sub-project-run.yml
@@ -109,7 +109,7 @@ jobs:
       deploy_app,
       vpc_endpoint_codedeploy, vpc_endpoint_s3,
       elb_app,
-      img_builder_app,
+      image_builder_app,
       bastion_vpc_app, 
       rds_app, efs_app,
       vpc_network, acm_app

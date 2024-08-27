@@ -1,9 +1,17 @@
 output "vpc" {
   description = "App VPC information"
   value = {
-    name       = "vpc_app"
-    id         = aws_vpc.this.id
     cidr_block = aws_vpc.this.cidr_block
+    id         = aws_vpc.this.id
+    network_acls = {
+      private = aws_network_acl.private
+      public  = aws_network_acl.public
+    }
+    name = "vpc_app"
+    router_tables = {
+      private = aws_route_table.private
+      public  = aws_route_table.public
+    }
     subnets = {
       public = {
         az_a = {

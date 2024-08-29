@@ -14,9 +14,6 @@ variable "codedeploy_settings" {
   description = "CodeDeploy project settings"
   type = object({
     application_name = string
-    target_group = any
-    elb = any
-    asg = any
   })
 }
 
@@ -28,11 +25,6 @@ variable "domain" {
 variable "project_bucket_name" {
   description = "Project bucket name"
   type = string
-}
-
-variable "rds" {
-  description = "Application RDS"
-  type        = any
 }
 
 variable "region" {

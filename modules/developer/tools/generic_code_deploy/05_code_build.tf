@@ -46,18 +46,18 @@ resource "aws_codebuild_webhook" "this" {
 ## --------------------------------------------------------------------------------------------------------------------
 locals {
   buildspec = templatefile("${path.module}/scripts/codebuild_spec.yml.tpl", {
-    DOMAIN      = var.domain,
-    DB_HOST     = var.rds.private_ip,
-    DB_NAME     = var.rds.db_name,
-    DB_USERNAME = var.rds.db_username,
-    DB_PASSWORD = nonsensitive(data.aws_ssm_parameter.db_password.value),
-    APPLICATION_NAME = var.codedeploy_settings.application_name
-    PROJECT_BUCKET_NAME = var.project_bucket_name
-    MEU_TESTE = templatefile(
-      "${path.module}/scripts/teste.tftpl", {
-        DOMAIN = "maooooes.com"
-      }
-    )
+    # DOMAIN      = var.domain,
+    # DB_HOST     = var.rds.private_ip,
+    # DB_NAME     = var.rds.db_name,
+    # DB_USERNAME = var.rds.db_username,
+    # DB_PASSWORD = nonsensitive(data.aws_ssm_parameter.db_password.value),
+    # APPLICATION_NAME = var.codedeploy_settings.application_name
+    # PROJECT_BUCKET_NAME = var.project_bucket_name
+    # MEU_TESTE = templatefile(
+    #   "${path.module}/scripts/teste.tftpl", {
+    #     DOMAIN = "maooooes.com"
+    #   }
+    # )
   })
   # encoded_buildspec = base64encode(local.buildspec)
 }

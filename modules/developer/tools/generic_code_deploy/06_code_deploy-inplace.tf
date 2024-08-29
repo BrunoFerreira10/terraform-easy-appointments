@@ -12,18 +12,16 @@ resource "aws_codedeploy_deployment_group" "this" {
   deployment_group_name = "${var.codedeploy_settings.application_name}"
   service_role_arn      = aws_iam_role.codedeploy.arn
 
-  autoscaling_groups = [
-    var.codedeploy_settings.asg.name
-  ]
-
   deployment_style {
-    deployment_option = "WITH_TRAFFIC_CONTROL"
+    deployment_option = "WITHOUT_TRAFFIC_CONTROL"
     deployment_type   = "IN_PLACE"
   }
 
-  load_balancer_info {
-    target_group_info {
-      name = var.codedeploy_settings.target_group.name
+  ec2_tag_set {
+    ec2_tag_filter {
+      key   = "Name"
+      value = "lsail_easy_appointments"
+      type  = "KEY_AND_VALUE"
     }
   }
 
@@ -32,23 +30,7 @@ resource "aws_codedeploy_deployment_group" "this" {
     events  = ["DEPLOYMENT_FAILURE"]
   }
 
-  ec2_tag_set {
-    ec2_tag_filter {
-      key   = "Name"
-      value = "asg_easy_appointments"
-      type  = "KEY_AND_VALUE"
-    }
-  }
-
-  # Opcional: Alarms Configuration
-  # alarm_configuration {
-  #   enabled                  = true
-  #   alarms                   = ["my-cloudwatch-alarm-name"]
-  #   ignore_poll_alarm_failure = false
-  # }
-
   tags = {
-    Name        = "${var.codedeploy_settings.application_name}"
-    # Environment = var.environment
+    Name = "${var.codedeploy_settings.application_name}"
   }
 }

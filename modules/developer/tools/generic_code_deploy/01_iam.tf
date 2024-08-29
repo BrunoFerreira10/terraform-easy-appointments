@@ -30,9 +30,10 @@ resource "aws_iam_user_policy_attachment" "attach_policy" {
   policy_arn = aws_iam_policy.read_s3_policy.arn
 }
 
-resource "aws_iam_access_key" "lightsail_instance" {
-  user = aws_iam_user.lightsail_instance.name
-}
+# Criar as chaves pela console é mais fácil.
+# resource "aws_iam_access_key" "lightsail_instance" {
+#   user = aws_iam_user.lightsail_instance.name
+# }
 
 ## --------------------------------------------------------------------------------------------------------------------
 ## Lambda policies and role

@@ -1,41 +1,4 @@
 ## --------------------------------------------------------------------------------------------------------------------
-## Lightsail instance user
-## --------------------------------------------------------------------------------------------------------------------
-resource "aws_iam_user" "lightsail_instance" {
-  name = "lightsail-instance"
-}
-
-data "aws_iam_policy_document" "s3_read_policy" {
-  statement {
-    actions = [
-      "s3:GetObject"
-    ]
-
-    resources = [
-      "arn:aws:s3:::brunoferreira86services-easyappointments/code_deploy_outputs/build.zip"
-    ]
-
-    effect = "Allow"
-  }
-}
-
-resource "aws_iam_policy" "read_s3_policy" {
-  name        = "read-only-s3-policy"
-  description = "Policy to allow read access to the specific S3 object"
-  policy      = data.aws_iam_policy_document.s3_read_policy.json
-}
-
-resource "aws_iam_user_policy_attachment" "attach_policy" {
-  user       = aws_iam_user.lightsail_instance.name
-  policy_arn = aws_iam_policy.read_s3_policy.arn
-}
-
-# Criar as chaves pela console é mais fácil.
-# resource "aws_iam_access_key" "lightsail_instance" {
-#   user = aws_iam_user.lightsail_instance.name
-# }
-
-## --------------------------------------------------------------------------------------------------------------------
 ## Lambda policies and role
 ## --------------------------------------------------------------------------------------------------------------------
 resource "aws_iam_policy" "lambda_codedeploy_policy" {

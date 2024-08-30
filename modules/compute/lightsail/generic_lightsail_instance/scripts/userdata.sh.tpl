@@ -58,7 +58,8 @@ cat <<EOT >> /home/bitnami/bncert-tool.exp
 ${BNCERT_TOOL_EXP}
 EOT
 chmod a+x /home/bitnami/bncert-tool.exp
-/home/bitnami/bncert-tool.exp
+# Removido por excesso de uso, testar novo conjunto de dominios.
+# /home/bitnami/bncert-tool.exp
 
 ## Register like on-premises no codedeploy
 aws deploy register-on-premises-instance --instance-name ${INSTANCE_NAME} --iam-user-arn ${IAM_USER_ARN} --region ${REGION}

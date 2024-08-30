@@ -61,7 +61,8 @@ chmod a-rw /home/bitnami/deploy/setup_config_php.sh
 chmod a+x /home/bitnami/deploy/setup_config_php.sh
 
 ## Create Database
-/opt/bitnami/mariadb/bin/mariadb -u root -p'$DB_PASSWORD' -e "CREATE DATABASE easy_appointments;"
+echo "/opt/bitnami/mariadb/bin/mariadb -u root -p'$DB_PASSWORD' -e 'CREATE DATABASE easy_appointments;'"
+/opt/bitnami/mariadb/bin/mariadb -u root -p"$DB_PASSWORD" -e "CREATE DATABASE easy_appointments;"
 
 ## --------------------------------------------------------------------------------------------------------------------
 ## Create finish flag files on /tmp/userdata_finished
@@ -69,4 +70,4 @@ chmod a+x /home/bitnami/deploy/setup_config_php.sh
 ## and terraform scripts com follow.
 ## --------------------------------------------------------------------------------------------------------------------
 echo "#### Finalizado user data ####"
-sudo -u ubuntu touch /tmp/userdata_finished
+sudo -u bitnami touch /tmp/userdata_finished

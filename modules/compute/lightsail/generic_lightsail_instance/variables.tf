@@ -17,6 +17,11 @@ variable "lightsail_static_ip" {
   type = any
 }
 
+variable "project_bucket_name" {
+  type        = string
+  description = "Bucket name onde está o remote state"
+}
+
 variable "region" {
   description = "Região onde a infraestrutura será criada."
   type        = string

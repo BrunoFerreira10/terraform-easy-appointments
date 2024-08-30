@@ -20,7 +20,7 @@ resource "aws_lightsail_instance" "this" {
       AWS_SECRET_ACCESS_KEY = aws_iam_access_key.lightsail_instance.secret
       IAM_USER_ARN          = aws_iam_user.lightsail_instance.arn
     })
-    SETUP_CONFIG_PHP_SH = templatefile("${path.module}/scripts/setup_config_php.sh.tpl", {
+    SETUP_CONFIG_PHP_SH = templatefile("${path.module}/scripts/setup_config_php.sh", {
       DOMAIN = var.domain
     })
     BNCERT_TOOL_EXP = templatefile("${path.module}/scripts/bncert_tool.exp.tpl", {

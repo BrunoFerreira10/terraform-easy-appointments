@@ -1,5 +1,5 @@
 module "deploy_app" {
-  source                   = "../modules/developer/tools/generic_lightsail_codedeploy"
+  source                   = "../modules/developer/tools/generic_code_deploy"
   app_repository_url_https = module.data.github_vars.app_repository_url_https
   codebuild_settings = { # TODO - Rever essa divisão
     project_name = "EasyAppointments"
@@ -9,8 +9,7 @@ module "deploy_app" {
     application_name = "EasyAppointments"
   }
   domain              = module.data.github_vars.rt53_domain
-  lightsail_instance_tag_name_value = module.data.projects.lightsail_app.tag_name_value
   project_bucket_name = module.data.github_vars.general_project_bucket_name
   region              = module.data.github_vars.general_region
-  shortname           = module.data.github_vars.general_tag_shortname  
+  shortname           = module.data.github_vars.general_tag_shortname
 }

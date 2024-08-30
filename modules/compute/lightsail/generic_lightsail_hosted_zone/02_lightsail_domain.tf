@@ -15,3 +15,10 @@ resource "aws_lightsail_domain_entry" "www" {
   name        = "www"
   target      = aws_lightsail_domain_entry.this.domain_name
 }
+
+resource "aws_lightsail_domain_entry" "test" {
+  domain_name = aws_lightsail_domain.this.domain_name
+  type        = "CNAME"
+  name        = "test"
+  target      = aws_lightsail_domain_entry.this.domain_name
+}

@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "register_on_premises_instance" {
     ]
 
     resources = [
-      var.codedeploy.arn
+      "arn:aws:codedeploy:${var.region}:${data.aws_caller_identity.current.account_id}:instance:${aws_lightsail_instance.this.name}"
     ]
 
     effect = "Allow"

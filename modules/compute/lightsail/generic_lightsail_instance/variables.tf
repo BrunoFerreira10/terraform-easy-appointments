@@ -1,7 +1,3 @@
-variable "codedeploy" {
-  type = any
-}
-
 variable "domain" {
   description = "Domínio base da aplicação"
   type        = string
@@ -16,9 +12,9 @@ variable "lightsail_tag_name" {
   type        = string
 }
 
-variable "project_bucket_name" {
-  type        = string
-  description = "Bucket name onde está o remote state"
+variable "lightsail_static_ip" {
+  description = "Static ip for lightsail instance"
+  type = any
 }
 
 variable "region" {

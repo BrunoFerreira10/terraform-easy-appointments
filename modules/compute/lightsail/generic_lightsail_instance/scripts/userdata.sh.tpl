@@ -8,6 +8,11 @@ echo "#### Iniciado user data ####"
 echo "------ APT Update ------"
 apt update -y
 
+echo "------ export AWS keys ------"
+export AWS_REGION="${REGION}"
+export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"
+export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"
+
 ## AWS Cli install
 echo "------ Instalando AWS Cli ------"
 cd /home/bitnami
@@ -54,6 +59,9 @@ ${BNCERT_TOOL_EXP}
 EOT
 chmod a+x /home/bitnami/bncert-tool.exp
 /home/bitnami/bncert-tool.exp
+
+## Register like on-premises no codedeploy
+aws deploy register-on-premises-instance --instance-name ${INSTANCE_NAME} --iam-user-arn ${IAM_USER_ARN} --region ${REGION}
 
 ## --------------------------------------------------------------------------------------------------------------------
 ## Create finish flag files on /tmp/userdata_finished

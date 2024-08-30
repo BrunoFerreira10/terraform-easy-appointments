@@ -1,4 +1,10 @@
-output "lightsail_instance" {
-  description = "Light sail instance information"
-  value = module.lightsail_app.lightsail_instance
+terraform {
+  required_version = ">= 1.9.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "5.40.0"
+    }
+  }
+  backend "s3" {}
 }

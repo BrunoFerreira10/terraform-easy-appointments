@@ -1,4 +1,4 @@
-output "tag_name_value" {
-  description = "Value os tag name on instances"
-  value = module.lightsail_app.tag_name_value
+output "lightsail_instance" {
+  description = "Light sail instance information"
+  value = module.lightsail_app.lightsail_instance
 }

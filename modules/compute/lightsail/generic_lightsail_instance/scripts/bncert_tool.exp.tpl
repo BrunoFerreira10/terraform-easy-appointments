@@ -48,10 +48,8 @@ Please provide a valid space-separated list of domains for which you wish to \r\
 configure your web server.\r\r
 \r\r
 Domain list \[\]: "
-send -- "brunoferreira86dev.com\r"
-expect -exact "brunoferreira86dev.com\r
-\r\r
-The following domains were not included: www.brunoferreira86dev.com. Do you want to add them? \[Y/n\]: "
+send -- "brunoferreira86dev.com test.brunoferreira86dev.com\r"
+expect "*\r"
 send -- "y\r"
 expect -exact "y\r
 \r\r

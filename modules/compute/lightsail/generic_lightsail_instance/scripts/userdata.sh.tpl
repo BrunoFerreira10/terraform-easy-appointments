@@ -18,11 +18,6 @@ sudo ./aws/install
 rm awscliv2.zip
 rm -rf ./aws
 
-## Setup env vars
-# export AWS_ACCESS_KEY_ID="${ACCESS_KEY_ID}"
-# export AWS_SECRET_ACCESS_KEY="j${SECRET_ACCESS_KEY}"
-# export AWS_REGION="${REGION}"
-
 ## Codedeploy agent install
 echo "------ Instalando Codedeploy Agent ------"
 mkdir -p /etc/codedeploy-agent/conf

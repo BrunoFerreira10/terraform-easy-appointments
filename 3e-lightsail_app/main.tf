@@ -1,4 +1,4 @@
-module "lightsail_app" {
+module "bastion" {
   source               = "../modules/compute/lightsail/generic_lightsail_instance"
   domain               = module.data.github_vars.rt53_domain
   ec2_ssh_keypair_name = module.data.github_vars.ec2_ssh_keypair_name

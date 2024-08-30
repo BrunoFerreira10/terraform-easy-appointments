@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "s3_read_policy" {
 }
 
 resource "aws_iam_policy" "read_s3_policy" {
-  name        = "read-only-s3-policy"
+  name        = "${var.shortname}-read-only-s3-policy"
   description = "Policy to allow read access to the specific S3 object"
   policy      = data.aws_iam_policy_document.s3_read_policy.json
 }

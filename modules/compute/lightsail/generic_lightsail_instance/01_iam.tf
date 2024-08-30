@@ -24,7 +24,11 @@ data "aws_iam_policy_document" "register_on_premises_instance" {
   statement {
     actions = [
       "codedeploy:RegisterOnPremisesInstance",
-      "codedeploy:DeregisterOnPremisesInstance"
+      "codedeploy:DeregisterOnPremisesInstance",
+      "codedeploy:AddTagsToOnPremisesInstances",
+      "codedeploy:RemoveTagsFromOnPremisesInstances",
+      "codedeploy:TagResource",
+      "codedeploy:UntagResource",
     ]
 
     resources = [

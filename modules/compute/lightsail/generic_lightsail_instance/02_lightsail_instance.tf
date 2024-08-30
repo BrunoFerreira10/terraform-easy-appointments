@@ -12,6 +12,7 @@ resource "aws_lightsail_instance" "this" {
     AWS_ACCESS_KEY_ID     = aws_iam_access_key.lightsail_instance.id
     AWS_SECRET_ACCESS_KEY = aws_iam_access_key.lightsail_instance.secret
     INSTANCE_NAME         = "ltsail_${var.shortname}"
+    INSTANCE_TAG_NAME     = var.lightsail_tag_name
     CODEDEPLOY_ONPREMISES_YML = templatefile("${path.module}/scripts/codedeploy.onpremises.yml.tpl", {
       REGION                = var.region
       DOMAIN                = var.domain

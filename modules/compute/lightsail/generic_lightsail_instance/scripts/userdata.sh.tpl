@@ -23,21 +23,20 @@ sudo ./aws/install
 rm awscliv2.zip
 rm -rf ./aws
 
-## Codedeploy agent install
-echo "------ Instalando Codedeploy Agent ------"
+echo "------ Criando arquivo para CodeDeploy on-premises ------"
 mkdir -p /etc/codedeploy-agent/conf
 
 cat <<EOT >> /etc/codedeploy-agent/conf/codedeploy.onpremises.yml
 ${CODEDEPLOY_ONPREMISES_YML}
 EOT
 
+echo "------ Instalando CodeDeploy Agent ------"
 cd /home/bitnami
 apt install -y ruby-full
 wget https://aws-codedeploy-${REGION}.s3.${REGION}.amazonaws.com/latest/install
 chmod +x ./install
 ./install auto
 
-## Create setup_config_php.sh file
 echo "------ Criando setup_config_php.sh ------"
 mkdir /home/bitnami/deploy
 chown bitnami:bitnami /home/bitnami/deploy
@@ -48,21 +47,24 @@ EOT
 chmod a-rw /home/bitnami/deploy/setup_config_php.sh
 chmod a+x /home/bitnami/deploy/setup_config_php.sh
 
-## Create Database
+echo "------ Criando database ------"
 DB_PASSWORD=$(cat /home/bitnami/bitnami_application_password)
 /opt/bitnami/mariadb/bin/mariadb -u root -p"$DB_PASSWORD" -e "CREATE DATABASE easy_appointments;"
 
-## Certificado SSL
+echo "------ Gerando arquivo para instalação automatica do certificado ssl ------"
 apt-get install expect -y
 cat <<EOT >> /home/bitnami/bncert-tool.exp
 ${BNCERT_TOOL_EXP}
 EOT
 chmod a+x /home/bitnami/bncert-tool.exp
+
 # Removido por excesso de uso, testar novo conjunto de dominios.
+# echo "------ Instação automatica do certificado SSL ------"
 # /home/bitnami/bncert-tool.exp
 
-## Register like on-premises no codedeploy
+echo "------ Registro da instancia on premises no CodeDeploy  ------"
 aws deploy register-on-premises-instance --instance-name ${INSTANCE_NAME} --iam-user-arn ${IAM_USER_ARN} --region ${REGION}
+aws deploy add-tags-to-on-premises-instances --instance-names ${INSTANCE_NAME} --tags Key=Name,Value=${INSTANCE_TAG_NAME} --region ${REGION}
 
 ## --------------------------------------------------------------------------------------------------------------------
 ## Create finish flag files on /tmp/userdata_finished

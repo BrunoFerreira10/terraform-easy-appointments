@@ -19,7 +19,7 @@ resource "aws_codedeploy_deployment_group" "this" {
 
   on_premises_instance_tag_filter{
     key   = "Name"
-    value = "ltsail_easy_appointments"
+    value = var.lightsail_tag_name
     type  = "KEY_AND_VALUE"
   }
 

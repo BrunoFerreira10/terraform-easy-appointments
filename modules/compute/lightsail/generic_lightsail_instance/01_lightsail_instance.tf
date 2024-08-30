@@ -45,7 +45,7 @@ resource "aws_lightsail_instance" "this" {
   # }
 
   tags = {
-    Name = "ltsail_${var.shortname}"
+    Name = "${var.lightsail_tag_name}"
   }
 }
 

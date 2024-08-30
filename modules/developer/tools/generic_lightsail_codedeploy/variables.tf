@@ -22,7 +22,7 @@ variable "domain" {
   type        = string
 }
 
-variable "lightsail_instance_tag_name_value" {
+variable "lightsail_tag_name" {
   description = "Value os tage Name os lightsail instance"
   type        = string
 }

@@ -1,6 +1,4 @@
 module "data" {
   source = "../modules/data"
-  requested_data = [
-    "lightsail_app"
-  ]
+  requested_data = []
 }

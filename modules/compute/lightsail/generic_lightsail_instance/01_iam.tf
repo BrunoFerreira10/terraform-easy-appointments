@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "register_on_premises_instance" {
     ]
 
     resources = [
-      aws_lightsail_instance.this.arn
+      var.codedeploy.arn
     ]
 
     effect = "Allow"

@@ -1,3 +1,7 @@
+variable "codedeploy" {
+  type = any
+}
+
 variable "domain" {
   description = "Domínio base da aplicação"
   type        = string
@@ -5,6 +9,11 @@ variable "domain" {
 
 variable "ec2_ssh_keypair_name" {
   type = string
+}
+
+variable "lightsail_tag_name" {
+  description = "Value os tage Name os lightsail instance"
+  type        = string
 }
 
 variable "project_bucket_name" {

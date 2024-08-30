@@ -17,13 +17,19 @@ resource "aws_codedeploy_deployment_group" "this" {
     deployment_type   = "IN_PLACE"
   }
 
-  ec2_tag_set {
-    ec2_tag_filter {
-      key   = "Name"
-      value = "lsail_easy_appointments"
-      type  = "KEY_AND_VALUE"
-    }
+  on_premises_instance_tag_filter{
+    key   = "Name"
+    value = "lsail_easy_appointments"
+    type  = "KEY_AND_VALUE"
   }
+
+  # ec2_tag_set {
+  #   ec2_tag_filter {
+  #     key   = "Name"
+  #     value = "lsail_easy_appointments"
+  #     type  = "KEY_AND_VALUE"
+  #   }
+  # }
 
   auto_rollback_configuration {
     enabled = true

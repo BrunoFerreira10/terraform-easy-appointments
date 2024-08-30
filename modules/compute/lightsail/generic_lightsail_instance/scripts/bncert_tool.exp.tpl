@@ -102,39 +102,13 @@ www.brunoferreira86dev.com to brunoferreira86dev.com)\r\r
 \r\r
 Do you agree to these changes? \[Y/n\]: "
 send -- "y\r"
-expect "*"
+expect "*\r"
+sleep 1
 send -- "brunoferreira86dev@gmail.com\r"
-expect "*"
+expect "*\r"
+sleep 1
 send -- "y\r"
-expect -exact "y\r
-\r\r
-\r\r
-----------------------------------------------------------------------------\r\r
-Performing changes to your installation\r\r
-\r\r
-The Bitnami HTTPS Configuration Tool will perform any necessary actions to your \r\r
-Bitnami installation. This may take some time, please be patient.\r\r
-\r\r
-\\\\\\\\\\\\\\\\\\\\\\\\\\----------------------------------------------------------------------------\r\r
-Success\r\r
-\r\r
-The Bitnami HTTPS Configuration Tool succeeded in modifying your installation.\r\r
-\r\r
-The configuration report is shown below.\r\r
-\r\r
-Backup files:\r\r
-* /opt/bitnami/apache/conf/httpd.conf.back.202408301343\r\r
-* /opt/bitnami/apache/conf/bitnami/bitnami.conf.back.202408301343\r\r
-* /opt/bitnami/apache/conf/bitnami/bitnami-ssl.conf.back.202408301343\r\r
-\r\r
-Find more details in the log file:\r\r
-\r\r
-/tmp/bncert-202408301343.log\r\r
-\r\r
-If you find any issues, please check Bitnami Support forums at:\r\r
-\r\r
-https://github.com/bitnami/vms\r\r
-\r\r
-Press \[Enter\] to continue:"
+expect "*\r"
+sleep 1
 send -- "\r"
 expect eof

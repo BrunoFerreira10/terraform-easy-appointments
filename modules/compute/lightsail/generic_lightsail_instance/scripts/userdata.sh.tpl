@@ -61,8 +61,17 @@ chmod a-rw /home/bitnami/deploy/setup_config_php.sh
 chmod a+x /home/bitnami/deploy/setup_config_php.sh
 
 ## Create Database
-echo "/opt/bitnami/mariadb/bin/mariadb -u root -p'$DB_PASSWORD' -e 'CREATE DATABASE easy_appointments;'"
 /opt/bitnami/mariadb/bin/mariadb -u root -p"$DB_PASSWORD" -e "CREATE DATABASE easy_appointments;"
+
+## Certificado SSL
+apt-get install expect -y
+cat <<EOT >> /home/bitnami/bncert-tool.exp
+${BNCERT_TOOL_EXP}
+EOT
+chmod a+x /home/bitnami/bncert-tool.exp
+/home/bitnami/bncert-tool.exp
+
+
 
 ## --------------------------------------------------------------------------------------------------------------------
 ## Create finish flag files on /tmp/userdata_finished

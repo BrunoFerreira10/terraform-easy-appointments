@@ -12,6 +12,8 @@ resource "aws_lightsail_instance" "this" {
     ACCESS_KEY_ID     = aws_iam_access_key.lightsail_instance.id
     SECRET_ACCESS_KEY = aws_iam_access_key.lightsail_instance.secret
     IAM_USER_ARN      = aws_iam_user.lightsail_instance.arn
+    BNCERT_TOOL_EXP   = templatefile("${path.module}/scripts/bncert_tool.exp.tpl", {
+    })
   })
 
   tags = {

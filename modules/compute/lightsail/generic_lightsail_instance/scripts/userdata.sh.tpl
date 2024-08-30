@@ -4,7 +4,12 @@
 ## --------------------------------------------------------------------------------------------------------------------
 echo "#### Iniciado user data ####"
 
+## APT update
+echo "------ APT Update ------"
+apt update -y
+
 ## AWS Cli install
+echo "------ Instalando AWS Cli ------"
 cd /home/bitnami
 apt-get install -y unzip curl
 curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o 'awscliv2.zip'
@@ -19,6 +24,7 @@ rm -rf ./aws
 # export AWS_REGION="${REGION}"
 
 ## Codedeploy agent install
+echo "------ Instalando Codedeploy Agent ------"
 mkdir -p /etc/codedeploy-agent/conf
 
 cat <<EOT >> /etc/codedeploy-agent/conf/codedeploy.onpremises.yml
@@ -36,10 +42,11 @@ chmod +x ./install
 ./install auto
 
 ## Create setup_config_php.sh file
+echo "------ Criando setup_config_php.sh ------"
 mkdir /home/bitnami/deploy
 chown bitnami:bitnami /home/bitnami/deploy
 
-DB_PASSWORD = $(cat /home/bitnami/bitnami_application_password)
+DB_PASSWORD=$(cat /home/bitnami/bitnami_application_password)
 
 cat <<EOT >> /home/bitnami/deploy/setup_config_php.sh
 # Configurando config.php
@@ -51,9 +58,10 @@ sed -i "s|const DB_USERNAME = '.*';|const DB_USERNAME = 'root';|" config.php
 sed -i "s|const DB_PASSWORD = '.*';|const DB_PASSWORD = '$DB_PASSWORD';|" config.php
 EOT
 chmod a-rw /home/bitnami/deploy/setup_config_php.sh
+chmod a+x /home/bitnami/deploy/setup_config_php.sh
 
 ## Create Database
-mariadb -u root -p'$DB_PASSWORD' -e "CREATE DATABASE easy_appointments;"
+/opt/bitnami/mariadb/bin/mariadb -u root -p'$DB_PASSWORD' -e "CREATE DATABASE easy_appointments;"
 
 ## --------------------------------------------------------------------------------------------------------------------
 ## Create finish flag files on /tmp/userdata_finished

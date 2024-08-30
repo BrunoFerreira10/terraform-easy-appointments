@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Configurando config.php
 echo "------ Configurando config.php ------"
 DB_PASSWORD=$(cat /home/bitnami/bitnami_application_password)

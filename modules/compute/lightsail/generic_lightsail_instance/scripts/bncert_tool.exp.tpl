@@ -102,28 +102,9 @@ www.brunoferreira86dev.com to brunoferreira86dev.com)\r\r
 \r\r
 Do you agree to these changes? \[Y/n\]: "
 send -- "y\r"
-expect -exact "y\r
-\r\r
-\r\r
-\----------------------------------------------------------------------------\r\r
-Create a free HTTPS certificate with Let's Encrypt\r\r
-\r\r
-Please provide a valid e-mail address for which to associate your Let's Encrypt \r\r
-certificate.\r\r
-\r\r
-Domain list: brunoferreira86dev.com www.brunoferreira86dev.com\r\r
-\r\r
-Server name: brunoferreira86dev.com\r\r
-\r\r
-E-mail address \[\]: "
+expect "*"
 send -- "brunoferreira86dev@gmail.com\r"
-expect -exact "brunoferreira86dev@gmail.com\r
-\r\r
-The Let's Encrypt Subscriber Agreement can be found at:\r\r
-\r\r
-https://letsencrypt.org/documents/LE-SA-v1.3-September-21-2022.pdf\r\r
-\r\r
-Do you agree to the Let's Encrypt Subscriber Agreement? \[Y/n\]: "
+expect "*"
 send -- "y\r"
 expect -exact "y\r
 \r\r

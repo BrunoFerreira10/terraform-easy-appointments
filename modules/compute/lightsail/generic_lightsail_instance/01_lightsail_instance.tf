@@ -19,7 +19,6 @@ resource "aws_lightsail_instance" "this" {
   }
 }
 
-
 # resource "null_resource" "run_commands" {
 #   provisioner "remote-exec" {
 #     connection {

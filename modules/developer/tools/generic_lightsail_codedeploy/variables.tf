@@ -1,0 +1,43 @@
+variable "app_repository_url_https" {
+  type = string
+}
+
+variable "codebuild_settings" {
+  description = "CodeBuild project settings"
+  type = object({
+    project_name           = string
+    github_connection_name = string
+  })
+}
+
+variable "codedeploy_settings" {
+  description = "CodeDeploy project settings"
+  type = object({
+    application_name = string
+  })
+}
+
+variable "domain" {
+  description = "Domínio base da aplicação"
+  type        = string
+}
+
+variable "lightsail_instance_tag_name_value" {
+  description = "Value os tage Name os lightsail instance"
+  type        = string
+}
+
+variable "project_bucket_name" {
+  description = "Project bucket name"
+  type        = string
+}
+
+variable "region" {
+  description = "Região onde a infraestrutura está alocada"
+  type        = string
+}
+
+variable "shortname" {
+  description = "Nome curto para identificação dos recursos na AWS"
+  type        = string
+}

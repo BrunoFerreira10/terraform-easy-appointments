@@ -8,10 +8,16 @@ resource "aws_lightsail_instance" "this" {
 
   user_data = templatefile("${path.module}/scripts/userdata.sh.tpl", {
     REGION            = var.region
-    DOMAIN            = var.domain
-    ACCESS_KEY_ID     = aws_iam_access_key.lightsail_instance.id
-    SECRET_ACCESS_KEY = aws_iam_access_key.lightsail_instance.secret
-    IAM_USER_ARN      = aws_iam_user.lightsail_instance.arn
+    CODEDEPLOY_ONPREMISES_YML = templatefile("${path.module}/scripts/bncert_tool.exp.tpl", {
+      REGION            = var.region
+      DOMAIN            = var.domain
+      ACCESS_KEY_ID     = aws_iam_access_key.lightsail_instance.id
+      SECRET_ACCESS_KEY = aws_iam_access_key.lightsail_instance.secret
+      IAM_USER_ARN      = aws_iam_user.lightsail_instance.arn
+    })
+    SETUP_CONFIG_PHP_SH = templatefile("${path.module}/scripts/bncert_tool.exp.tpl", {
+      DOMAIN            = var.domain
+    })
     BNCERT_TOOL_EXP   = templatefile("${path.module}/scripts/bncert_tool.exp.tpl", {
     })
   })

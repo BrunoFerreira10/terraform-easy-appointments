@@ -17,15 +17,8 @@
 # this in the first place.  The -C flag allows you to define a
 # character to toggle this mode off and on.
 
-set force_conservative 0  ;# set to 1 to force conservative mode even if
-                          ;# script wasn't run conservatively originally
-if {$force_conservative} {
-        set send_slow {1 .1}
-        proc send {ignore arg} {
-                sleep .1
-                exp_send -s -- $arg
-        }
-}
+# Removido o force conservative devido a conflito com templatefile.
+
 
 #
 # 2) differing output - Some programs produce different output each time

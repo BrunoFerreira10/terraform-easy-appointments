@@ -28,11 +28,7 @@ echo "------ Instalando Codedeploy Agent ------"
 mkdir -p /etc/codedeploy-agent/conf
 
 cat <<EOT >> /etc/codedeploy-agent/conf/codedeploy.onpremises.yml
----
-aws_access_key_id: ${ACCESS_KEY_ID}
-aws_secret_access_key: ${SECRET_ACCESS_KEY}
-iam_user_arn: ${IAM_USER_ARN}
-region: ${REGION}
+${CODEDEPLOY_ONPREMISES_YML}
 EOT
 
 cd /home/bitnami
@@ -46,21 +42,14 @@ echo "------ Criando setup_config_php.sh ------"
 mkdir /home/bitnami/deploy
 chown bitnami:bitnami /home/bitnami/deploy
 
-DB_PASSWORD=$(cat /home/bitnami/bitnami_application_password)
-
 cat <<EOT >> /home/bitnami/deploy/setup_config_php.sh
-# Configurando config.php
-cd /opt/bitnami/apache2/htdocs/
-sed -i "s|const BASE_URL = '.*';|const BASE_URL = '${DOMAIN}';|" config.php
-sed -i "s|const DB_HOST = '.*';|const DB_HOST = 'localhost';|" config.php
-sed -i "s|const DB_NAME = '.*';|const DB_NAME = 'easy_appointments';|" config.php
-sed -i "s|const DB_USERNAME = '.*';|const DB_USERNAME = 'root';|" config.php
-sed -i "s|const DB_PASSWORD = '.*';|const DB_PASSWORD = '$DB_PASSWORD';|" config.php
+${SETUP_CONFIG_PHP_SH}
 EOT
 chmod a-rw /home/bitnami/deploy/setup_config_php.sh
 chmod a+x /home/bitnami/deploy/setup_config_php.sh
 
 ## Create Database
+DB_PASSWORD=$(cat /home/bitnami/bitnami_application_password)
 /opt/bitnami/mariadb/bin/mariadb -u root -p"$DB_PASSWORD" -e "CREATE DATABASE easy_appointments;"
 
 ## Certificado SSL
@@ -70,8 +59,6 @@ ${BNCERT_TOOL_EXP}
 EOT
 chmod a+x /home/bitnami/bncert-tool.exp
 /home/bitnami/bncert-tool.exp
-
-
 
 ## --------------------------------------------------------------------------------------------------------------------
 ## Create finish flag files on /tmp/userdata_finished
